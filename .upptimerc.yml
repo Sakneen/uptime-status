@@ -15,6 +15,12 @@ sites:
   - name: SaaS Development
     url: https://sakneen.dev.sakneen.com/api/health
     method: GET
+  - name: Manage Production
+    url: https://sakneen.manage.sakneen.com/api/health
+    method: GET
+  - name: Manage Development
+    url: https://sakneen.dev.manage.sakneen.com/api/health
+    method: GET
 
 status-website:
   # Add your custom domain name, or remove the `cname` line if you don't have a domain
