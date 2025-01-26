@@ -9,6 +9,12 @@ sites:
   - name: Backend Development
     url: https://dev-app.sakneen.com/sakneen/apis/v1/health
     method: GET
+  - name: SaaS Production
+    url: https://sakneen.sakneen.com/api/health
+    method: GET
+  - name: SaaS Development
+    url: https://sakneen.dev.sakneen.com/api/health
+    method: GET
 
 status-website:
   # Add your custom domain name, or remove the `cname` line if you don't have a domain
