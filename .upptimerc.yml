@@ -12,13 +12,13 @@ sites:
   - name: SaaS Production
     url: https://sakneen.sakneen.com/api/health
     method: GET
-  - name: SaaS Development
+  - name: SaaS Development.
     url: https://sakneen.dev.sakneen.com/api/health
     method: GET
   - name: Manage Production
     url: https://sakneen.manage.sakneen.com/api/health
     method: GET
-  - name: Manage Development
+  - name: Manage Development.
     url: https://sakneen.dev.manage.sakneen.com/api/health
     method: GET
 
