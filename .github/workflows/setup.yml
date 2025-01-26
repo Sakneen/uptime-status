@@ -54,7 +54,8 @@ jobs:
       - name: Generate graphs
         uses: benc-uk/workflow-dispatch@v1
         with:
-          workflow: Graphs CI
+          workflow: graphs.yml
+          repo: Sakneen/uptime-status
           token: ${{ secrets.GH_PAT || github.token }}
       - name: Generate site
         uses: upptime/uptime-monitor@v1.38.0
