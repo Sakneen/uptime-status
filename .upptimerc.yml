@@ -25,8 +25,8 @@ sites:
 status-website:
   # Add your custom domain name, or remove the `cname` line if you don't have a domain
   # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  # cname: status.sakneen.com
-  baseUrl: /uptime-status
+  cname: status.sakneen.com
+  # baseUrl: /uptime-status
   theme: light
   logoUrl: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
   name: Sakneen Update Status
