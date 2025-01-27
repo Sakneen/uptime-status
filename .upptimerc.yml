@@ -4,22 +4,22 @@ repo: uptime-status # The name of this repository
 
 sites:
   - name: Backend Production
-    url: https://app.sakneen.com/sakneen/apis/v1/health
+    url: $BACKEND_PRODUCTION_URL
     method: GET
   - name: Backend Development
-    url: https://dev-app.sakneen.com/sakneen/apis/v1/health
+    url: $BACKEND_DEVELOPMENT_URL
     method: GET
   - name: SaaS Production
-    url: https://sakneen.sakneen.com/api/health
+    url: $SAAS_PRODUCTION_URL
     method: GET
-  - name: SaaS Development.
-    url: https://sakneen.dev.sakneen.com/api/health
+  - name: SaaS Development
+    url: $SAAS_DEVELOPMENT_URL
     method: GET
   - name: Manage Production
-    url: https://sakneen.manage.sakneen.com/api/health
+    url: $MANAGE_PRODUCTION_URL
     method: GET
   - name: Manage Development.
-    url: https://sakneen.dev.manage.sakneen.com/api/health
+    url: $MANAGE_DEVELOPMENT_URL
     method: GET
 
 status-website:
