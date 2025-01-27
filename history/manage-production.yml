@@ -1,7 +1,7 @@
-url: https://sakneen.manage.sakneen.com/api/health
+url: $MANAGE_PRODUCTION_URL
 status: up
 code: 200
-responseTime: 302
-lastUpdated: 2025-01-26T23:05:25.889Z
+responseTime: 393
+lastUpdated: 2025-01-27T09:51:07.597Z
 startTime: 2025-01-26T12:07:27.929Z
 generator: Upptime <https://github.com/upptime/upptime>
