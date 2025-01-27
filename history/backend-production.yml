@@ -1,7 +1,7 @@
-url: https://app.sakneen.com/sakneen/apis/v1/health
+url: $BACKEND_PRODUCTION_URL
 status: up
 code: 200
-responseTime: 314
-lastUpdated: 2025-01-26T23:05:23.911Z
+responseTime: 405
+lastUpdated: 2025-01-27T09:51:05.321Z
 startTime: 2025-01-26T12:07:25.636Z
 generator: Upptime <https://github.com/upptime/upptime>
