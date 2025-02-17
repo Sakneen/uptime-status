@@ -4,9 +4,9 @@
     "url": "$BACKEND_PRODUCTION_URL",
     "icon": "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png",
     "slug": "backend-production",
-    "status": "up",
+    "status": "down",
     "uptime": "100.00%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.99%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
@@ -15,7 +15,9 @@
     "timeWeek": 360,
     "timeMonth": 387,
     "timeYear": 387,
-    "dailyMinutesDown": {}
+    "dailyMinutesDown": {
+      "2025-02-17": 0
+    }
   },
   {
     "name": "Backend Development",
