@@ -22,7 +22,7 @@
     "url": "$BACKEND_DEVELOPMENT_URL",
     "icon": "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png",
     "slug": "backend-development",
-    "status": "up",
+    "status": "down",
     "uptime": "100.00%",
     "uptimeDay": "100.00%",
     "uptimeWeek": "100.00%",
@@ -33,7 +33,9 @@
     "timeWeek": 420,
     "timeMonth": 392,
     "timeYear": 412,
-    "dailyMinutesDown": {}
+    "dailyMinutesDown": {
+      "2025-03-16": 0
+    }
   },
   {
     "name": "SaaS Production",
