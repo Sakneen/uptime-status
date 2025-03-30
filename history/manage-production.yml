@@ -1,7 +1,7 @@
 url: $MANAGE_PRODUCTION_URL
 status: up
 code: 200
-responseTime: 391
-lastUpdated: 2025-03-29T23:06:11.325Z
+responseTime: 315
+lastUpdated: 2025-03-30T23:05:59.652Z
 startTime: 2025-01-26T12:07:27.929Z
 generator: Upptime <https://github.com/upptime/upptime>
