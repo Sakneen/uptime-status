@@ -13,9 +13,6 @@ sites:
       - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
-      - 201
-      - 301
-      - 302
     __dangerous__insecure: false
   - name: Backend Development
     url: $BACKEND_DEVELOPMENT_URL
@@ -27,9 +24,6 @@ sites:
       - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
-      - 201
-      - 301
-      - 302
     __dangerous__insecure: false
   - name: SaaS Production
     url: $SAAS_PRODUCTION_URL
@@ -41,9 +35,6 @@ sites:
       - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
-      - 201
-      - 301
-      - 302
     __dangerous__insecure: false
   - name: SaaS Development
     url: $SAAS_DEVELOPMENT_URL
@@ -55,9 +46,6 @@ sites:
       - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
-      - 201
-      - 301
-      - 302
     __dangerous__insecure: false
   - name: Manage Production
     url: $MANAGE_PRODUCTION_URL
@@ -69,9 +57,6 @@ sites:
       - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
-      - 201
-      - 301
-      - 302
     __dangerous__insecure: false
   - name: Manage Development
     url: $MANAGE_DEVELOPMENT_URL
@@ -83,9 +68,6 @@ sites:
       - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
-      - 201
-      - 301
-      - 302
     __dangerous__insecure: false
 
 status-website:
