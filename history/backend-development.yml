@@ -1,7 +1,7 @@
 url: $BACKEND_DEVELOPMENT_URL
-status: up
-code: 200
-responseTime: 363
-lastUpdated: 2025-08-03T20:46:59.573Z
+status: down
+code: 503
+responseTime: 313
+lastUpdated: 2025-08-03T21:02:29.681Z
 startTime: 2025-01-26T12:07:26.228Z
 generator: Upptime <https://github.com/upptime/upptime>
