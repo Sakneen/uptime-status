@@ -1,4 +1,5 @@
-# [📈 Live Status](https://status.sakneen.com): <!--live status--> **🟥 Complete outage**
+# [📈 Live Status](https://status.sakneen.com)  
+[![Uptime](https://raw.githubusercontent.com/Sakneen/uptime-status/master/status.svg)](https://status.sakneen.com)
 
 <div align="center">
   <img src="https://img.sakneen.com/logos-email/logo_rOc78V2s7.png" alt="Sakneen Logo" width="100" height="100">
