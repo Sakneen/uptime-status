@@ -293,15 +293,6 @@ notifications:
 assignees:
   - miladezzat
 
-# # Professional commit messages
-# commitMessages:
-#   readmeContent: "📊 Update status summary [skip ci] [upptime]"
-#   summaryJson: "📈 Update status data [skip ci] [upptime]"
-#   statusChange: "$EMOJI $SITE_NAME is $STATUS ($RESPONSE_CODE in $RESPONSE_TIME ms) [skip ci] [upptime]"
-#   graphsUpdate: "📊 Update performance graphs [skip ci] [upptime]"
-#   responseTimeCommit: "⚡ Update response time metrics [skip ci] [upptime]"
-#   uptimeCommit: "⏱️ Update uptime statistics [skip ci] [upptime]"
-  
 # i18n configuration for multilingual support
 i18n:
   activeIncidents: "Active Incidents"
