@@ -8,132 +8,332 @@ sites:
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
+    maxRedirects: 3
+    headers:
+      - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
       - 201
       - 301
       - 302
+    __dangerous__insecure: false
   - name: Backend Development
     url: $BACKEND_DEVELOPMENT_URL
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
+    maxRedirects: 3
+    headers:
+      - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
       - 201
       - 301
       - 302
+    __dangerous__insecure: false
   - name: SaaS Production
     url: $SAAS_PRODUCTION_URL
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
+    maxRedirects: 3
+    headers:
+      - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
       - 201
       - 301
       - 302
+    __dangerous__insecure: false
   - name: SaaS Development
     url: $SAAS_DEVELOPMENT_URL
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
+    maxRedirects: 3
+    headers:
+      - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
       - 201
       - 301
       - 302
+    __dangerous__insecure: false
   - name: Manage Production
     url: $MANAGE_PRODUCTION_URL
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
+    maxRedirects: 3
+    headers:
+      - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
       - 201
       - 301
       - 302
+    __dangerous__insecure: false
   - name: Manage Development
     url: $MANAGE_DEVELOPMENT_URL
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
+    maxRedirects: 3
+    headers:
+      - "User-Agent: Sakneen-StatusMonitor/1.0"
     expectedStatusCodes:
       - 200
       - 201
       - 301
       - 302
+    __dangerous__insecure: false
 
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
+  # Professional domain configuration
   cname: status.sakneen.com
   # baseUrl: /uptime-status
   theme: auto # Options: light, dark, auto, night
   logoUrl: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
   favicon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
   name: Sakneen Status
-  introTitle: "System Status & Uptime Monitor"
-  introMessage: "Real-time monitoring of Sakneen's services and infrastructure. This page shows the current status and performance metrics for all our systems."
+  introTitle: "System Status & Performance Monitor"
+  introMessage: "Real-time monitoring of Sakneen's services and infrastructure. This page provides transparency into our system performance and any ongoing incidents."
+  
+  # Professional navigation
   navbar:
-    - title: Status
+    - title: Status Dashboard
       href: /
-    - title: Live Status
-      href: https://status.sakneen.com
+    - title: Service History
+      href: /history
+    - title: Performance Metrics
+      href: /history
     - title: Main Website
       href: https://www.sakneen.com
-  # Add custom CSS for better styling
+      target: _blank
+  
+  # Custom links for professional appearance
+  links:
+    - rel: stylesheet
+      href: https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap
+  
+  # Professional styling
   customHeadHtml: |
     <style>
-      .hero-title { color: #1a365d; }
-      .hero-subtitle { color: #4a5568; }
-      .status-up { color: #22c55e; }
-      .status-down { color: #ef4444; }
-      .response-time-chart { border-radius: 8px; }
+      /* Professional color scheme */
+      :root {
+        --color-primary: #0070f3;
+        --color-success: #00c851;
+        --color-warning: #ffbb33;
+        --color-danger: #ff4444;
+        --color-text: #1a1a1a;
+        --color-text-secondary: #666666;
+        --color-bg: #ffffff;
+        --color-border: #e5e5e5;
+      }
+      
+      /* Dark mode support */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color-text: #ffffff;
+          --color-text-secondary: #cccccc;
+          --color-bg: #1a1a1a;
+          --color-border: #333333;
+        }
+      }
+      
+      /* Typography */
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: var(--color-text);
+      }
+      
+      /* Header styling */
+      .hero-title {
+        color: var(--color-primary);
+        font-weight: 600;
+      }
+      
+      .hero-subtitle {
+        color: var(--color-text-secondary);
+        font-weight: 400;
+      }
+      
+      /* Status indicators */
+      .status-up {
+        color: var(--color-success);
+        font-weight: 500;
+      }
+      
+      .status-down {
+        color: var(--color-danger);
+        font-weight: 500;
+      }
+      
+      .status-degraded {
+        color: var(--color-warning);
+        font-weight: 500;
+      }
+      
+      /* Cards and components */
+      .response-time-chart {
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+      }
+      
+      .response-time-chart:hover {
+        transform: translateY(-2px);
+      }
+      
+      /* Status table enhancements */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+      }
+      
+      th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--color-border);
+      }
+      
+      th {
+        font-weight: 600;
+        background-color: var(--color-bg);
+      }
+      
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .navbar {
+          flex-direction: column;
+          gap: 10px;
+        }
+        
+        table {
+          font-size: 14px;
+        }
+        
+        th, td {
+          padding: 8px;
+        }
+      }
+      
+      /* Animation for status changes */
+      .status-indicator {
+        transition: all 0.3s ease;
+      }
+      
+      /* Footer styling */
+      .footer {
+        text-align: center;
+        padding: 20px;
+        color: var(--color-text-secondary);
+        font-size: 14px;
+      }
     </style>
-  # Meta tags for SEO
+    
+    <!-- Analytics and monitoring -->
+    <script>
+      // Add your analytics code here if needed
+      console.log('Sakneen Status Page Loaded');
+    </script>
+  
+  # SEO and social media optimization
   metaTags:
     - name: description
-      content: "Real-time status monitoring for Sakneen services including Backend, SaaS, and Management platforms."
+      content: "Real-time status monitoring for Sakneen services including Backend APIs, SaaS Platform, and Management Portal. Check current system health and performance metrics."
     - name: keywords
-      content: "Sakneen, status, uptime, monitoring, SaaS, backend, system health"
+      content: "Sakneen, status, uptime, monitoring, SaaS, backend, system health, performance, API status, service availability"
     - name: author
       content: "Sakneen"
+    - name: robots
+      content: "index, follow"
     - property: og:title
-      content: "Sakneen System Status"
+      content: "Sakneen System Status & Performance Monitor"
     - property: og:description
-      content: "Real-time status monitoring for Sakneen services"
+      content: "Real-time monitoring of Sakneen's services and infrastructure with transparent performance metrics."
     - property: og:image
+      content: "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png"
+    - property: og:url
+      content: "https://status.sakneen.com"
+    - property: og:type
+      content: "website"
+    - name: twitter:card
+      content: "summary_large_image"
+    - name: twitter:title
+      content: "Sakneen System Status"
+    - name: twitter:description
+      content: "Real-time monitoring of Sakneen's services and infrastructure"
+    - name: twitter:image
       content: "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png"
 
 # Upptime also supports notifications, assigning issues, and more
 # See https://upptime.js.org/docs/configuration
+
 # User agent for requests
 userAgent: Sakneen-Uptime-Monitor/1.0
 
-# Notifications configuration (uncomment and configure as needed)
-# notifications:
-#   - type: slack
-#     webhook: $SLACK_WEBHOOK_URL
-#   - type: discord
-#     webhook: $DISCORD_WEBHOOK_URL
-#   - type: email
-#     smtpHost: smtp.gmail.com
-#     smtpPort: 587
-#     smtpUsername: $SMTP_USERNAME
-#     smtpPassword: $SMTP_PASSWORD
-#     emailFrom: $EMAIL_FROM
-#     emailTo: $EMAIL_TO
+# Skip deschedule for better reliability
+skipDeschedule: true
 
-# Issue assignment
-# assignees:
-#   - username
+# Delay between monitoring requests (ms) to avoid rate limiting
+delay: 2000
 
-# Commit messages customization
+# Professional notifications configuration
+notifications:
+  - type: email
+    smtpHost: smtp.gmail.com
+    smtpPort: 587
+    smtpUsername: $SMTP_USERNAME
+    smtpPassword: $SMTP_PASSWORD
+    emailFrom: "Sakneen Status <noreply@sakneen.com>"
+    emailTo: 
+      - milad@sakneen.com
+    template: |
+      🚨 **SERVICE ALERT** 🚨
+      
+      Service: $SITE_NAME
+      Status: $STATUS
+      Time: $TIMESTAMP
+      Response: $RESPONSE_CODE in $RESPONSE_TIME ms
+      
+      $SITE_URL
+      
+      ---
+      View details: https://status.sakneen.com/history/$SITE_SLUG
+      
+      Sakneen Status Monitor
+    onlyOnChange: true
+
+# Issue assignment for incident management
+assignees:
+  - miladezzat
+
+# Professional commit messages
 commitMessages:
-  readmeContent: ":pencil: Update summary in README [skip ci] [upptime]"
-  summaryJson: ":card_file_box: Update status summary [skip ci] [upptime]"
+  readmeContent: "📊 Update status summary [skip ci] [upptime]"
+  summaryJson: "📈 Update status data [skip ci] [upptime]"
   statusChange: "$EMOJI $SITE_NAME is $STATUS ($RESPONSE_CODE in $RESPONSE_TIME ms) [skip ci] [upptime]"
-  graphsUpdate: ":bento: Update graphs [skip ci] [upptime]"
-  responseTimeCommit: ":pencil: Update response time [skip ci] [upptime]"
-  uptimeCommit: ":pencil: Update uptime [skip ci] [upptime]"
+  graphsUpdate: "📊 Update performance graphs [skip ci] [upptime]"
+  responseTimeCommit: "⚡ Update response time metrics [skip ci] [upptime]"
+  uptimeCommit: "⏱️ Update uptime statistics [skip ci] [upptime]"
+  
+# i18n configuration for multilingual support
+i18n:
+  activeIncidents: "Active Incidents"
+  allSystemsOperational: "All Systems Operational"
+  incidentReport: "Incident Report for"
+  activeIncidentSummary: "Opened $DATE with $POSTS posts"
+  incidentTitle: "Incident Details"
+  incidentDetails: "Incident Details"
+  incidentFixed: "Fixed"
+  incidentOngoing: "Ongoing"
+  incidentOpenedAt: "Opened at"
+  incidentClosedAt: "Closed at"
+  incidentSubscribe: "Subscribe to updates"
+  overall: "Overall"
+  up: "Up"
+  down: "Down"
+  degraded: "Degraded"
