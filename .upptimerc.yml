@@ -7,43 +7,133 @@ sites:
     url: $BACKEND_PRODUCTION_URL
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
+    maxResponseTime: 5000
+    expectedStatusCodes:
+      - 200
+      - 201
+      - 301
+      - 302
   - name: Backend Development
     url: $BACKEND_DEVELOPMENT_URL
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
+    maxResponseTime: 5000
+    expectedStatusCodes:
+      - 200
+      - 201
+      - 301
+      - 302
   - name: SaaS Production
     url: $SAAS_PRODUCTION_URL
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
+    maxResponseTime: 5000
+    expectedStatusCodes:
+      - 200
+      - 201
+      - 301
+      - 302
   - name: SaaS Development
     url: $SAAS_DEVELOPMENT_URL
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
+    maxResponseTime: 5000
+    expectedStatusCodes:
+      - 200
+      - 201
+      - 301
+      - 302
   - name: Manage Production
     url: $MANAGE_PRODUCTION_URL
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
-  - name: Manage Development.
+    maxResponseTime: 5000
+    expectedStatusCodes:
+      - 200
+      - 201
+      - 301
+      - 302
+  - name: Manage Development
     url: $MANAGE_DEVELOPMENT_URL
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
+    maxResponseTime: 5000
+    expectedStatusCodes:
+      - 200
+      - 201
+      - 301
+      - 302
 
 status-website:
   # Add your custom domain name, or remove the `cname` line if you don't have a domain
   # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
   cname: status.sakneen.com
   # baseUrl: /uptime-status
-  # theme: light
+  theme: auto # Options: light, dark, auto, night
   logoUrl: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
   favicon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
   name: Sakneen Status
-  # introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  # introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  introTitle: "System Status & Uptime Monitor"
+  introMessage: "Real-time monitoring of Sakneen's services and infrastructure. This page shows the current status and performance metrics for all our systems."
   navbar:
     - title: Status
       href: /
-  #   - title: GitHub
-  #     href: https://github.com/$OWNER/$REPO
+    - title: Live Status
+      href: https://status.sakneen.com
+    - title: Main Website
+      href: https://www.sakneen.com
+  # Add custom CSS for better styling
+  customHeadHtml: |
+    <style>
+      .hero-title { color: #1a365d; }
+      .hero-subtitle { color: #4a5568; }
+      .status-up { color: #22c55e; }
+      .status-down { color: #ef4444; }
+      .response-time-chart { border-radius: 8px; }
+    </style>
+  # Meta tags for SEO
+  metaTags:
+    - name: description
+      content: "Real-time status monitoring for Sakneen services including Backend, SaaS, and Management platforms."
+    - name: keywords
+      content: "Sakneen, status, uptime, monitoring, SaaS, backend, system health"
+    - name: author
+      content: "Sakneen"
+    - property: og:title
+      content: "Sakneen System Status"
+    - property: og:description
+      content: "Real-time status monitoring for Sakneen services"
+    - property: og:image
+      content: "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png"
 
 # Upptime also supports notifications, assigning issues, and more
 # See https://upptime.js.org/docs/configuration
+# User agent for requests
+userAgent: Sakneen-Uptime-Monitor/1.0
+
+# Notifications configuration (uncomment and configure as needed)
+# notifications:
+#   - type: slack
+#     webhook: $SLACK_WEBHOOK_URL
+#   - type: discord
+#     webhook: $DISCORD_WEBHOOK_URL
+#   - type: email
+#     smtpHost: smtp.gmail.com
+#     smtpPort: 587
+#     smtpUsername: $SMTP_USERNAME
+#     smtpPassword: $SMTP_PASSWORD
+#     emailFrom: $EMAIL_FROM
+#     emailTo: $EMAIL_TO
+
+# Issue assignment
+# assignees:
+#   - username
+
+# Commit messages customization
+commitMessages:
+  readmeContent: ":pencil: Update summary in README [skip ci] [upptime]"
+  summaryJson: ":card_file_box: Update status summary [skip ci] [upptime]"
+  statusChange: "$EMOJI $SITE_NAME is $STATUS ($RESPONSE_CODE in $RESPONSE_TIME ms) [skip ci] [upptime]"
+  graphsUpdate: ":bento: Update graphs [skip ci] [upptime]"
+  responseTimeCommit: ":pencil: Update response time [skip ci] [upptime]"
+  uptimeCommit: ":pencil: Update uptime [skip ci] [upptime]"
