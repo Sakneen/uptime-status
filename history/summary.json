@@ -22,9 +22,9 @@
     "url": "$BACKEND_DEVELOPMENT_URL",
     "icon": "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png",
     "slug": "backend-development",
-    "status": "up",
+    "status": "down",
     "uptime": "99.99%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.98%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.99%",
@@ -34,6 +34,7 @@
     "timeMonth": 454,
     "timeYear": 414,
     "dailyMinutesDown": {
+      "2025-08-10": 0,
       "2025-05-06": 24
     }
   },
