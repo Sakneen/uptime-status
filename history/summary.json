@@ -44,19 +44,19 @@
     "url": "$SAAS_PRODUCTION_URL",
     "icon": "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png",
     "slug": "saa-s-production",
-    "status": "down",
+    "status": "up",
     "uptime": "100.00%",
-    "uptimeDay": "99.99%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "100.00%",
+    "uptimeDay": "99.30%",
+    "uptimeWeek": "99.90%",
+    "uptimeMonth": "99.98%",
     "uptimeYear": "100.00%",
     "time": 343,
-    "timeDay": 439,
-    "timeWeek": 405,
-    "timeMonth": 380,
+    "timeDay": 457,
+    "timeWeek": 413,
+    "timeMonth": 382,
     "timeYear": 343,
     "dailyMinutesDown": {
-      "2025-08-29": 0
+      "2025-08-29": 10
     }
   },
   {
