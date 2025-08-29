@@ -1,7 +1,7 @@
 url: $BACKEND_PRODUCTION_URL
 status: up
 code: 200
-responseTime: 709
-lastUpdated: 2025-08-28T23:06:25.797Z
+responseTime: 661
+lastUpdated: 2025-08-29T23:06:03.821Z
 startTime: 2025-01-26T12:07:25.636Z
 generator: Upptime <https://github.com/upptime/upptime>
