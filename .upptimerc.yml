@@ -288,6 +288,50 @@ notifications:
       
       Sakneen Status Monitor
     onlyOnChange: true
+  
+  # Slack notifications for real-time alerts
+  - type: slack
+    webhook: $SLACK_WEBHOOK_URL
+    channel: "#alerts"
+    username: "Sakneen Status Bot"
+    icon_emoji: ":warning:"
+    template: |
+      🚨 *SERVICE ALERT* 🚨
+      
+      *Service:* $SITE_NAME
+      *Status:* $STATUS
+      *Time:* $TIMESTAMP
+      *Response:* $RESPONSE_CODE in $RESPONSE_TIME ms
+      *URL:* $SITE_URL
+      
+      ---
+      📊 *View Details:* https://status.sakneen.com/history/$SITE_SLUG
+      🔍 *Status Dashboard:* https://status.sakneen.com
+      
+      _Sakneen Status Monitor_
+    onlyOnChange: true
+    
+  # Slack notifications for recovery (when services come back up)
+  - type: slack
+    webhook: $SLACK_WEBHOOK_URL
+    channel: "#alerts"
+    username: "Sakneen Status Bot"
+    icon_emoji: ":white_check_mark:"
+    template: |
+      ✅ *SERVICE RECOVERED* ✅
+      
+      *Service:* $SITE_NAME
+      *Status:* $STATUS
+      *Recovery Time:* $TIMESTAMP
+      *Response:* $RESPONSE_CODE in $RESPONSE_TIME ms
+      *URL:* $SITE_URL
+      
+      ---
+      📊 *View Details:* https://status.sakneen.com/history/$SITE_SLUG
+      🎉 All systems operational!
+      
+      _Sakneen Status Monitor_
+    onlyOnChange: true
 
 # Issue assignment for incident management
 assignees:

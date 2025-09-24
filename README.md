@@ -64,6 +64,7 @@ With [Upptime](https://upptime.js.org), you can get your own unlimited and free 
 - **Real-time Updates**: Status page updates in real-time
 - **Historical Data**: Complete incident history and resolution tracking
 - **Email Notifications**: Professional alerts sent to operations team
+- **Slack Integration**: Real-time alerts to Slack channels for immediate response
 
 ### 📈 Performance Metrics
 
@@ -88,7 +89,7 @@ With [Upptime](https://upptime.js.org), you can get your own unlimited and free 
 - **Configuration File**: `.upptimerc.yml`
 - **Monitoring Schedule**: Every 5 minutes via GitHub Actions
 - **Status Website**: Auto-generated and deployed to status.sakneen.com
-- **Notifications**: Email alerts with professional templates
+- **Notifications**: Email and Slack alerts with professional templates
 
 ## 🤝 Contributing
 
@@ -114,6 +115,7 @@ To request monitoring of new services, please open an issue with:
 - **Status Page**: [status.sakneen.com](https://status.sakneen.com)
 - **Main Website**: [www.sakneen.com](https://www.sakneen.com)
 - **GitHub Issues**: [Report Issues](https://github.com/Sakneen/uptime-status/issues)
+- **Slack Setup**: [Configure Slack Notifications](./docs/SLACK_SETUP.md)
 - **Email Support**: support@sakneen.com
 - **Security**: [Security Policy](.github/SECURITY.md)
 
