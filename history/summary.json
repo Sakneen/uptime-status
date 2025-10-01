@@ -12,7 +12,7 @@
     "uptimeYear": "100.00%",
     "time": 403,
     "timeDay": 426,
-    "timeWeek": 458,
+    "timeWeek": 453,
     "timeMonth": 497,
     "timeYear": 403,
     "dailyMinutesDown": {}
@@ -30,7 +30,7 @@
     "uptimeYear": "99.97%",
     "time": 485,
     "timeDay": 423,
-    "timeWeek": 833,
+    "timeWeek": 873,
     "timeMonth": 614,
     "timeYear": 485,
     "dailyMinutesDown": {
@@ -53,7 +53,7 @@
     "uptimeYear": "100.00%",
     "time": 344,
     "timeDay": 354,
-    "timeWeek": 304,
+    "timeWeek": 302,
     "timeMonth": 346,
     "timeYear": 344,
     "dailyMinutesDown": {}
@@ -63,18 +63,19 @@
     "url": "$SAAS_DEVELOPMENT_URL",
     "icon": "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png",
     "slug": "saa-s-development",
-    "status": "up",
+    "status": "down",
     "uptime": "99.99%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.99%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.99%",
-    "time": 341,
-    "timeDay": 317,
-    "timeWeek": 316,
-    "timeMonth": 335,
-    "timeYear": 341,
+    "time": 340,
+    "timeDay": 312,
+    "timeWeek": 312,
+    "timeMonth": 334,
+    "timeYear": 340,
     "dailyMinutesDown": {
+      "2025-10-01": 0,
       "2025-06-10": 47
     }
   },
@@ -111,7 +112,7 @@
     "uptimeYear": "100.00%",
     "time": 340,
     "timeDay": 271,
-    "timeWeek": 300,
+    "timeWeek": 299,
     "timeMonth": 340,
     "timeYear": 340,
     "dailyMinutesDown": {}
