@@ -104,19 +104,19 @@
     "url": "$MANAGE_DEVELOPMENT_URL",
     "icon": "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png",
     "slug": "manage-development",
-    "status": "degraded",
+    "status": "up",
     "uptime": "100.00%",
-    "uptimeDay": "99.99%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "100.00%",
+    "uptimeDay": "99.05%",
+    "uptimeWeek": "99.86%",
+    "uptimeMonth": "99.97%",
     "uptimeYear": "100.00%",
-    "time": 361,
-    "timeDay": 3381,
-    "timeWeek": 1112,
-    "timeMonth": 531,
-    "timeYear": 361,
+    "time": 360,
+    "timeDay": 2334,
+    "timeWeek": 1015,
+    "timeMonth": 522,
+    "timeYear": 360,
     "dailyMinutesDown": {
-      "2025-11-13": 0
+      "2025-11-13": 14
     }
   }
 ]
