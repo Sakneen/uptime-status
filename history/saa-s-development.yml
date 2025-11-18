@@ -1,7 +1,7 @@
 url: $SAAS_DEVELOPMENT_URL
-status: down
-code: 500
-responseTime: 302
-lastUpdated: 2025-11-18T11:43:03.918Z
+status: up
+code: 200
+responseTime: 329
+lastUpdated: 2025-11-18T11:50:20.768Z
 startTime: 2025-01-26T12:07:27.381Z
 generator: Upptime <https://github.com/upptime/upptime>
