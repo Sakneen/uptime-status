@@ -1,7 +1,7 @@
 url: $MANAGE_DEVELOPMENT_URL
-status: up
-code: 200
-responseTime: 383
-lastUpdated: 2025-12-18T23:08:00.293Z
+status: down
+code: 502
+responseTime: 68
+lastUpdated: 2025-12-19T11:55:14.032Z
 startTime: 2025-01-26T12:07:28.475Z
 generator: Upptime <https://github.com/upptime/upptime>
