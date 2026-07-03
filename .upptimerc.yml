@@ -130,8 +130,6 @@ workflowSchedule:
   responseTime: "0 23 * * *"
   graphs: "0 0 * * *"
   summary: "0 0 * * *"
-  updateTemplate: "0 0 * * 0"
-  updates: "0 3 * * 0"
   staticSite: "0 1 * * *"
 
 # Notifications are configured via repository secrets (Upptime reads these

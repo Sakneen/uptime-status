@@ -16,8 +16,7 @@
 
 name: Update Template CI
 on:
-  schedule:
-    - cron: "0 0 * * 0"
+  # Run manually when intentionally upgrading the Upptime template.
   repository_dispatch:
     types: [update_template]
   workflow_dispatch:

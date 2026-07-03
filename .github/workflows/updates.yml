@@ -16,8 +16,7 @@
 
 name: Updates CI
 on:
-  schedule:
-    - cron: "0 3 * * 0"
+  # Run manually when intentionally updating generated Upptime dependencies.
   repository_dispatch:
     types: [updates]
   workflow_dispatch:

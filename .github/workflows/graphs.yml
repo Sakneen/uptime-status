@@ -34,6 +34,10 @@ jobs:
         with:
           ref: ${{ github.head_ref || github.ref_name }}
           token: ${{ secrets.GH_PAT || github.token }}
+      - name: Use Node 18 for graph renderer
+        uses: actions/setup-node@v6
+        with:
+          node-version: 18
       - name: Generate graphs
         uses: upptime/uptime-monitor@v1.43.7
         with:
