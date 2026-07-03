@@ -73,7 +73,7 @@
   },
   {
     "name": "Ecommerce",
-    "url": "https://ecommerce.sakneen.com",
+    "url": "https://health.ecommerce.sakneen.com/api/health",
     "icon": "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png",
     "slug": "ecommerce",
     "status": "up",
