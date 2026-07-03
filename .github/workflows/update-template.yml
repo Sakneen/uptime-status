@@ -16,8 +16,10 @@
 
 name: Update Template CI
 on:
-  schedule:
-    - cron: "0 0 * * *"
+  # NOTE (Sakneen): scheduled auto-regeneration disabled. update-template rewrites
+  # all workflows from the upstream template and drops the peaceiris `cname:` that
+  # keeps status.sakneen.com bound. Run manually only when intentionally re-syncing
+  # (and re-apply the cname afterwards). See site.yml / setup.yml.
   repository_dispatch:
     types: [update_template]
   workflow_dispatch:
