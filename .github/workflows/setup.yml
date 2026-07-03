@@ -35,9 +35,12 @@ jobs:
         with:
           ref: ${{ github.head_ref || github.ref_name }}
           token: ${{ secrets.GH_PAT || github.token }}
-      # NOTE (Sakneen): the "Update template" step was removed on purpose. It
-      # regenerates the workflow files from the upstream Upptime template, which
-      # drops the peaceiris `cname:` below and unbinds status.sakneen.com.
+      - name: Update template
+        uses: upptime/uptime-monitor@v1.43.7
+        with:
+          command: "update-template"
+        env:
+          GH_PAT: ${{ secrets.GH_PAT || github.token }}
       - name: Update response time
         uses: upptime/uptime-monitor@v1.43.7
         with:
@@ -58,6 +61,11 @@ jobs:
         with:
           workflow: Graphs CI
           token: ${{ secrets.GH_PAT || github.token }}
+      - name: Use Node 20 for graph renderer
+        if: steps.dispatch_graphs.outcome == 'failure'
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
       - name: Generate graphs directly if dispatch fails
         if: steps.dispatch_graphs.outcome == 'failure'
         uses: upptime/uptime-monitor@v1.43.7
@@ -77,6 +85,5 @@ jobs:
           github_token: ${{ secrets.GH_PAT || github.token }}
           publish_dir: "site/status-page/__sapper__/export/"
           force_orphan: "false"
-          cname: status.sakneen.com
           user_name: "Upptime Bot"
           user_email: "73812536+upptime-bot@users.noreply.github.com"

@@ -69,8 +69,8 @@ status-website:
   logoUrl: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
   favicon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
   name: Sakneen Status
-  introTitle: "System Status & Performance Monitor"
-  introMessage: "Real-time monitoring of Sakneen's services and infrastructure. This page provides transparency into our system performance and any ongoing incidents."
+  introTitle: "**Sakneen Status**"
+  introMessage: "Current uptime and response-time monitoring for Sakneen's production services, powered by Upptime."
   
   # Upptime exposes one status page; avoid links to unsupported routes like /history.
   navbar:
@@ -130,6 +130,8 @@ workflowSchedule:
   responseTime: "0 23 * * *"
   graphs: "0 0 * * *"
   summary: "0 0 * * *"
+  updateTemplate: "0 0 * * 0"
+  updates: "0 3 * * 0"
   staticSite: "0 1 * * *"
 
 # Notifications are configured via repository secrets (Upptime reads these
