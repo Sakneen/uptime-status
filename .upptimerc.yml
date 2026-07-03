@@ -50,9 +50,7 @@ sites:
       - 200
     __dangerous__insecure: false
   - name: Ecommerce
-    # Interim: homepage (200). Switch to https://health.ecommerce.sakneen.com/api/health
-    # once the /api/health route ships in sakneen-eco.
-    url: https://ecommerce.sakneen.com
+    url: https://health.ecommerce.sakneen.com/api/health
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
