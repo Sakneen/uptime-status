@@ -3,8 +3,10 @@ owner: Sakneen # Your GitHub organization or username, where this repository liv
 repo: uptime-status # The name of this repository
 
 sites:
-  - name: Backend Production
-    url: $BACKEND_PRODUCTION_URL
+  # Production only. Multi-tenant: all tenants share one deploy per app + one
+  # backend, so these shared-layer checks cover every tenant. URLs verified 200.
+  - name: API Health
+    url: https://app.sakneen.com/sakneen/apis/v1/health
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
@@ -14,8 +16,8 @@ sites:
     expectedStatusCodes:
       - 200
     __dangerous__insecure: false
-  - name: Backend Development
-    url: $BACKEND_DEVELOPMENT_URL
+  - name: API Integrations
+    url: https://app.sakneen.com/external/apis/v1.0/healthz
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
@@ -25,8 +27,8 @@ sites:
     expectedStatusCodes:
       - 200
     __dangerous__insecure: false
-  - name: SaaS Production
-    url: $SAAS_PRODUCTION_URL
+  - name: Sales
+    url: https://health.sakneen.com/api/health
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
@@ -36,8 +38,8 @@ sites:
     expectedStatusCodes:
       - 200
     __dangerous__insecure: false
-  - name: SaaS Development
-    url: $SAAS_DEVELOPMENT_URL
+  - name: Dashboard
+    url: https://health.manage.sakneen.com/api/health
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
@@ -47,19 +49,10 @@ sites:
     expectedStatusCodes:
       - 200
     __dangerous__insecure: false
-  - name: Manage Production
-    url: $MANAGE_PRODUCTION_URL
-    icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
-    method: GET
-    maxResponseTime: 5000
-    maxRedirects: 3
-    headers:
-      - "User-Agent: Sakneen-StatusMonitor/1.0"
-    expectedStatusCodes:
-      - 200
-    __dangerous__insecure: false
-  - name: Manage Development
-    url: $MANAGE_DEVELOPMENT_URL
+  - name: Ecommerce
+    # Interim: homepage (200). Switch to https://health.ecommerce.sakneen.com/api/health
+    # once the /api/health route ships in sakneen-eco.
+    url: https://ecommerce.sakneen.com
     icon: https://img.sakneen.com/logos-email/logo_rOc78V2s7.png
     method: GET
     maxResponseTime: 5000
@@ -263,75 +256,12 @@ skipDeschedule: true
 # Delay between monitoring requests (ms) to avoid rate limiting
 delay: 2000
 
-# Professional notifications configuration
-notifications:
-  - type: email
-    smtpHost: smtp.gmail.com
-    smtpPort: 587
-    smtpUsername: $SMTP_USERNAME
-    smtpPassword: $SMTP_PASSWORD
-    emailFrom: "Sakneen Status <noreply@sakneen.com>"
-    emailTo: 
-      - milad@sakneen.com
-    template: |
-      🚨 **SERVICE ALERT** 🚨
-      
-      Service: $SITE_NAME
-      Status: $STATUS
-      Time: $TIMESTAMP
-      Response: $RESPONSE_CODE in $RESPONSE_TIME ms
-      
-      $SITE_URL
-      
-      ---
-      View details: https://status.sakneen.com/history/$SITE_SLUG
-      
-      Sakneen Status Monitor
-    onlyOnChange: true
-  
-  # Slack notifications for real-time alerts
-  - type: slack
-    webhook: $SLACK_WEBHOOK_URL
-    channel: "#alerts"
-    username: "Sakneen Status Bot"
-    icon_emoji: ":warning:"
-    template: |
-      🚨 *SERVICE ALERT* 🚨
-      
-      *Service:* $SITE_NAME
-      *Status:* $STATUS
-      *Time:* $TIMESTAMP
-      *Response:* $RESPONSE_CODE in $RESPONSE_TIME ms
-      *URL:* $SITE_URL
-      
-      ---
-      📊 *View Details:* https://status.sakneen.com/history/$SITE_SLUG
-      🔍 *Status Dashboard:* https://status.sakneen.com
-      
-      _Sakneen Status Monitor_
-    onlyOnChange: true
-    
-  # Slack notifications for recovery (when services come back up)
-  - type: slack
-    webhook: $SLACK_WEBHOOK_URL
-    channel: "#alerts"
-    username: "Sakneen Status Bot"
-    icon_emoji: ":white_check_mark:"
-    template: |
-      ✅ *SERVICE RECOVERED* ✅
-      
-      *Service:* $SITE_NAME
-      *Status:* $STATUS
-      *Recovery Time:* $TIMESTAMP
-      *Response:* $RESPONSE_CODE in $RESPONSE_TIME ms
-      *URL:* $SITE_URL
-      
-      ---
-      📊 *View Details:* https://status.sakneen.com/history/$SITE_SLUG
-      🎉 All systems operational!
-      
-      _Sakneen Status Monitor_
-    onlyOnChange: true
+# Notifications are configured via repository secrets (Upptime reads these
+# env vars directly — NOT via a notifications: block, which it ignores):
+#   NOTIFICATION_SLACK=true
+#   NOTIFICATION_SLACK_WEBHOOK_URL=<Slack incoming webhook for the incidents channel>
+# Optional message overrides: NOTIFICATIONS_DOWN_MESSAGE / NOTIFICATIONS_UP_MESSAGE
+# Docs: https://upptime.js.org/docs/notifications
 
 # Issue assignment for incident management
 assignees:
