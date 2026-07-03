@@ -122,7 +122,7 @@ Daily operational checks:
 
 Current workflows and their purposes:
 
-- **uptime.yml**: Main monitoring (every 5 minutes)
+- **uptime.yml**: Main monitoring (every 30 minutes)
 - **response-time.yml**: Response time tracking (daily)
 - **graphs.yml**: Generate performance graphs (daily)
 - **site.yml**: Status website generation (on changes)

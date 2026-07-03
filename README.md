@@ -52,7 +52,7 @@ With [Upptime](https://upptime.js.org), you can get your own unlimited and free 
 
 ### 📊 What We Monitor
 
-- **Uptime**: Continuous monitoring every 5 minutes
+- **Uptime**: Continuous monitoring every 30 minutes
 - **Response Time**: Average, 24h, 7d, 30d, and 1-year metrics
 - **Status Codes**: HTTP response validation (200 OK)
 - **Performance**: Response time trends and graphs
@@ -71,7 +71,7 @@ With [Upptime](https://upptime.js.org), you can get your own unlimited and free 
 - **Response Time Goals**:
   - Production services: < 1000ms
   - Development services: < 2000ms
-- **Monitoring Frequency**: Every 5 minutes
+- **Monitoring Frequency**: Every 30 minutes
 - **Data Retention**: Historical data preserved indefinitely
 
 ## 🔧 Technical Details
@@ -86,7 +86,7 @@ With [Upptime](https://upptime.js.org), you can get your own unlimited and free 
 ### Configuration
 
 - **Configuration File**: `.upptimerc.yml`
-- **Monitoring Schedule**: Every 5 minutes via GitHub Actions
+- **Monitoring Schedule**: Every 30 minutes via GitHub Actions
 - **Status Website**: Auto-generated and deployed to status.sakneen.com
 - **Notifications**: Email and Slack alerts with professional templates
 

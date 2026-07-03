@@ -140,8 +140,8 @@ curl https://raw.githubusercontent.com/Sakneen/uptime-status/HEAD/history/backen
 
 | Data Type | Update Frequency | Source |
 |-----------|------------------|---------|
-| **Status Checks** | Every 5 minutes | GitHub Actions |
-| **Response Time** | Every 5 minutes | GitHub Actions |
+| **Status Checks** | Every 30 minutes | GitHub Actions |
+| **Response Time** | Daily | GitHub Actions |
 | **Daily Summaries** | Daily at 1 AM UTC | GitHub Actions |
 | **Graphs** | Daily at 3 AM UTC | GitHub Actions |
 | **API Data** | Real-time | Git commits |

@@ -18,7 +18,7 @@ This document summarizes all the professional enhancements made to your Sakneen 
    - SSL/TLS security enforcement
 
 3. **Optimized Workflows**
-   - Monitoring: Every 5 minutes
+   - Monitoring: Every 30 minutes
    - Reports: Daily at optimal times
    - Updates: Weekly on Sundays
    - Rate limiting protection (2-second delays)
@@ -128,7 +128,7 @@ This document summarizes all the professional enhancements made to your Sakneen 
 ## 🔧 Technical Specifications
 
 ### **Monitoring Configuration**
-- **Frequency**: Every 5 minutes
+- **Frequency**: Every 30 minutes
 - **Timeout**: 10s (prod), 15s (dev)
 - **Status Codes**: 200, 201, 301, 302
 - **Rate Limiting**: 2-second delays between requests
