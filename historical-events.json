@@ -1,0 +1,45 @@
+[
+  {
+    "number": 9901,
+    "type": "incident",
+    "service": "api-health",
+    "title": "API availability degraded by elevated 503 responses",
+    "startedAt": "2026-06-14T13:17:15.246Z",
+    "resolvedAt": "2026-06-14T13:20:30.142Z",
+    "summary": "Cloud Run recorded 188 failed requests across the production API, including 185 HTTP 503 responses, during this 3-minute window.",
+    "source": "GCP Cloud Run request logs for sakneen-api/apis-production"
+  },
+  {
+    "number": 9902,
+    "type": "incident",
+    "service": "api-health",
+    "title": "Production API returned 502/503 responses",
+    "startedAt": "2026-06-15T08:21:22.029Z",
+    "resolvedAt": "2026-06-15T08:22:22.029Z",
+    "observedUntil": "2026-06-15T08:21:42.601Z",
+    "summary": "Cloud Run recorded nine HTTP 502/503 responses across production admin, ecommerce, and sales API routes; the last failed request was observed at 08:21:42 UTC.",
+    "source": "GCP Cloud Run request logs for sakneen-api/apis-production"
+  },
+  {
+    "number": 9903,
+    "type": "incident",
+    "service": "api-health",
+    "title": "API service interruption",
+    "startedAt": "2026-06-22T10:26:36.999Z",
+    "resolvedAt": "2026-06-22T10:27:36.999Z",
+    "observedUntil": "2026-06-22T10:26:56.428Z",
+    "summary": "Cloud Run recorded 41 HTTP 503 responses across production sales API routes; the last failed request was observed at 10:26:56 UTC.",
+    "source": "GCP Cloud Run request logs for sakneen-api/apis-production"
+  },
+  {
+    "number": 9904,
+    "type": "maintenance",
+    "service": "ecommerce",
+    "title": "Ecommerce deployment infrastructure update",
+    "startedAt": "2026-07-08T13:47:55.895Z",
+    "resolvedAt": "2026-07-08T13:48:55.895Z",
+    "observedUntil": "2026-07-08T13:48:35.942Z",
+    "summary": "The Ecommerce production release completed the move to native Vercel deployments and reached READY at 13:48:35 UTC; no downtime is claimed for this maintenance event.",
+    "source": "Vercel deployment dpl_EqN93hinPKEvMF1gC6KztT3UYhbE and Sakneen/saas-eco PR #221"
+  }
+]

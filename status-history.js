@@ -2,10 +2,12 @@
   "use strict";
 
   var summaryUrl = "https://raw.githubusercontent.com/Sakneen/uptime-status/master/history/summary.json";
+  var eventsUrl = "https://status.sakneen.com/historical-events.json";
   var serviceCards;
   var liveStatus;
   var tooltip;
   var summariesBySlug = {};
+  var eventsBySlug = {};
   var historyDays = 90;
   var initTimer;
 
@@ -14,21 +16,45 @@
     return Number.isNaN(date.getTime()) ? new Date() : date;
   }
 
-  function makeHistory(summary) {
+  function eventMinutes(event) {
+    var startedAt = safeDate(event.startedAt);
+    var resolvedAt = safeDate(event.resolvedAt || event.observedUntil || event.startedAt);
+    return Math.max(1, Math.ceil((resolvedAt.getTime() - startedAt.getTime()) / 60000));
+  }
+
+  function indexEvents(events) {
+    eventsBySlug = {};
+    events.forEach(function (event) {
+      if (!event.service || !event.startedAt) return;
+      var dateKey = safeDate(event.startedAt).toISOString().slice(0, 10);
+      if (!eventsBySlug[event.service]) eventsBySlug[event.service] = {};
+      if (!eventsBySlug[event.service][dateKey]) eventsBySlug[event.service][dateKey] = [];
+      eventsBySlug[event.service][dateKey].push(event);
+    });
+  }
+
+  function makeHistory(summary, slug) {
     var count = historyDays;
     var last = Date.now();
     var downtime = summary && summary.dailyMinutesDown || {};
     var maintenance = summary && summary.dailyMaintenance || {};
+    var serviceEvents = eventsBySlug[slug] || {};
     return Array.from({ length: count }, function (_, index) {
       var timestamp = new Date(last - (count - 1 - index) * 86400000);
       var isoDate = timestamp.toISOString().slice(0, 10);
-      var minutesDown = Number(downtime[isoDate] || 0);
-      var status = maintenance[isoDate] ? "maintenance" : minutesDown >= 1440 ? "down" : minutesDown > 0 ? "degraded" : "up";
+      var dayEvents = serviceEvents[isoDate] || [];
+      var hasMaintenance = maintenance[isoDate] || dayEvents.some(function (event) { return event.type === "maintenance"; });
+      var eventDowntime = dayEvents.reduce(function (total, event) {
+        return event.type === "maintenance" ? total : total + eventMinutes(event);
+      }, 0);
+      var minutesDown = Number(downtime[isoDate] || 0) || eventDowntime;
+      var status = hasMaintenance ? "maintenance" : minutesDown >= 1440 ? "down" : minutesDown > 0 ? "degraded" : "up";
       if (index === count - 1 && summary && summary.status === "down") status = "down";
       return {
         status: status,
         timestamp: timestamp.toISOString(),
-        minutesDown: minutesDown
+        minutesDown: minutesDown,
+        events: dayEvents
       };
     });
   }
@@ -50,6 +76,7 @@
       return '<rect class="status-history-bar ' + item.status + '" x="' + (padding + index * (barWidth + gap)) +
         '" y="3" width="' + barWidth + '" height="42" data-status="' + item.status + '" data-date="' + date.toISOString() +
         '" data-minutes-down="' + (item.minutesDown || 0) +
+        '" data-events="' + encodeURIComponent(JSON.stringify(item.events || [])) +
         '" data-details-url="' + detailsUrl + '" tabindex="0" role="link" aria-label="Open details for ' +
         date.toLocaleDateString() + '"><title>' + item.status.toUpperCase() + " · " + date.toLocaleDateString() + "</title></rect>";
     }).join("");
@@ -70,8 +97,15 @@
     var date = safeDate(bar.getAttribute("data-date"));
     var status = bar.getAttribute("data-status");
     var minutesDown = Number(bar.getAttribute("data-minutes-down") || 0);
+    var events = [];
+    try {
+      events = JSON.parse(decodeURIComponent(bar.getAttribute("data-events") || "%5B%5D"));
+    } catch (error) {
+      events = [];
+    }
+    var eventTitle = events.length ? "<br>" + events.map(function (event) { return event.title; }).join("<br>") : "";
     tooltip.innerHTML = "<strong>" + date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) +
-      "</strong>" + (status === "up" ? "No downtime recorded on this day." : status === "maintenance" ? "Scheduled maintenance recorded on this day." : status === "degraded" ? minutesDown.toFixed(1) + " minutes of degraded availability recorded." : "Downtime recorded on this day.");
+      "</strong>" + (status === "up" ? "No downtime recorded on this day." : status === "maintenance" ? "Scheduled maintenance recorded on this day." : status === "degraded" ? minutesDown.toFixed(1) + " minutes of degraded availability recorded." : "Downtime recorded on this day.") + eventTitle;
     tooltip.style.display = "block";
     tooltip.style.left = ((event.clientX || 0) + 12) + "px";
     tooltip.style.top = ((event.clientY || 0) - 80) + "px";
@@ -82,7 +116,7 @@
     if (!link) return;
     var slug = link.getAttribute("href").split("/history/")[1];
     var summary = summariesBySlug[slug] || {};
-    var history = makeHistory(summary);
+    var history = makeHistory(summary, slug);
     var name = link.textContent.trim();
     card.classList.add("status-history-card");
     card.classList.toggle("status-history-down", summary.status === "down" || card.classList.contains("down"));
@@ -123,10 +157,15 @@
       tooltip.className = "status-history-tooltip";
       document.body.appendChild(tooltip);
     }
-    fetch(summaryUrl, { cache: "no-store" })
-      .then(function (response) { return response.ok ? response.json() : []; })
-      .then(function (summaries) {
+    Promise.all([
+      fetch(summaryUrl, { cache: "no-store" }).then(function (response) { return response.ok ? response.json() : []; }),
+      fetch(eventsUrl, { cache: "no-store" }).then(function (response) { return response.ok ? response.json() : []; }).catch(function () { return []; })
+    ])
+      .then(function (results) {
+        var summaries = results[0];
+        var events = results[1];
         summaries.forEach(function (summary) { summariesBySlug[summary.slug] = summary; });
+        indexEvents(events);
         renderCards();
       })
       .catch(renderCards);
