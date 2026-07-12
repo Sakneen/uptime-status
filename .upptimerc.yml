@@ -110,6 +110,11 @@ status-website:
       content: "Real-time monitoring of Sakneen's services and infrastructure"
     - name: twitter:image
       content: "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png"
+  links:
+    - rel: stylesheet
+      href: https://status.sakneen.com/status-history.css
+  scripts:
+    - src: https://status.sakneen.com/status-history.js
 
 # Upptime also supports notifications, assigning issues, and more
 # See https://upptime.js.org/docs/configuration

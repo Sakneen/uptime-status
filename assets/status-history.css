@@ -1,0 +1,102 @@
+.live-status article.status-history-card {
+  position: relative;
+  display: block;
+  min-height: 190px;
+  padding: 48px 16px 22px;
+  background: #fff;
+  border: 1px solid #d5d5d5;
+  border-radius: 5px;
+  overflow: visible;
+}
+
+.live-status article.status-history-card::before {
+  display: none;
+}
+
+.status-history-card .status-history-title {
+  position: absolute;
+  top: 18px;
+  left: 16px;
+  margin: 0;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.status-history-card .status-history-operational {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  color: #27b66c;
+  font-size: 20px;
+}
+
+.status-history-card.status-history-down .status-history-operational {
+  color: #e45b5b;
+}
+
+.status-history-chart {
+  width: 100%;
+  height: 104px;
+  margin-top: 22px;
+}
+
+.status-history-chart svg {
+  display: block;
+  width: 100%;
+  height: 58px;
+  overflow: visible;
+}
+
+.status-history-bar {
+  fill: #27c96f;
+  cursor: pointer;
+}
+
+.status-history-bar.down {
+  fill: #e45b5b;
+}
+
+.status-history-bar.degraded {
+  fill: #f1a51d;
+}
+
+.status-history-scale {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 7px;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.status-history-scale .rule {
+  height: 2px;
+  flex: 1;
+  background: #aaa;
+}
+
+.status-history-scale strong {
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.status-history-tooltip {
+  position: fixed;
+  z-index: 1000;
+  display: none;
+  min-width: 300px;
+  padding: 24px 28px;
+  color: #333;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 3px 12px rgb(0 0 0 / 13%);
+  pointer-events: none;
+  font-size: 17px;
+}
+
+.status-history-tooltip strong {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 20px;
+}
