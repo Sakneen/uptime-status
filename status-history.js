@@ -3,6 +3,7 @@
 
   var repo = "Sakneen/uptime-status";
   var serviceCards;
+  var liveStatus;
   var tooltip;
   var selectedRange = "90d";
   var rangeCounts = { "24h": 24, "7d": 7, "30d": 30, "90d": 90, "1y": 365, all: 90 };
@@ -105,7 +106,7 @@
   }
 
   function init() {
-    var liveStatus = document.querySelector(".live-status");
+    liveStatus = document.querySelector(".live-status");
     if (!liveStatus) return;
     serviceCards = Array.from(liveStatus.querySelectorAll("article")).filter(function (card) {
       return card.querySelector('a[href*="/history/"]');
@@ -121,7 +122,8 @@
         serviceCards.forEach(function (card) { fetchHistory(card); });
       });
     });
-    serviceCards.forEach(function (card) { fetchHistory(card); });
+    Promise.all(serviceCards.map(function (card) { return fetchHistory(card); }))
+      .then(function () { liveStatus.classList.add("status-history-ready"); });
   }
 
   var attempts = 0;
