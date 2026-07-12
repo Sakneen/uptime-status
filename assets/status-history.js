@@ -2,7 +2,7 @@
   "use strict";
 
   var summaryUrl = "https://raw.githubusercontent.com/Sakneen/uptime-status/master/history/summary.json";
-  var eventsUrl = "https://status.sakneen.com/historical-events.json?v=history-bars-90d-v3";
+  var eventsUrl = "https://status.sakneen.com/historical-events.json?v=history-bars-90d-v4";
   var serviceCards;
   var liveStatus;
   var tooltip;
