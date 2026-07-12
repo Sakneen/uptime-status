@@ -112,9 +112,9 @@ status-website:
       content: "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png"
   links:
     - rel: stylesheet
-      href: https://status.sakneen.com/status-history.css?v=history-bars-90d-v2
+      href: https://status.sakneen.com/status-history.css?v=history-bars-90d-v3
   scripts:
-    - src: https://status.sakneen.com/status-history.js?v=history-bars-90d-v2
+    - src: https://status.sakneen.com/status-history.js?v=history-bars-90d-v3
 
 # Upptime also supports notifications, assigning issues, and more
 # See https://upptime.js.org/docs/configuration

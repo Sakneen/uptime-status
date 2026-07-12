@@ -116,3 +116,59 @@ form:has(input[type="radio"][name="d"]) {
   margin-bottom: 14px;
   font-size: 20px;
 }
+
+.status-history-events {
+  margin-top: 36px;
+}
+
+.status-history-events h2 {
+  margin: 28px 0 12px;
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.status-history-event-date {
+  margin: 16px 0 8px;
+  color: #4f6b6b;
+  font-size: 20px;
+}
+
+.status-history-event-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 8px;
+  padding: 18px 22px;
+  background: #fff;
+  border: 1px solid #d5e4e1;
+  border-left: 4px solid #f23b6d;
+  border-radius: 4px;
+}
+
+.status-history-event-card.maintenance {
+  border-left-color: #f1a51d;
+}
+
+.status-history-event-card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.status-history-event-card p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.status-history-event-source {
+  margin-top: 6px !important;
+  color: #4f6b6b;
+  font-size: 14px !important;
+}
+
+.status-history-event-card a {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-size: 17px;
+}
