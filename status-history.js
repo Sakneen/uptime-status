@@ -2,12 +2,13 @@
   "use strict";
 
   var summaryUrl = "https://raw.githubusercontent.com/Sakneen/uptime-status/master/history/summary.json";
-  var eventsUrl = "https://status.sakneen.com/historical-events.json?v=history-bars-90d-v2";
+  var eventsUrl = "https://status.sakneen.com/historical-events.json?v=history-bars-90d-v3";
   var serviceCards;
   var liveStatus;
   var tooltip;
   var summariesBySlug = {};
   var eventsBySlug = {};
+  var allEvents = [];
   var historyDays = 90;
   var initTimer;
 
@@ -22,15 +23,87 @@
     return Math.max(1, Math.ceil((resolvedAt.getTime() - startedAt.getTime()) / 60000));
   }
 
+  function escapeHtml(value) {
+    return String(value || "").replace(/[&<>"']/g, function (character) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character];
+    });
+  }
+
+  function serviceName(slug) {
+    var summary = summariesBySlug[slug];
+    return summary && summary.name ? summary.name : String(slug || "").replace(/-/g, " ");
+  }
+
+  function formatDate(value) {
+    return safeDate(value).toLocaleDateString("en-US", { month: "numeric", day: "numeric", year: "numeric" });
+  }
+
   function indexEvents(events) {
+    allEvents = events.slice().sort(function (left, right) {
+      return safeDate(right.startedAt).getTime() - safeDate(left.startedAt).getTime();
+    });
     eventsBySlug = {};
-    events.forEach(function (event) {
+    allEvents.forEach(function (event) {
       if (!event.service || !event.startedAt) return;
       var dateKey = safeDate(event.startedAt).toISOString().slice(0, 10);
       if (!eventsBySlug[event.service]) eventsBySlug[event.service] = {};
       if (!eventsBySlug[event.service][dateKey]) eventsBySlug[event.service][dateKey] = [];
       eventsBySlug[event.service][dateKey].push(event);
     });
+  }
+
+  function eventSummary(event) {
+    if (event.type === "maintenance") return "Completed";
+    var minutes = eventMinutes(event);
+    return "Duration: " + minutes + " min · 1 update";
+  }
+
+  function eventCard(event, detailSlug) {
+    var href = detailSlug ? "#event-" + event.number : "/history/" + encodeURIComponent(event.service) + "#event-" + event.number;
+    return '<article id="event-' + escapeHtml(event.number) + '" class="status-history-event-card ' + escapeHtml(event.type) + '">' +
+      '<div><h3>' + escapeHtml(event.title) + '</h3><p>' + escapeHtml(eventSummary(event)) + '</p>' +
+      (detailSlug ? '<p class="status-history-event-source">' + escapeHtml(event.summary) + '</p>' : '<p class="status-history-event-source">' + escapeHtml(serviceName(event.service)) + '</p>') +
+      '</div><a href="' + href + '">' + (event.type === "maintenance" ? "Maintenance" : "Incident") + " #" + escapeHtml(event.number) + " report -></a></article>";
+  }
+
+  function eventsByDateHtml(events, detailSlug) {
+    var grouped = {};
+    events.forEach(function (event) {
+      var dateKey = formatDate(event.startedAt);
+      if (!grouped[dateKey]) grouped[dateKey] = [];
+      grouped[dateKey].push(event);
+    });
+    return Object.keys(grouped).map(function (dateKey) {
+      return '<div class="status-history-event-date">' + escapeHtml(dateKey) + '</div>' +
+        grouped[dateKey].map(function (event) { return eventCard(event, detailSlug); }).join("");
+    }).join("");
+  }
+
+  function renderEventSections() {
+    var main = document.querySelector("main.container");
+    if (!main || !allEvents.length) return;
+    var existing = main.querySelector(".status-history-events");
+    if (existing) existing.remove();
+
+    var detailMatch = window.location.pathname.match(/^\/history\/([^/]+)/);
+    var detailSlug = detailMatch ? decodeURIComponent(detailMatch[1]) : "";
+    var events = detailSlug ? allEvents.filter(function (event) { return event.service === detailSlug; }) : allEvents;
+    if (!events.length) return;
+
+    var maintenance = events.filter(function (event) { return event.type === "maintenance"; });
+    var incidents = events.filter(function (event) { return event.type !== "maintenance"; });
+    var container = document.createElement("section");
+    container.className = "status-history-events";
+    container.innerHTML =
+      (maintenance.length ? '<h2>Past Scheduled Maintenance</h2>' + eventsByDateHtml(maintenance, detailSlug) : "") +
+      (incidents.length ? '<h2>Past Incidents</h2>' + eventsByDateHtml(incidents, detailSlug) : "");
+
+    var liveStatus = main.querySelector(".live-status");
+    if (liveStatus && liveStatus.parentNode) {
+      liveStatus.parentNode.insertBefore(container, liveStatus.nextSibling);
+    } else {
+      main.appendChild(container);
+    }
   }
 
   function makeHistory(summary, slug) {
@@ -137,9 +210,24 @@
   function renderCards() {
     serviceCards.forEach(function (card) { renderCard(card); });
     liveStatus.classList.add("status-history-ready");
+    renderEventSections();
   }
 
-  function init() {
+  function loadData() {
+    return Promise.all([
+      fetch(summaryUrl, { cache: "no-store" }).then(function (response) { return response.ok ? response.json() : []; }),
+      fetch(eventsUrl, { cache: "no-store" }).then(function (response) { return response.ok ? response.json() : []; }).catch(function () { return []; })
+    ])
+      .then(function (results) {
+        var summaries = results[0];
+        var events = results[1];
+        summaries.forEach(function (summary) { summariesBySlug[summary.slug] = summary; });
+        indexEvents(events);
+        return results;
+      });
+  }
+
+  function initStatusPage() {
     var nextLiveStatus = document.querySelector(".live-status");
     if (!nextLiveStatus) return;
     var nextServiceCards = Array.from(nextLiveStatus.querySelectorAll("article")).filter(function (card) {
@@ -147,7 +235,10 @@
     });
     if (nextLiveStatus === liveStatus && nextServiceCards.length && nextServiceCards.every(function (card) {
       return card.classList.contains("status-history-card");
-    })) return;
+    })) {
+      renderEventSections();
+      return;
+    }
     liveStatus = nextLiveStatus;
     serviceCards = nextServiceCards;
     if (!serviceCards.length) return;
@@ -157,18 +248,18 @@
       tooltip.className = "status-history-tooltip";
       document.body.appendChild(tooltip);
     }
-    Promise.all([
-      fetch(summaryUrl, { cache: "no-store" }).then(function (response) { return response.ok ? response.json() : []; }),
-      fetch(eventsUrl, { cache: "no-store" }).then(function (response) { return response.ok ? response.json() : []; }).catch(function () { return []; })
-    ])
-      .then(function (results) {
-        var summaries = results[0];
-        var events = results[1];
-        summaries.forEach(function (summary) { summariesBySlug[summary.slug] = summary; });
-        indexEvents(events);
-        renderCards();
-      })
+    loadData().then(renderCards)
       .catch(renderCards);
+  }
+
+  function initDetailPage() {
+    if (!window.location.pathname.match(/^\/history\/([^/]+)/)) return;
+    loadData().then(renderEventSections).catch(function () {});
+  }
+
+  function init() {
+    initStatusPage();
+    initDetailPage();
   }
 
   function scheduleInit() {
