@@ -1,18 +1,13 @@
 (function () {
   "use strict";
 
-  var repo = "Sakneen/uptime-status";
+  var summaryUrl = "https://raw.githubusercontent.com/Sakneen/uptime-status/master/history/summary.json";
   var serviceCards;
   var liveStatus;
   var tooltip;
+  var summariesBySlug = {};
   var selectedRange = "90d";
   var rangeCounts = { "24h": 24, "7d": 7, "30d": 30, "90d": 90, "1y": 365, all: 90 };
-
-  function parseStatus(message) {
-    if (message.indexOf("🟥") !== -1) return "down";
-    if (message.indexOf("🟨") !== -1) return "degraded";
-    return "up";
-  }
 
   function periodLabel() {
     return selectedRange === "24h" ? "24 hours"
@@ -28,20 +23,19 @@
     return Number.isNaN(date.getTime()) ? new Date() : date;
   }
 
-  function makeHistory(commits) {
-    var source = commits.slice(0, 90).map(function (commit) {
-      return {
-        status: parseStatus(commit.commit && commit.commit.message || ""),
-        timestamp: commit.commit && commit.commit.author && commit.commit.author.date
-      };
-    }).reverse();
+  function makeHistory(summary) {
     var count = rangeCounts[selectedRange];
-    var last = source.length ? safeDate(source[source.length - 1].timestamp).getTime() : Date.now();
+    var last = Date.now();
+    var downtime = summary && summary.dailyMinutesDown || {};
     return Array.from({ length: count }, function (_, index) {
-      var item = source.length ? source[Math.floor(index * source.length / count)] : { status: "up" };
+      var timestamp = new Date(last - (count - 1 - index) * 86400000);
+      var isoDate = timestamp.toISOString().slice(0, 10);
+      var minutesDown = Number(downtime[isoDate] || 0);
+      var status = minutesDown >= 1440 ? "down" : minutesDown > 0 ? "degraded" : "up";
+      if (index === count - 1 && summary && summary.status === "down") status = "down";
       return {
-        status: item.status || "up",
-        timestamp: new Date(last - (count - 1 - index) * 86400000).toISOString()
+        status: status,
+        timestamp: timestamp.toISOString()
       };
     });
   }
@@ -75,16 +69,18 @@
     tooltip.style.top = ((event.clientY || 0) - 80) + "px";
   }
 
-  function renderCard(card, commits) {
+  function renderCard(card) {
     var link = card.querySelector('a[href*="/history/"]');
     if (!link) return;
-    var history = makeHistory(commits);
+    var slug = link.getAttribute("href").split("/history/")[1];
+    var summary = summariesBySlug[slug] || {};
+    var history = makeHistory(summary);
     var name = link.textContent.trim();
     card.classList.add("status-history-card");
-    card.classList.toggle("status-history-down", card.classList.contains("down"));
+    card.classList.toggle("status-history-down", summary.status === "down" || card.classList.contains("down"));
     card.style.removeProperty("--background");
     card.innerHTML = '<h4 class="status-history-title"><a href="' + link.href + '">' + name + '</a></h4>' +
-      '<span class="status-history-operational">' + (card.classList.contains("down") ? "Down" : "Operational") + "</span>" +
+      '<span class="status-history-operational">' + (summary.status === "down" ? "Down" : "Operational") + "</span>" +
       '<div class="status-history-chart">' + makeChart(history) + "</div>";
     card.querySelectorAll(".status-history-bar").forEach(function (bar) {
       bar.addEventListener("mouseenter", showTooltip);
@@ -94,15 +90,9 @@
     });
   }
 
-  function fetchHistory(card) {
-    var link = card.querySelector('a[href*="/history/"]');
-    var slug = link && link.getAttribute("href").split("/history/")[1];
-    if (!slug) return Promise.resolve();
-    return fetch("https://api.github.com/repos/" + repo + "/commits?path=history/" + encodeURIComponent(slug) + ".yml&per_page=90", {
-      headers: { Accept: "application/vnd.github+json" }
-    }).then(function (response) { return response.ok ? response.json() : []; })
-      .then(function (commits) { renderCard(card, commits); })
-      .catch(function () { renderCard(card, []); });
+  function renderCards() {
+    serviceCards.forEach(function (card) { renderCard(card); });
+    liveStatus.classList.add("status-history-ready");
   }
 
   function init() {
@@ -119,11 +109,16 @@
     controls.forEach(function (control) {
       control.addEventListener("change", function () {
         selectedRange = control.value === "day" ? "24h" : control.value === "week" ? "7d" : control.value === "month" ? "30d" : control.value === "year" ? "1y" : "all";
-        serviceCards.forEach(function (card) { fetchHistory(card); });
+        renderCards();
       });
     });
-    Promise.all(serviceCards.map(function (card) { return fetchHistory(card); }))
-      .then(function () { liveStatus.classList.add("status-history-ready"); });
+    fetch(summaryUrl, { cache: "no-store" })
+      .then(function (response) { return response.ok ? response.json() : []; })
+      .then(function (summaries) {
+        summaries.forEach(function (summary) { summariesBySlug[summary.slug] = summary; });
+        renderCards();
+      })
+      .catch(renderCards);
   }
 
   var attempts = 0;
