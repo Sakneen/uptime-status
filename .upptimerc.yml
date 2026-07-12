@@ -152,7 +152,8 @@ assignees:
 i18n:
   activeIncidents: "Active Incidents"
   allSystemsOperational: "All Systems Operational"
-  incidentReport: "Incident Report for"
+  incidentReport: "Incident #$NUMBER report →"
+  pastIncidentsResolved: "Duration: $MINUTES min · $POSTS update"
   activeIncidentSummary: "Opened $DATE with $POSTS posts"
   incidentTitle: "Incident Details"
   incidentDetails: "Incident Details"
