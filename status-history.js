@@ -6,17 +6,7 @@
   var liveStatus;
   var tooltip;
   var summariesBySlug = {};
-  var selectedRange = "90d";
-  var rangeCounts = { "24h": 24, "7d": 7, "30d": 30, "90d": 90, "1y": 365, all: 90 };
-
-  function periodLabel() {
-    return selectedRange === "24h" ? "24 hours"
-      : selectedRange === "7d" ? "7 days"
-      : selectedRange === "30d" ? "30 days"
-      : selectedRange === "1y" ? "1 year"
-      : selectedRange === "all" ? "all available history"
-      : "90 days";
-  }
+  var historyDays = 90;
 
   function safeDate(value) {
     var date = new Date(value);
@@ -24,7 +14,7 @@
   }
 
   function makeHistory(summary) {
-    var count = rangeCounts[selectedRange];
+    var count = historyDays;
     var last = Date.now();
     var downtime = summary && summary.dailyMinutesDown || {};
     return Array.from({ length: count }, function (_, index) {
@@ -40,7 +30,7 @@
     });
   }
 
-  function makeChart(history) {
+  function makeChart(history, detailsUrl) {
     var width = 860;
     var height = 58;
     var padding = 2;
@@ -51,11 +41,19 @@
       var date = safeDate(item.timestamp);
       return '<rect class="status-history-bar ' + item.status + '" x="' + (padding + index * (barWidth + gap)) +
         '" y="3" width="' + barWidth + '" height="42" data-status="' + item.status + '" data-date="' + date.toISOString() +
-        '" tabindex="0"><title>' + item.status.toUpperCase() + " · " + date.toLocaleDateString() + "</title></rect>";
+        '" data-details-url="' + detailsUrl + '" tabindex="0" role="link" aria-label="Open details for ' +
+        date.toLocaleDateString() + '"><title>' + item.status.toUpperCase() + " · " + date.toLocaleDateString() + "</title></rect>";
     }).join("");
     return '<svg viewBox="0 0 ' + width + " " + height + '" preserveAspectRatio="none" role="img" aria-label="Uptime history">' +
-      bars + '</svg><div class="status-history-scale"><span>' + periodLabel() + ' ago</span><span class="rule"></span><strong>' +
+      bars + '</svg><div class="status-history-scale"><span>90 days ago</span><span class="rule"></span><strong>' +
       uptime.toFixed(1) + ' % uptime</strong><span class="rule"></span><span>Today</span></div>';
+  }
+
+  function openDetails(event) {
+    var bar = event.currentTarget;
+    if (event.type === "keydown" && event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    window.location.href = bar.getAttribute("data-details-url");
   }
 
   function showTooltip(event) {
@@ -81,10 +79,12 @@
     card.style.removeProperty("--background");
     card.innerHTML = '<h4 class="status-history-title"><a href="' + link.href + '">' + name + '</a></h4>' +
       '<span class="status-history-operational">' + (summary.status === "down" ? "Down" : "Operational") + "</span>" +
-      '<div class="status-history-chart">' + makeChart(history) + "</div>";
+      '<div class="status-history-chart">' + makeChart(history, link.href) + "</div>";
     card.querySelectorAll(".status-history-bar").forEach(function (bar) {
       bar.addEventListener("mouseenter", showTooltip);
       bar.addEventListener("focus", showTooltip);
+      bar.addEventListener("click", openDetails);
+      bar.addEventListener("keydown", openDetails);
       bar.addEventListener("mouseleave", function () { tooltip.style.display = "none"; });
       bar.addEventListener("blur", function () { tooltip.style.display = "none"; });
     });
@@ -105,13 +105,6 @@
     tooltip = document.createElement("div");
     tooltip.className = "status-history-tooltip";
     document.body.appendChild(tooltip);
-    var controls = Array.from(document.querySelectorAll("input[type=radio][name=d]"));
-    controls.forEach(function (control) {
-      control.addEventListener("change", function () {
-        selectedRange = control.value === "day" ? "24h" : control.value === "week" ? "7d" : control.value === "month" ? "30d" : control.value === "year" ? "1y" : "all";
-        renderCards();
-      });
-    });
     fetch(summaryUrl, { cache: "no-store" })
       .then(function (response) { return response.ok ? response.json() : []; })
       .then(function (summaries) {

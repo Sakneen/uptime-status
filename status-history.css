@@ -13,6 +13,10 @@
   visibility: hidden;
 }
 
+form:has(input[type="radio"][name="d"]) {
+  display: none;
+}
+
 .live-status article.status-history-card::before {
   display: none;
 }
@@ -54,6 +58,12 @@
 .status-history-bar {
   fill: #27c96f;
   cursor: pointer;
+}
+
+.status-history-bar:hover,
+.status-history-bar:focus {
+  filter: brightness(0.82);
+  outline: none;
 }
 
 .status-history-bar.down {
