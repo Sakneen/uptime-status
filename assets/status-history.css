@@ -9,6 +9,10 @@
   overflow: visible;
 }
 
+.live-status:not(.status-history-ready) article {
+  visibility: hidden;
+}
+
 .live-status article.status-history-card::before {
   display: none;
 }
