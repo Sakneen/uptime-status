@@ -2,7 +2,7 @@
   "use strict";
 
   var summaryUrl = "https://raw.githubusercontent.com/Sakneen/uptime-status/master/history/summary.json";
-  var eventsUrl = "https://status.sakneen.com/historical-events.json?v=history-bars-90d-v5";
+  var eventsUrl = "https://status.sakneen.com/historical-events.json?v=history-bars-90d-v6";
   var serviceCards;
   var liveStatus;
   var tooltip;
@@ -60,9 +60,23 @@
 
   function eventCard(event, detailSlug) {
     var href = detailSlug ? "#event-" + event.number : "/history/" + encodeURIComponent(event.service) + "#event-" + event.number;
-    return '<article id="event-' + escapeHtml(event.number) + '" class="status-history-event-card ' + escapeHtml(event.type) + '">' +
+    return '<article id="event-' + escapeHtml(event.number) + '" class="status-history-event-card ' + escapeHtml(event.type) +
+      '" data-href="' + escapeHtml(href) + '" tabindex="0" role="link">' +
       '<div><h3>' + escapeHtml(event.title) + '</h3><p>' + escapeHtml(eventSummary(event)) + '</p></div>' +
       '<a href="' + href + '">' + (event.type === "maintenance" ? "Maintenance" : "Incident") + " #" + escapeHtml(event.number) + " report -></a></article>";
+  }
+
+  function navigateToHref(href) {
+    if (!href) return;
+    window.location.href = href;
+  }
+
+  function openContainerLink(event) {
+    var target = event.target;
+    if (target && target.closest && target.closest("a")) return;
+    if (event.type === "keydown" && event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    navigateToHref(event.currentTarget.getAttribute("data-href"));
   }
 
   function eventsByDateHtml(events, detailSlug) {
@@ -103,6 +117,10 @@
     } else {
       main.appendChild(container);
     }
+    container.querySelectorAll(".status-history-event-card").forEach(function (card) {
+      card.addEventListener("click", openContainerLink);
+      card.addEventListener("keydown", openContainerLink);
+    });
   }
 
   function makeHistory(summary, slug) {
@@ -193,9 +211,14 @@
     card.classList.add("status-history-card");
     card.classList.toggle("status-history-down", summary.status === "down" || card.classList.contains("down"));
     card.style.removeProperty("--background");
+    card.setAttribute("data-href", link.href);
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "link");
     card.innerHTML = '<h4 class="status-history-title"><a href="' + link.href + '">' + name + '</a></h4>' +
       '<span class="status-history-operational">' + (summary.status === "down" ? "Down" : "Operational") + "</span>" +
       '<div class="status-history-chart">' + makeChart(history, link.href) + "</div>";
+    card.addEventListener("click", openContainerLink);
+    card.addEventListener("keydown", openContainerLink);
     card.querySelectorAll(".status-history-bar").forEach(function (bar) {
       bar.addEventListener("mouseenter", showTooltip);
       bar.addEventListener("focus", showTooltip);
