@@ -133,42 +133,41 @@ form:has(input[type="radio"][name="d"]) {
   font-size: 20px;
 }
 
-.status-history-event-card {
-  display: flex;
+main.container .status-history-event-card {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 24px;
+  min-height: 64px;
   margin-bottom: 8px;
-  padding: 18px 22px;
+  padding: 14px 18px;
   background: #fff;
   border: 1px solid #d5e4e1;
   border-left: 4px solid #f23b6d;
   border-radius: 4px;
 }
 
-.status-history-event-card.maintenance {
+main.container .status-history-event-card.maintenance {
   border-left-color: #f1a51d;
 }
 
-.status-history-event-card h3 {
+main.container .status-history-event-card h3 {
   margin: 0 0 8px;
-  font-size: 18px;
-  font-weight: 700;
+  color: #062f2f;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  line-height: 1.25;
 }
 
-.status-history-event-card p {
+main.container .status-history-event-card p {
   margin: 0;
-  font-size: 16px;
-}
-
-.status-history-event-source {
-  margin-top: 6px !important;
-  color: #4f6b6b;
   font-size: 14px !important;
+  line-height: 1.25;
 }
 
-.status-history-event-card a {
+main.container .status-history-event-card a {
   flex: 0 0 auto;
   white-space: nowrap;
-  font-size: 17px;
+  font-size: 14px !important;
+  font-weight: 600;
 }

@@ -2,7 +2,7 @@
   "use strict";
 
   var summaryUrl = "https://raw.githubusercontent.com/Sakneen/uptime-status/master/history/summary.json";
-  var eventsUrl = "https://status.sakneen.com/historical-events.json?v=history-bars-90d-v4";
+  var eventsUrl = "https://status.sakneen.com/historical-events.json?v=history-bars-90d-v5";
   var serviceCards;
   var liveStatus;
   var tooltip;
@@ -61,9 +61,8 @@
   function eventCard(event, detailSlug) {
     var href = detailSlug ? "#event-" + event.number : "/history/" + encodeURIComponent(event.service) + "#event-" + event.number;
     return '<article id="event-' + escapeHtml(event.number) + '" class="status-history-event-card ' + escapeHtml(event.type) + '">' +
-      '<div><h3>' + escapeHtml(event.title) + '</h3><p>' + escapeHtml(eventSummary(event)) + '</p>' +
-      (detailSlug ? '<p class="status-history-event-source">' + escapeHtml(event.summary) + '</p>' : '<p class="status-history-event-source">' + escapeHtml(serviceName(event.service)) + '</p>') +
-      '</div><a href="' + href + '">' + (event.type === "maintenance" ? "Maintenance" : "Incident") + " #" + escapeHtml(event.number) + " report -></a></article>";
+      '<div><h3>' + escapeHtml(event.title) + '</h3><p>' + escapeHtml(eventSummary(event)) + '</p></div>' +
+      '<a href="' + href + '">' + (event.type === "maintenance" ? "Maintenance" : "Incident") + " #" + escapeHtml(event.number) + " report -></a></article>";
   }
 
   function eventsByDateHtml(events, detailSlug) {
