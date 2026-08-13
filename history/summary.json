@@ -40,36 +40,40 @@
     "url": "https://health.sakneen.com/api/health",
     "icon": "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png",
     "slug": "sales",
-    "status": "up",
+    "status": "down",
     "uptime": "100.00%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.97%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 295,
-    "timeDay": 386,
-    "timeWeek": 272,
-    "timeMonth": 296,
-    "timeYear": 295,
-    "dailyMinutesDown": {}
+    "time": 296,
+    "timeDay": 366,
+    "timeWeek": 281,
+    "timeMonth": 297,
+    "timeYear": 296,
+    "dailyMinutesDown": {
+      "2026-08-13": 0
+    }
   },
   {
     "name": "Dashboard",
     "url": "https://health.manage.sakneen.com/api/health",
     "icon": "https://img.sakneen.com/logos-email/logo_rOc78V2s7.png",
     "slug": "dashboard",
-    "status": "up",
+    "status": "down",
     "uptime": "100.00%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.99%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 300,
-    "timeDay": 349,
-    "timeWeek": 302,
-    "timeMonth": 298,
-    "timeYear": 300,
-    "dailyMinutesDown": {}
+    "time": 301,
+    "timeDay": 346,
+    "timeWeek": 307,
+    "timeMonth": 300,
+    "timeYear": 301,
+    "dailyMinutesDown": {
+      "2026-08-13": 0
+    }
   },
   {
     "name": "Ecommerce",
