@@ -1,7 +1,7 @@
 url: https://app.sakneen.com/external/apis/v1.0/healthz
-status: up
-code: 200
-responseTime: 202
-lastUpdated: 2026-08-12T23:16:53.750Z
+status: down
+code: 503
+responseTime: 115
+lastUpdated: 2026-08-13T22:14:55.202Z
 startTime: 2026-07-03T06:47:14.313Z
 generator: Upptime <https://github.com/upptime/upptime>
