@@ -1,7 +1,7 @@
 url: https://health.manage.sakneen.com/api/health
-status: down
-code: 525
-responseTime: 307
-lastUpdated: 2026-08-13T22:15:12.749Z
+status: up
+code: 200
+responseTime: 231
+lastUpdated: 2026-08-13T23:14:46.216Z
 startTime: 2026-07-03T06:47:19.109Z
 generator: Upptime <https://github.com/upptime/upptime>
