@@ -740,19 +740,23 @@
         // measured minutes win over curated ones for the same day; maintenance minutes always count
         var dayDownMinutes = mins || (flagged ? flagged.minutes : 0);
 
+        // severity follows the TOTAL minutes customers were affected that day,
+        // whether they came from an outage or from impactful maintenance
+        var totalImpact = dayDownMinutes + curatedMaintMinutes;
+
         if (key < CONFIG.monitoringStart && !flaggedState) {
           cell.setAttribute("data-state", "nodata");
           cell.setAttribute("data-note", label + " — " + t.hoverNodata);
-        } else if (dayDownMinutes) {
-          downMinutes += dayDownMinutes + curatedMaintMinutes;
-          cell.setAttribute("data-state", dayDownMinutes >= 60 ? "down" : "degraded");
-          var downNote = label + " — " + dayDownMinutes + " " + t.hoverDown;
-          if (flagged && flagged.maintDisplay) {
-            downNote += " · ≈" + flagged.maintDisplay + " " + t.minutes + " " + t.hoverMaint;
+        } else if (totalImpact) {
+          downMinutes += totalImpact;
+          cell.setAttribute("data-state", totalImpact >= 60 ? "down" : "degraded");
+          var parts = [];
+          if (dayDownMinutes) { parts.push(dayDownMinutes + " " + t.hoverDown); }
+          if (curatedMaintMinutes) {
+            parts.push("≈" + curatedMaintMinutes + " " + t.minutes + " " + t.hoverMaint);
           }
-          cell.setAttribute("data-note", downNote);
+          cell.setAttribute("data-note", label + " — " + parts.join(" · "));
         } else if (flaggedState === "maint") {
-          downMinutes += curatedMaintMinutes;
           cell.setAttribute("data-state", "maint");
           cell.setAttribute("data-note", flagged.maintDisplay
             ? label + " — ≈" + flagged.maintDisplay + " " + t.minutes + " · " + t.hoverMaint
