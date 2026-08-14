@@ -137,10 +137,12 @@
     "startedAt": "2026-06-02T08:30:00Z",
     "resolvedAt": "2026-06-02T14:20:00Z",
     "title": {
-      "en": "Multi-unit EOI submissions failing"
+      "en": "Multi-unit EOI submissions failing",
+      "ar": "فشل تقديمات نماذج الاهتمام متعددة الوحدات"
     },
     "summary": {
-      "en": "A defect in a morning release caused EOI submissions containing two or more units to fail; single-unit submissions were unaffected. 42 submissions failed before a fix was deployed at 14:20 UTC the same day. No partial data was written, and affected submissions could be retried once the fix was live."
+      "en": "A defect in a morning release caused EOI submissions containing two or more units to fail; single-unit submissions were unaffected. 42 submissions failed before a fix was deployed at 14:20 UTC the same day. No partial data was written, and affected submissions could be retried once the fix was live.",
+      "ar": "تسبب خلل في إصدار صباحي في فشل تقديمات نماذج الاهتمام التي تحتوي على وحدتين أو أكثر؛ بينما لم تتأثر التقديمات أحادية الوحدة. فشلت ٤٢ تقديم قبل نشر الإصلاح في الساعة ١٤:٢٠ بتوقيت UTC في نفس اليوم. لم يتم كتابة أي بيانات جزئية، وكان يمكن إعادة محاولة التقديمات المتأثرة بعد تفعيل الإصلاح."
     },
     "source": "GitHub Sakneen/apis-v1 PR #3032"
   }
