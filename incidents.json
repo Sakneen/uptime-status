@@ -29,6 +29,7 @@
     ],
     "startedAt": "2026-08-13T20:31:34Z",
     "resolvedAt": "2026-08-14T00:17:33Z",
+    "impactMinutes": 40,
     "title": {
       "en": "Scheduled maintenance",
       "ar": "صيانة مجدولة"
@@ -66,6 +67,7 @@
     ],
     "startedAt": "2026-07-08T13:47:55Z",
     "resolvedAt": "2026-07-08T13:48:35Z",
+    "impactMinutes": 0,
     "title": {
       "en": "Ecommerce deployment infrastructure update",
       "ar": "تحديث البنية التحتية لنشر المتجر الإلكتروني"
