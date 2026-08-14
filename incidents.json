@@ -21,21 +21,23 @@
     "id": "2026-08-13-maintenance",
     "type": "maintenance",
     "services": [
+      "api-health",
+      "api-integrations",
       "dashboard",
       "sales",
       "ecommerce"
     ],
-    "startedAt": "2026-08-13T21:34:58Z",
+    "startedAt": "2026-08-13T20:31:34Z",
     "resolvedAt": "2026-08-14T00:17:33Z",
     "title": {
       "en": "Scheduled maintenance",
       "ar": "صيانة مجدولة"
     },
     "summary": {
-      "en": "Multi-cloud infrastructure transition, announced in advance. Completed within the published window.",
-      "ar": "نقل البنية التحتية إلى بيئة متعددة السحابات، أُعلن عنه مسبقًا. اكتمل ضمن الفترة المعلنة."
+      "en": "Multi-cloud infrastructure transition covering all services, announced in advance. The platform API saw intermittent errors early in the window and stabilized by 21:43 UTC; the web applications returned as the transition completed at 00:17 UTC.",
+      "ar": "نقل البنية التحتية إلى بيئة متعددة السحابات شمل جميع الخدمات، وأُعلن عنه مسبقًا. شهدت واجهة المنصة أخطاء متقطعة في بداية الفترة واستقرت بحلول الساعة ٢١:٤٣ بتوقيت UTC، وعادت التطبيقات مع اكتمال النقل في الساعة ٠٠:١٧ بتوقيت UTC."
     },
-    "source": "Upptime incident #68"
+    "source": "Upptime incident #68; GCP Cloud Run request + audit logs, sakneen-api"
   },
   {
     "id": "2026-08-13-frontends",
