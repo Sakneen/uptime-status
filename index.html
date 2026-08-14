@@ -285,6 +285,13 @@
   .cell[data-state="down"] { background: var(--down); }
   .cell[data-state="degraded"] { background: var(--warn); }
   .cell[data-state="maint"] { background: var(--accent); }
+  /* days with no measurements at all - must not read as "we were up" */
+  .cell[data-state="nodata"] {
+    background: repeating-linear-gradient(
+      135deg, var(--rule) 0 2px, transparent 2px 4px
+    );
+    border: 1px solid var(--rule);
+  }
   .cell:hover { opacity: 0.55; }
 
   .track-foot {
@@ -483,6 +490,7 @@
       daysAgo: "90 days ago", today: "Today",
       uptimeWord: "uptime", windowWord: "days", avg: "avg",
       hoverOk: "operational", hoverDown: "min of downtime",
+      hoverRate: "of requests failed",
       hoverMaint: "scheduled maintenance", hoverNodata: "not monitored",
       noIncidents: "No incidents recorded in this period.",
       resolved: "Resolved", completed: "Completed",
@@ -510,6 +518,7 @@
       daysAgo: "قبل ٩٠ يومًا", today: "اليوم",
       uptimeWord: "نسبة التشغيل", windowWord: "يومًا", avg: "متوسط",
       hoverOk: "تعمل", hoverDown: "دقيقة توقف",
+      hoverRate: "من الطلبات أخفقت",
       hoverMaint: "صيانة مجدولة", hoverNodata: "خارج المراقبة",
       noIncidents: "لا توجد أعطال مسجّلة في هذه الفترة.",
       resolved: "تم الحل", completed: "اكتمل",
@@ -522,7 +531,7 @@
     en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"]
   };
-  var state = { lang: "en", summary: null, incidents: [], lastChecked: null, failed: false, stale: false, staleSince: null };
+  var state = { lang: "en", summary: null, incidents: [], daily: null, lastChecked: null, failed: false, stale: false, staleSince: null };
 
   function dateKey(date) { return date.toISOString().slice(0, 10); }
 
@@ -702,6 +711,8 @@
 
     var keys = windowKeys();
     var overlay = incidentDays();
+    var daily = (state.daily && state.daily.days) || {};
+    var firstMeasured = (state.daily && state.daily.firstMeasuredDay) || CONFIG.monitoringStart;
 
     CONFIG.services.forEach(function (svc) {
       var record = state.summary.filter(function (s) { return s.slug === svc.slug; })[0];
@@ -733,36 +744,48 @@
         var cell = document.createElement("div");
         cell.className = "cell";
         var label = prettyDate(key);
-        var mins = (record.dailyMinutesDown || {})[key] || 0;
         var flagged = (overlay[svc.slug] || {})[key];
         var flaggedState = flagged ? flagged.state : null;
         var curatedMaintMinutes = flagged ? flagged.maintMinutes : 0;
-        // measured minutes win over curated ones for the same day; maintenance minutes always count
-        var dayDownMinutes = mins || (flagged ? flagged.minutes : 0);
-
-        // severity follows the TOTAL minutes customers were affected that day,
-        // whether they came from an outage or from impactful maintenance
+        var health = daily[key];
+        var errorRate = health ? health.rate : null;
+        // one outage can be seen three ways (probe, written record, platform metrics) - take the
+        // largest rather than the sum, so it is never counted twice
+        var dayDownMinutes = Math.max(
+          (record.dailyMinutesDown || {})[key] || 0,
+          flagged ? flagged.minutes : 0,
+          health ? health.impactedMinutes : 0
+        );
         var totalImpact = dayDownMinutes + curatedMaintMinutes;
 
-        if (key < CONFIG.monitoringStart && !flaggedState) {
+        // red = a long outage (an hour or more); amber = shorter downtime or an elevated failure rate
+        var isSevere = totalImpact >= 60;
+        var isDegraded = totalImpact > 0 || (errorRate !== null && errorRate >= 0.5);
+
+        var rateNote = (errorRate !== null && errorRate >= 0.05)
+          ? errorRate + "% " + t.hoverRate : "";
+
+        if (!health && !flaggedState && !dayDownMinutes && key < firstMeasured) {
           cell.setAttribute("data-state", "nodata");
           cell.setAttribute("data-note", label + " — " + t.hoverNodata);
-        } else if (totalImpact) {
+        } else if (isSevere || isDegraded) {
           downMinutes += totalImpact;
-          cell.setAttribute("data-state", totalImpact >= 60 ? "down" : "degraded");
+          cell.setAttribute("data-state", isSevere ? "down" : "degraded");
           var parts = [];
           if (dayDownMinutes) { parts.push(dayDownMinutes + " " + t.hoverDown); }
           if (curatedMaintMinutes) {
             parts.push("≈" + curatedMaintMinutes + " " + t.minutes + " " + t.hoverMaint);
           }
+          if (rateNote) { parts.push(rateNote); }
           cell.setAttribute("data-note", label + " — " + parts.join(" · "));
         } else if (flaggedState === "maint") {
           cell.setAttribute("data-state", "maint");
-          cell.setAttribute("data-note", flagged.maintDisplay
-            ? label + " — ≈" + flagged.maintDisplay + " " + t.minutes + " · " + t.hoverMaint
-            : label + " — " + t.hoverMaint);
+          cell.setAttribute("data-note", label + " — "
+            + (flagged.maintDisplay ? "≈" + flagged.maintDisplay + " " + t.minutes + " · " : "")
+            + t.hoverMaint + (rateNote ? " · " + rateNote : ""));
         } else {
-          cell.setAttribute("data-note", label + " — " + t.hoverOk);
+          cell.setAttribute("data-note", label + " — " + t.hoverOk
+            + (rateNote ? " · " + rateNote : ""));
         }
         track.appendChild(cell);
       });
@@ -905,10 +928,12 @@
   Promise.all([
     loadSummary().catch(function () { return null; }),
     fetchJson("./incidents.json").catch(function () { return null; }),
-    loadLastChecked()
+    loadLastChecked(),
+    fetchJson("./daily-health.json").catch(function () { return null; })
   ]).then(function (results) {
     var liveSummary = results[0];
     var liveIncidents = results[1];
+    state.daily = results[3];
     var snapshot = (!liveSummary || !liveIncidents) ? readSnapshot() : null;
 
     state.summary = liveSummary || (snapshot && snapshot.summary) || null;

@@ -1,0 +1,385 @@
+{
+  "source": "GCP Cloud Monitoring run.googleapis.com/request_count, sakneen-api/apis-production (5-minute buckets)",
+  "note": "rate = percent of requests that failed that day; impactedMinutes = minutes inside 5-minute windows where 5% or more of requests failed",
+  "firstMeasuredDay": "2026-06-05",
+  "days": {
+    "2026-06-05": {
+      "requests": 117947,
+      "failed": 77,
+      "rate": 0.065,
+      "impactedMinutes": 0
+    },
+    "2026-06-06": {
+      "requests": 543824,
+      "failed": 149,
+      "rate": 0.027,
+      "impactedMinutes": 0
+    },
+    "2026-06-07": {
+      "requests": 367826,
+      "failed": 1017,
+      "rate": 0.276,
+      "impactedMinutes": 15
+    },
+    "2026-06-08": {
+      "requests": 265484,
+      "failed": 233,
+      "rate": 0.088,
+      "impactedMinutes": 0
+    },
+    "2026-06-09": {
+      "requests": 213510,
+      "failed": 121,
+      "rate": 0.057,
+      "impactedMinutes": 0
+    },
+    "2026-06-10": {
+      "requests": 226242,
+      "failed": 94,
+      "rate": 0.042,
+      "impactedMinutes": 5
+    },
+    "2026-06-18": {
+      "requests": 103112,
+      "failed": 12,
+      "rate": 0.012,
+      "impactedMinutes": 0
+    },
+    "2026-06-19": {
+      "requests": 49112,
+      "failed": 28,
+      "rate": 0.057,
+      "impactedMinutes": 0
+    },
+    "2026-06-20": {
+      "requests": 106956,
+      "failed": 26,
+      "rate": 0.024,
+      "impactedMinutes": 0
+    },
+    "2026-06-21": {
+      "requests": 227686,
+      "failed": 133,
+      "rate": 0.058,
+      "impactedMinutes": 0
+    },
+    "2026-06-22": {
+      "requests": 237472,
+      "failed": 187,
+      "rate": 0.079,
+      "impactedMinutes": 0
+    },
+    "2026-06-23": {
+      "requests": 219128,
+      "failed": 116,
+      "rate": 0.053,
+      "impactedMinutes": 0
+    },
+    "2026-06-24": {
+      "requests": 202252,
+      "failed": 41,
+      "rate": 0.02,
+      "impactedMinutes": 0
+    },
+    "2026-06-26": {
+      "requests": 41743,
+      "failed": 12,
+      "rate": 0.029,
+      "impactedMinutes": 0
+    },
+    "2026-06-27": {
+      "requests": 98880,
+      "failed": 14,
+      "rate": 0.014,
+      "impactedMinutes": 0
+    },
+    "2026-06-28": {
+      "requests": 145849,
+      "failed": 66,
+      "rate": 0.045,
+      "impactedMinutes": 5
+    },
+    "2026-06-29": {
+      "requests": 122545,
+      "failed": 28,
+      "rate": 0.023,
+      "impactedMinutes": 0
+    },
+    "2026-06-30": {
+      "requests": 112587,
+      "failed": 17,
+      "rate": 0.015,
+      "impactedMinutes": 0
+    },
+    "2026-07-01": {
+      "requests": 98460,
+      "failed": 40,
+      "rate": 0.041,
+      "impactedMinutes": 0
+    },
+    "2026-07-02": {
+      "requests": 48527,
+      "failed": 11,
+      "rate": 0.023,
+      "impactedMinutes": 0
+    },
+    "2026-07-03": {
+      "requests": 26185,
+      "failed": 0,
+      "rate": 0.0,
+      "impactedMinutes": 0
+    },
+    "2026-07-04": {
+      "requests": 47705,
+      "failed": 1,
+      "rate": 0.002,
+      "impactedMinutes": 0
+    },
+    "2026-07-05": {
+      "requests": 128778,
+      "failed": 7,
+      "rate": 0.005,
+      "impactedMinutes": 0
+    },
+    "2026-07-06": {
+      "requests": 153003,
+      "failed": 35,
+      "rate": 0.023,
+      "impactedMinutes": 0
+    },
+    "2026-07-07": {
+      "requests": 106899,
+      "failed": 270,
+      "rate": 0.253,
+      "impactedMinutes": 10
+    },
+    "2026-07-08": {
+      "requests": 142858,
+      "failed": 77,
+      "rate": 0.054,
+      "impactedMinutes": 0
+    },
+    "2026-07-09": {
+      "requests": 160282,
+      "failed": 189,
+      "rate": 0.118,
+      "impactedMinutes": 10
+    },
+    "2026-07-10": {
+      "requests": 59904,
+      "failed": 0,
+      "rate": 0.0,
+      "impactedMinutes": 0
+    },
+    "2026-07-11": {
+      "requests": 107341,
+      "failed": 24,
+      "rate": 0.022,
+      "impactedMinutes": 0
+    },
+    "2026-07-12": {
+      "requests": 389480,
+      "failed": 66,
+      "rate": 0.017,
+      "impactedMinutes": 0
+    },
+    "2026-07-13": {
+      "requests": 620890,
+      "failed": 1522,
+      "rate": 0.245,
+      "impactedMinutes": 0
+    },
+    "2026-07-14": {
+      "requests": 1373392,
+      "failed": 341,
+      "rate": 0.025,
+      "impactedMinutes": 0
+    },
+    "2026-07-15": {
+      "requests": 1323613,
+      "failed": 6113,
+      "rate": 0.462,
+      "impactedMinutes": 10
+    },
+    "2026-07-16": {
+      "requests": 783643,
+      "failed": 978,
+      "rate": 0.125,
+      "impactedMinutes": 55
+    },
+    "2026-07-17": {
+      "requests": 146656,
+      "failed": 420,
+      "rate": 0.286,
+      "impactedMinutes": 40
+    },
+    "2026-07-18": {
+      "requests": 608285,
+      "failed": 2009,
+      "rate": 0.33,
+      "impactedMinutes": 35
+    },
+    "2026-07-19": {
+      "requests": 1363785,
+      "failed": 3583,
+      "rate": 0.263,
+      "impactedMinutes": 5
+    },
+    "2026-07-20": {
+      "requests": 2971563,
+      "failed": 23557,
+      "rate": 0.793,
+      "impactedMinutes": 0
+    },
+    "2026-07-21": {
+      "requests": 1649054,
+      "failed": 12243,
+      "rate": 0.742,
+      "impactedMinutes": 10
+    },
+    "2026-07-22": {
+      "requests": 927133,
+      "failed": 7493,
+      "rate": 0.808,
+      "impactedMinutes": 10
+    },
+    "2026-07-23": {
+      "requests": 342403,
+      "failed": 1173,
+      "rate": 0.343,
+      "impactedMinutes": 0
+    },
+    "2026-07-24": {
+      "requests": 205261,
+      "failed": 661,
+      "rate": 0.322,
+      "impactedMinutes": 0
+    },
+    "2026-07-25": {
+      "requests": 279649,
+      "failed": 518,
+      "rate": 0.185,
+      "impactedMinutes": 0
+    },
+    "2026-07-26": {
+      "requests": 949429,
+      "failed": 5175,
+      "rate": 0.545,
+      "impactedMinutes": 0
+    },
+    "2026-07-27": {
+      "requests": 719475,
+      "failed": 6359,
+      "rate": 0.884,
+      "impactedMinutes": 5
+    },
+    "2026-07-28": {
+      "requests": 838356,
+      "failed": 2591,
+      "rate": 0.309,
+      "impactedMinutes": 0
+    },
+    "2026-07-29": {
+      "requests": 1007799,
+      "failed": 9364,
+      "rate": 0.929,
+      "impactedMinutes": 10
+    },
+    "2026-07-30": {
+      "requests": 720194,
+      "failed": 2904,
+      "rate": 0.403,
+      "impactedMinutes": 0
+    },
+    "2026-07-31": {
+      "requests": 305630,
+      "failed": 1935,
+      "rate": 0.633,
+      "impactedMinutes": 0
+    },
+    "2026-08-01": {
+      "requests": 492204,
+      "failed": 4515,
+      "rate": 0.917,
+      "impactedMinutes": 0
+    },
+    "2026-08-02": {
+      "requests": 855443,
+      "failed": 8015,
+      "rate": 0.937,
+      "impactedMinutes": 15
+    },
+    "2026-08-03": {
+      "requests": 972719,
+      "failed": 8262,
+      "rate": 0.849,
+      "impactedMinutes": 10
+    },
+    "2026-08-04": {
+      "requests": 849862,
+      "failed": 5554,
+      "rate": 0.654,
+      "impactedMinutes": 0
+    },
+    "2026-08-05": {
+      "requests": 893151,
+      "failed": 3229,
+      "rate": 0.362,
+      "impactedMinutes": 0
+    },
+    "2026-08-06": {
+      "requests": 691684,
+      "failed": 52,
+      "rate": 0.008,
+      "impactedMinutes": 0
+    },
+    "2026-08-07": {
+      "requests": 432941,
+      "failed": 4,
+      "rate": 0.001,
+      "impactedMinutes": 0
+    },
+    "2026-08-08": {
+      "requests": 605355,
+      "failed": 30,
+      "rate": 0.005,
+      "impactedMinutes": 0
+    },
+    "2026-08-09": {
+      "requests": 1001882,
+      "failed": 568,
+      "rate": 0.057,
+      "impactedMinutes": 0
+    },
+    "2026-08-10": {
+      "requests": 1983169,
+      "failed": 7537,
+      "rate": 0.38,
+      "impactedMinutes": 0
+    },
+    "2026-08-11": {
+      "requests": 1176648,
+      "failed": 3162,
+      "rate": 0.269,
+      "impactedMinutes": 0
+    },
+    "2026-08-12": {
+      "requests": 1055333,
+      "failed": 2574,
+      "rate": 0.244,
+      "impactedMinutes": 0
+    },
+    "2026-08-13": {
+      "requests": 833330,
+      "failed": 12221,
+      "rate": 1.467,
+      "impactedMinutes": 30
+    },
+    "2026-08-14": {
+      "requests": 477658,
+      "failed": 7646,
+      "rate": 1.601,
+      "impactedMinutes": 10
+    }
+  }
+}
