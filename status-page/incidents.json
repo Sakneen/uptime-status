@@ -1,0 +1,114 @@
+[
+  {
+    "id": "2026-08-14-dashboard",
+    "type": "incident",
+    "services": ["dashboard"],
+    "startedAt": "2026-08-14T00:17:55Z",
+    "resolvedAt": "2026-08-14T00:47:42Z",
+    "title": {
+      "en": "Developer dashboard unavailable",
+      "ar": "لوحة تحكم المطوّر غير متاحة"
+    },
+    "summary": {
+      "en": "The dashboard did not return cleanly from the scheduled infrastructure transition. Service was restored at 00:47 UTC. No customer data was affected.",
+      "ar": "لم تعُد لوحة التحكم إلى العمل بشكل كامل بعد الصيانة المجدولة. استُعيدت الخدمة في الساعة ٠٠:٤٧ بتوقيت UTC. لم تتأثر أي من بيانات العملاء."
+    },
+    "source": "Upptime incident #69"
+  },
+  {
+    "id": "2026-08-13-maintenance",
+    "type": "maintenance",
+    "services": ["dashboard", "sales", "ecommerce"],
+    "startedAt": "2026-08-13T21:34:58Z",
+    "resolvedAt": "2026-08-14T00:17:33Z",
+    "title": {
+      "en": "Scheduled maintenance",
+      "ar": "صيانة مجدولة"
+    },
+    "summary": {
+      "en": "Multi-cloud infrastructure transition, announced in advance. Completed within the published window.",
+      "ar": "نقل البنية التحتية إلى بيئة متعددة السحابات، أُعلن عنه مسبقًا. اكتمل ضمن الفترة المعلنة."
+    },
+    "source": "Upptime incident #68"
+  },
+  {
+    "id": "2026-08-13-frontends",
+    "type": "incident",
+    "services": ["sales", "dashboard"],
+    "startedAt": "2026-08-13T13:29:23Z",
+    "resolvedAt": "2026-08-13T14:48:07Z",
+    "title": {
+      "en": "Sales portal and developer dashboard unavailable",
+      "ar": "بوابة المبيعات ولوحة تحكم المطوّر غير متاحتين"
+    },
+    "summary": {
+      "en": "An upstream hosting provider incident affected both web applications. The property platform API and partner integrations were unaffected throughout, so scheduled data syncs continued normally.",
+      "ar": "عطل لدى مزوّد الاستضافة أثّر على التطبيقين معًا. لم تتأثر واجهة منصة العقارات ولا تكاملات الشركاء طوال فترة العطل، واستمرت عمليات مزامنة البيانات المجدولة بشكل طبيعي."
+    },
+    "source": "Upptime incidents #66, #67"
+  },
+  {
+    "id": "2026-07-08-ecommerce-deploy",
+    "type": "maintenance",
+    "services": ["ecommerce"],
+    "startedAt": "2026-07-08T13:47:55Z",
+    "resolvedAt": "2026-07-08T13:48:35Z",
+    "title": {
+      "en": "Ecommerce deployment infrastructure update",
+      "ar": "تحديث البنية التحتية لنشر المتجر الإلكتروني"
+    },
+    "summary": {
+      "en": "The ecommerce production release completed its move to native Vercel deployments. No downtime is claimed for this maintenance event.",
+      "ar": "اكتمل انتقال إصدار الإنتاج للمتجر الإلكتروني إلى النشر المباشر عبر Vercel. لم يُسجَّل أي توقف خلال هذه الصيانة."
+    },
+    "source": "Vercel deployment dpl_EqN93hinPKEvMF1gC6KztT3UYhbE, Sakneen/saas-eco PR #221"
+  },
+  {
+    "id": "2026-06-22-api",
+    "type": "incident",
+    "services": ["api-health"],
+    "startedAt": "2026-06-22T10:26:36Z",
+    "resolvedAt": "2026-06-22T10:27:36Z",
+    "title": {
+      "en": "API service interruption",
+      "ar": "انقطاع في خدمة واجهة البرمجة"
+    },
+    "summary": {
+      "en": "41 HTTP 503 responses were recorded across production sales API routes. The last failed request was observed at 10:26:56 UTC.",
+      "ar": "سُجّلت ٤١ استجابة HTTP 503 على مسارات واجهة المبيعات في الإنتاج. آخر طلب فاشل رُصد في الساعة ١٠:٢٦:٥٦ بتوقيت UTC."
+    },
+    "source": "GCP Cloud Run request logs, sakneen-api/apis-production"
+  },
+  {
+    "id": "2026-06-15-api",
+    "type": "incident",
+    "services": ["api-health"],
+    "startedAt": "2026-06-15T08:21:22Z",
+    "resolvedAt": "2026-06-15T08:22:22Z",
+    "title": {
+      "en": "Production API returned 502 and 503 responses",
+      "ar": "واجهة الإنتاج أعادت استجابات 502 و503"
+    },
+    "summary": {
+      "en": "Nine HTTP 502 and 503 responses were recorded across production admin, ecommerce, and sales API routes. The last failed request was observed at 08:21:42 UTC.",
+      "ar": "سُجّلت تسع استجابات HTTP 502 و503 على مسارات الإدارة والمتجر والمبيعات في الإنتاج. آخر طلب فاشل رُصد في الساعة ٠٨:٢١:٤٢ بتوقيت UTC."
+    },
+    "source": "GCP Cloud Run request logs, sakneen-api/apis-production"
+  },
+  {
+    "id": "2026-06-14-api",
+    "type": "incident",
+    "services": ["api-health"],
+    "startedAt": "2026-06-14T13:17:15Z",
+    "resolvedAt": "2026-06-14T13:20:30Z",
+    "title": {
+      "en": "API availability degraded by elevated 503 responses",
+      "ar": "تراجع في توفر واجهة البرمجة بسبب ارتفاع استجابات 503"
+    },
+    "summary": {
+      "en": "188 failed requests were recorded across the production API, including 185 HTTP 503 responses, during a three-minute window.",
+      "ar": "سُجّل ١٨٨ طلبًا فاشلًا على واجهة الإنتاج، منها ١٨٥ استجابة HTTP 503، خلال نافذة زمنية مدتها ثلاث دقائق."
+    },
+    "source": "GCP Cloud Run request logs, sakneen-api/apis-production"
+  }
+]
