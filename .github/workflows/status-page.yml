@@ -31,6 +31,7 @@ jobs:
           cp status-page/index.html build/index.html
           cp status-page/sw.js build/sw.js
           cp status-page/incidents.json build/incidents.json
+          cp status-page/daily-health.json build/daily-health.json
           cp history/summary.json build/summary.json
           cp graphs/api-health/response-time-week.png build/og-graph.png || echo "og graph missing, skipping"
       - name: Deploy to GitHub Pages
