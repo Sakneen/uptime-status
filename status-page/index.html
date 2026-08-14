@@ -283,6 +283,7 @@
   }
 
   .cell[data-state="down"] { background: var(--down); }
+  .cell[data-state="degraded"] { background: var(--warn); }
   .cell[data-state="maint"] { background: var(--accent); }
   .cell:hover { opacity: 0.55; }
 
@@ -485,7 +486,8 @@
       hoverMaint: "scheduled maintenance", hoverNodata: "not monitored",
       noIncidents: "No incidents recorded in this period.",
       resolved: "Resolved", completed: "Completed",
-      minutes: "min", hours: "h"
+      minutes: "min", hours: "h",
+      impactWord: "impact per service"
     },
     ar: {
       dir: "rtl",
@@ -511,7 +513,8 @@
       hoverMaint: "صيانة مجدولة", hoverNodata: "خارج المراقبة",
       noIncidents: "لا توجد أعطال مسجّلة في هذه الفترة.",
       resolved: "تم الحل", completed: "اكتمل",
-      minutes: "دقيقة", hours: "ساعة"
+      minutes: "دقيقة", hours: "ساعة",
+      impactWord: "تأثير لكل خدمة"
     }
   };
 
@@ -562,22 +565,28 @@
       var start = new Date(inc.startedAt);
       var end = new Date(inc.resolvedAt || inc.startedAt);
       if (isNaN(start.getTime())) { return; }
+      var isFirstDay = true;
       for (var t = Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate());
            t <= end.getTime(); t += 86400000) {
         var key = dateKey(new Date(t));
         var overlapMs = Math.min(end.getTime(), t + 86400000) - Math.max(start.getTime(), t);
-        var overlapMinutes = Math.max(1, Math.round(overlapMs / 60000));
+        // impactMinutes = real per-service unavailability, when shorter than the announced window
+        var dayMinutes = typeof inc.impactMinutes === "number"
+          ? (isFirstDay ? inc.impactMinutes : 0)
+          : Math.max(1, Math.round(overlapMs / 60000));
         (inc.services || []).forEach(function (slug) {
           if (!map[slug]) { map[slug] = {}; }
-          var entry = map[slug][key] || { state: null, minutes: 0 };
+          var entry = map[slug][key] || { state: null, minutes: 0, maintMinutes: 0 };
           if (inc.type === "maintenance") {
             if (entry.state !== "down") { entry.state = "maint"; }
+            entry.maintMinutes += dayMinutes;
           } else {
             entry.state = "down";
-            entry.minutes += overlapMinutes;
+            entry.minutes += dayMinutes;
           }
           map[slug][key] = entry;
         });
+        isFirstDay = false;
       }
     });
     return map;
@@ -719,21 +728,23 @@
         var mins = (record.dailyMinutesDown || {})[key] || 0;
         var flagged = (overlay[svc.slug] || {})[key];
         var flaggedState = flagged ? flagged.state : null;
+        var curatedMaintMinutes = flagged ? flagged.maintMinutes : 0;
+        // measured minutes win over curated ones for the same day; maintenance minutes always count
+        var dayDownMinutes = mins || (flagged ? flagged.minutes : 0);
 
         if (key < CONFIG.monitoringStart && !flaggedState) {
           cell.setAttribute("data-state", "nodata");
           cell.setAttribute("data-note", label + " — " + t.hoverNodata);
-        } else if (mins) {
-          downMinutes += mins;
-          cell.setAttribute("data-state", "down");
-          cell.setAttribute("data-note", label + " — " + mins + " " + t.hoverDown);
-        } else if (flaggedState === "down") {
-          downMinutes += flagged.minutes;
-          cell.setAttribute("data-state", "down");
-          cell.setAttribute("data-note", label + " — " + flagged.minutes + " " + t.hoverDown);
+        } else if (dayDownMinutes) {
+          downMinutes += dayDownMinutes + curatedMaintMinutes;
+          cell.setAttribute("data-state", dayDownMinutes >= 60 ? "down" : "degraded");
+          cell.setAttribute("data-note", label + " — " + dayDownMinutes + " " + t.hoverDown);
         } else if (flaggedState === "maint") {
+          downMinutes += curatedMaintMinutes;
           cell.setAttribute("data-state", "maint");
-          cell.setAttribute("data-note", label + " — " + t.hoverMaint);
+          cell.setAttribute("data-note", curatedMaintMinutes
+            ? label + " — " + curatedMaintMinutes + " " + t.minutes + " · " + t.hoverMaint
+            : label + " — " + t.hoverMaint);
         } else {
           cell.setAttribute("data-note", label + " — " + t.hoverOk);
         }
@@ -806,7 +817,11 @@
       title.textContent = (inc.title && (inc.title[state.lang] || inc.title.en)) || "";
       var when = document.createElement("span");
       when.className = "entry-when";
-      when.textContent = prettyStamp(inc.startedAt) + " · " + duration(inc.startedAt, inc.resolvedAt, t);
+      var whenText = prettyStamp(inc.startedAt) + " · " + duration(inc.startedAt, inc.resolvedAt, t);
+      if (typeof inc.impactMinutes === "number" && inc.impactMinutes > 0) {
+        whenText += " · ≈" + inc.impactMinutes + " " + t.minutes + " " + t.impactWord;
+      }
+      when.textContent = whenText;
       head.appendChild(title);
       head.appendChild(when);
 
