@@ -194,6 +194,20 @@
   .banner[data-state="down"] .banner-headline { color: var(--down); }
   .banner[data-state="warn"] .banner-headline { color: var(--warn); }
 
+  .stale-notice {
+    display: none;
+    margin-bottom: 14px;
+    padding: 11px 30px;
+    border-radius: 3px;
+    background: var(--warn-ground);
+    color: var(--warn);
+    font-family: var(--font-data);
+    font-size: 12.5px;
+    letter-spacing: 0.03em;
+  }
+
+  .stale-notice[data-visible="true"] { display: block; }
+
   .banner-sub {
     font-family: var(--font-data);
     font-size: 12.5px;
@@ -402,6 +416,8 @@
     <dl class="metastrip" id="metastrip"></dl>
   </header>
 
+  <div class="stale-notice" id="stale-notice" role="status" data-visible="false"></div>
+
   <div class="banner" id="banner" data-state="loading">
     <span class="banner-dot" aria-hidden="true"></span>
     <div class="banner-text">
@@ -458,6 +474,7 @@
       allOkSub: "No active incidents.",
       someDownSub: "$N service(s) are not responding normally.",
       loadFailedSub: "The status data could not be reached. This page cannot confirm service health right now.",
+      staleNotice: "Live status data is temporarily unreachable — showing the last known state from {time}.",
       secServices: "Services",
       secIncidents: "Incident history",
       footNote: "Times shown in UTC.",
@@ -483,6 +500,7 @@
       allOkSub: "لا توجد أعطال حالية.",
       someDownSub: "$N من الخدمات لا تستجيب بشكل طبيعي.",
       loadFailedSub: "تعذّر الوصول إلى بيانات الحالة. لا يمكن لهذه الصفحة تأكيد سلامة الخدمات في الوقت الحالي.",
+      staleNotice: "تعذّر الوصول إلى البيانات المباشرة مؤقتًا — تُعرض آخر حالة معروفة كما في {time}.",
       secServices: "الخدمات",
       secIncidents: "سجل الأعطال",
       footNote: "جميع الأوقات بتوقيت UTC.",
@@ -501,7 +519,7 @@
     en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"]
   };
-  var state = { lang: "en", summary: null, incidents: [], lastChecked: null, failed: false };
+  var state = { lang: "en", summary: null, incidents: [], lastChecked: null, failed: false, stale: false, staleSince: null };
 
   function dateKey(date) { return date.toISOString().slice(0, 10); }
 
@@ -576,6 +594,22 @@
       var runs = data && data.workflow_runs;
       return runs && runs.length ? runs[0].updated_at : null;
     }).catch(function () { return null; });
+  }
+
+  var SNAPSHOT_KEY = "sakneen-status-snapshot";
+
+  function readSnapshot() {
+    try { return JSON.parse(localStorage.getItem(SNAPSHOT_KEY) || "null"); }
+    catch (err) { return null; }
+  }
+
+  function writeSnapshot(summary, incidents, lastChecked) {
+    try {
+      localStorage.setItem(SNAPSHOT_KEY, JSON.stringify({
+        summary: summary, incidents: incidents, lastChecked: lastChecked,
+        savedAt: new Date().toISOString()
+      }));
+    } catch (err) { /* storage unavailable - the snapshot is best-effort */ }
   }
 
   function renderMeta() {
@@ -798,9 +832,18 @@
 
   }
 
+  function renderStaleNotice() {
+    var host = document.getElementById("stale-notice");
+    if (!state.stale) { host.setAttribute("data-visible", "false"); return; }
+    var t = COPY[state.lang];
+    host.setAttribute("data-visible", "true");
+    host.textContent = t.staleNotice.replace("{time}", prettyStamp(state.staleSince) || t.unknown);
+  }
+
   function renderAll() {
     renderChrome();
     renderMeta();
+    renderStaleNotice();
     renderBanner();
     renderRegister();
     renderLedger();
@@ -814,18 +857,33 @@
   });
 
   Promise.all([
-    loadSummary().catch(function () { state.failed = true; return null; }),
-    fetchJson("./incidents.json").catch(function () { return []; }),
+    loadSummary().catch(function () { return null; }),
+    fetchJson("./incidents.json").catch(function () { return null; }),
     loadLastChecked()
   ]).then(function (results) {
-    state.summary = results[0];
-    state.incidents = (results[1] || []).sort(function (a, b) {
+    var liveSummary = results[0];
+    var liveIncidents = results[1];
+    var snapshot = (!liveSummary || !liveIncidents) ? readSnapshot() : null;
+
+    state.summary = liveSummary || (snapshot && snapshot.summary) || null;
+    state.lastChecked = results[2] || (snapshot && snapshot.lastChecked) || null;
+    if (!liveSummary && state.summary && snapshot) {
+      state.stale = true;
+      state.staleSince = snapshot.savedAt;
+    }
+    state.incidents = (liveIncidents || (snapshot && snapshot.incidents) || []).sort(function (a, b) {
       return new Date(b.startedAt) - new Date(a.startedAt);
     });
-    state.lastChecked = results[2];
     if (!state.summary) { state.failed = true; }
+    if (liveSummary && liveIncidents) { writeSnapshot(liveSummary, liveIncidents, results[2]); }
     renderAll();
   });
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("./sw.js").catch(function () { /* best-effort offline shell */ });
+    });
+  }
 
   renderChrome();
 })();
