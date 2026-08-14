@@ -559,6 +559,13 @@
     return h + " " + t.hours + (m ? " " + m + " " + t.minutes : "");
   }
 
+  // impactMinutes may be a number (same for every service) or a map keyed by service slug
+  function statedImpact(inc, slug) {
+    var impact = inc.impactMinutes;
+    if (impact && typeof impact === "object") { impact = impact[slug]; }
+    return typeof impact === "number" ? impact : null;
+  }
+
   function incidentDays() {
     var map = {};
     state.incidents.forEach(function (inc) {
@@ -570,21 +577,17 @@
            t <= end.getTime(); t += 86400000) {
         var key = dateKey(new Date(t));
         var overlapMs = Math.min(end.getTime(), t + 86400000) - Math.max(start.getTime(), t);
-        // impactMinutes = real per-service unavailability, when shorter than the announced window
-        var dayMinutes = typeof inc.impactMinutes === "number"
-          ? (isFirstDay ? inc.impactMinutes : 0)
-          : Math.max(1, Math.round(overlapMs / 60000));
+        var overlapMinutes = Math.max(1, Math.round(overlapMs / 60000));
         (inc.services || []).forEach(function (slug) {
+          var stated = statedImpact(inc, slug);
+          var dayMinutes = stated === null ? overlapMinutes : (isFirstDay ? stated : 0);
           if (!map[slug]) { map[slug] = {}; }
           var entry = map[slug][key] || { state: null, minutes: 0, maintMinutes: 0, maintDisplay: 0 };
           if (inc.type === "maintenance") {
             if (entry.state !== "down") { entry.state = "maint"; }
             entry.maintMinutes += dayMinutes;
             // shown on every day of the event; counted (maintMinutes) only once
-            var eventImpact = typeof inc.impactMinutes === "number"
-              ? inc.impactMinutes
-              : Math.max(1, Math.round(overlapMs / 60000));
-            entry.maintDisplay = Math.max(entry.maintDisplay, eventImpact);
+            entry.maintDisplay = Math.max(entry.maintDisplay, stated === null ? overlapMinutes : stated);
           } else {
             entry.state = "down";
             entry.minutes += dayMinutes;
@@ -744,7 +747,9 @@
           downMinutes += dayDownMinutes + curatedMaintMinutes;
           cell.setAttribute("data-state", dayDownMinutes >= 60 ? "down" : "degraded");
           var downNote = label + " — " + dayDownMinutes + " " + t.hoverDown;
-          if (flagged && flagged.maintDisplay) { downNote += " · " + t.hoverMaint; }
+          if (flagged && flagged.maintDisplay) {
+            downNote += " · ≈" + flagged.maintDisplay + " " + t.minutes + " " + t.hoverMaint;
+          }
           cell.setAttribute("data-note", downNote);
         } else if (flaggedState === "maint") {
           downMinutes += curatedMaintMinutes;
@@ -825,8 +830,12 @@
       var when = document.createElement("span");
       when.className = "entry-when";
       var whenText = prettyStamp(inc.startedAt) + " · " + duration(inc.startedAt, inc.resolvedAt, t);
-      if (typeof inc.impactMinutes === "number" && inc.impactMinutes > 0) {
-        whenText += " · ≈" + inc.impactMinutes + " " + t.minutes + " " + t.impactWord;
+      var impacts = (inc.services || []).map(function (slug) { return statedImpact(inc, slug); })
+        .filter(function (v) { return typeof v === "number" && v > 0; });
+      if (impacts.length) {
+        var lo = Math.min.apply(null, impacts);
+        var hi = Math.max.apply(null, impacts);
+        whenText += " · ≈" + (lo === hi ? lo : lo + "–" + hi) + " " + t.minutes + " " + t.impactWord;
       }
       when.textContent = whenText;
       head.appendChild(title);

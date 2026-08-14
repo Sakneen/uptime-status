@@ -27,18 +27,24 @@
       "sales",
       "ecommerce"
     ],
-    "startedAt": "2026-08-13T20:31:34Z",
-    "resolvedAt": "2026-08-14T00:17:33Z",
-    "impactMinutes": 40,
+    "startedAt": "2026-08-13T22:00:44Z",
+    "resolvedAt": "2026-08-14T00:50:00Z",
+    "impactMinutes": {
+      "api-health": 124,
+      "api-integrations": 124,
+      "sales": 124,
+      "dashboard": 130,
+      "ecommerce": 124
+    },
     "title": {
-      "en": "Scheduled maintenance",
-      "ar": "صيانة مجدولة"
+      "en": "Scheduled maintenance caused an unplanned outage",
+      "ar": "صيانة مجدولة تسببت في انقطاع غير مخطط له"
     },
     "summary": {
-      "en": "Multi-cloud infrastructure transition covering all services, announced in advance. The platform API saw intermittent errors early in the window and stabilized by 21:43 UTC; the web applications returned as the transition completed at 00:17 UTC.",
-      "ar": "نقل البنية التحتية إلى بيئة متعددة السحابات شمل جميع الخدمات، وأُعلن عنه مسبقًا. شهدت واجهة المنصة أخطاء متقطعة في بداية الفترة واستقرت بحلول الساعة ٢١:٤٣ بتوقيت UTC، وعادت التطبيقات مع اكتمال النقل في الساعة ٠٠:١٧ بتوقيت UTC."
+      "en": "A planned infrastructure change began at 22:00 UTC and services were taken offline for it. The property platform was completely unreachable from 22:01 to 22:24 UTC. The configuration applied during the change contained an incorrect database setting, so once traffic moved onto it at 22:30 UTC most requests failed — roughly seven in ten — until a corrected configuration was released at 00:11 UTC. The developer dashboard was unavailable from 22:15 to 23:14 UTC. Background data processing stopped at 22:00 UTC and resumed at 00:50 UTC; 546 queued background tasks did not run during the interruption and are being reconciled. No customer data was modified or lost.",
+      "ar": "بدأ تغيير مخطط في البنية التحتية في الساعة ٢٢:٠٠ بتوقيت UTC وأُوقفت الخدمات من أجله. تعذّر الوصول إلى منصة العقارات بالكامل من الساعة ٢٢:٠١ حتى ٢٢:٢٤ بتوقيت UTC. احتوت الإعدادات المطبَّقة خلال التغيير على إعداد غير صحيح لقاعدة البيانات، وبعد تحويل حركة الاستخدام إليها في الساعة ٢٢:٣٠ أخفق معظم الطلبات — نحو سبعة من كل عشرة — حتى صدور إعدادات مصحّحة في الساعة ٠٠:١١ بتوقيت UTC. لم تكن لوحة تحكم المطوّر متاحة من الساعة ٢٢:١٥ حتى ٢٣:١٤ بتوقيت UTC. توقفت المعالجة الخلفية للبيانات في الساعة ٢٢:٠٠ واستؤنفت في الساعة ٠٠:٥٠، ولم تُنفَّذ ٥٤٦ مهمة خلفية خلال الانقطاع ويجري تسويتها. لم تتعرض أي من بيانات العملاء للتعديل أو الفقدان."
     },
-    "source": "Upptime incident #68; GCP Cloud Run request + audit logs, sakneen-api"
+    "source": "GCP Cloud Run request logs, admin-activity audit logs and Cloud Monitoring uptime checks (sakneen-api: apis-production, prod-queue-tasks-worker); Upptime incident #68"
   },
   {
     "id": "2026-08-13-frontends",
@@ -54,10 +60,30 @@
       "ar": "بوابة المبيعات ولوحة تحكم المطوّر غير متاحتين"
     },
     "summary": {
-      "en": "An upstream hosting provider incident affected both web applications. The property platform API and partner integrations were unaffected throughout, so scheduled data syncs continued normally.",
-      "ar": "عطل لدى مزوّد الاستضافة أثّر على التطبيقين معًا. لم تتأثر واجهة منصة العقارات ولا تكاملات الشركاء طوال فترة العطل، واستمرت عمليات مزامنة البيانات المجدولة بشكل طبيعي."
+      "en": "An upstream hosting provider incident affected both web applications. The property platform was also failing a large share of requests during part of the same period, which is recorded separately below. Some scheduled data syncs were delayed as a result.",
+      "ar": "عطل لدى مزوّد الاستضافة أثّر على التطبيقين معًا. كما كانت منصة العقارات تُخفق في نسبة كبيرة من الطلبات خلال جزء من الفترة نفسها، وهو ما يُسجَّل بشكل منفصل أدناه. وقد تأخرت بعض عمليات مزامنة البيانات المجدولة نتيجة لذلك."
     },
-    "source": "Upptime incidents #66, #67"
+    "source": "Upptime incidents #66, #67; GCP Cloud Run request logs, sakneen-api/apis-production"
+  },
+  {
+    "id": "2026-08-13-api-release",
+    "type": "incident",
+    "services": [
+      "api-health",
+      "api-integrations",
+      "ecommerce"
+    ],
+    "startedAt": "2026-08-13T14:06:00Z",
+    "resolvedAt": "2026-08-13T14:28:00Z",
+    "title": {
+      "en": "Property platform errors following a release",
+      "ar": "أخطاء في منصة العقارات عقب إصدار جديد"
+    },
+    "summary": {
+      "en": "A faulty release caused the property platform to fail a large share of requests for about twenty minutes, at its worst more than a thousand requests each minute. The previous release was restored at 14:27 UTC and the service recovered within a minute. Error rates then stayed above normal for roughly three hours before settling. The sales portal and developer dashboard were separately unavailable during part of this period, recorded above.",
+      "ar": "تسبب إصدار معيب في إخفاق منصة العقارات في نسبة كبيرة من الطلبات لمدة عشرين دقيقة تقريبًا، وبلغت الأخطاء في ذروتها أكثر من ألف طلب في الدقيقة. أُعيد الإصدار السابق في الساعة ١٤:٢٧ بتوقيت UTC وتعافت الخدمة خلال دقيقة واحدة. ثم ظلت معدلات الأخطاء أعلى من المعتاد نحو ثلاث ساعات قبل أن تستقر. لم تكن بوابة المبيعات ولوحة تحكم المطوّر متاحتين خلال جزء من هذه الفترة، وهو ما سُجّل أعلاه."
+    },
+    "source": "GCP Cloud Run request logs, sakneen-api/apis-production (revision apis-production-00417-gim; traffic pinned back to 00247-868 at 14:27:26Z)"
   },
   {
     "id": "2026-07-08-ecommerce-deploy",
@@ -87,12 +113,12 @@
     "startedAt": "2026-06-22T10:26:36Z",
     "resolvedAt": "2026-06-22T10:27:36Z",
     "title": {
-      "en": "API service interruption",
-      "ar": "انقطاع خدمة API"
+      "en": "Brief interruption to the property platform",
+      "ar": "انقطاع قصير في منصة العقارات"
     },
     "summary": {
-      "en": "41 HTTP 503 responses were recorded across production sales API routes. The last failed request was observed at 10:26:56 UTC.",
-      "ar": "تم تسجيل ٤١ استجابة HTTP 503 عبر مسارات API المبيعات الإنتاجية. آخر طلب فاشل تمت ملاحظته في الساعة ١٠:٢٦:٥٦ بتوقيت UTC."
+      "en": "For about a minute, some requests from the sales portal did not complete and had to be retried. Service returned to normal on its own at 10:27 UTC.",
+      "ar": "لمدة دقيقة تقريبًا، لم تكتمل بعض الطلبات القادمة من بوابة المبيعات وتطلّبت إعادة المحاولة. عادت الخدمة إلى طبيعتها تلقائيًا في الساعة ١٠:٢٧ بتوقيت UTC."
     },
     "source": "GCP Cloud Run request logs, sakneen-api/apis-production"
   },
@@ -105,12 +131,12 @@
     "startedAt": "2026-06-15T08:21:22Z",
     "resolvedAt": "2026-06-15T08:22:22Z",
     "title": {
-      "en": "Production API returned 502 and 503 responses",
-      "ar": "واجهة الإنتاج أعادت استجابات 502 و503"
+      "en": "Brief interruption to the property platform",
+      "ar": "انقطاع قصير في منصة العقارات"
     },
     "summary": {
-      "en": "Nine HTTP 502 and 503 responses were recorded across production admin, ecommerce, and sales API routes. The last failed request was observed at 08:21:42 UTC.",
-      "ar": "سُجّلت تسع استجابات HTTP 502 و503 على مسارات الإدارة والمتجر والمبيعات في الإنتاج. آخر طلب فاشل رُصد في الساعة ٠٨:٢١:٤٢ بتوقيت UTC."
+      "en": "A small number of requests from the dashboard, storefront, and sales portal did not complete during a one-minute period. Service returned to normal on its own at 08:22 UTC.",
+      "ar": "لم يكتمل عدد قليل من الطلبات القادمة من لوحة التحكم والمتجر وبوابة المبيعات خلال فترة دقيقة واحدة. عادت الخدمة إلى طبيعتها تلقائيًا في الساعة ٠٨:٢٢ بتوقيت UTC."
     },
     "source": "GCP Cloud Run request logs, sakneen-api/apis-production"
   },
@@ -123,12 +149,12 @@
     "startedAt": "2026-06-14T13:17:15Z",
     "resolvedAt": "2026-06-14T13:20:30Z",
     "title": {
-      "en": "API availability degraded by elevated 503 responses",
-      "ar": "تراجع في توفر واجهة البرمجة بسبب ارتفاع استجابات 503"
+      "en": "Property platform temporarily unavailable",
+      "ar": "منصة العقارات غير متاحة مؤقتًا"
     },
     "summary": {
-      "en": "188 failed requests were recorded across the production API, including 185 HTTP 503 responses, during a three-minute window.",
-      "ar": "سُجّل ١٨٨ طلبًا فاشلًا على واجهة الإنتاج، منها ١٨٥ استجابة HTTP 503، خلال نافذة زمنية مدتها ثلاث دقائق."
+      "en": "For about three minutes, requests to the property platform did not complete and pages that depend on it failed to load. Service recovered at 13:20 UTC.",
+      "ar": "لمدة ثلاث دقائق تقريبًا، لم تكتمل الطلبات الموجّهة إلى منصة العقارات وتعذّر تحميل الصفحات المعتمدة عليها. عادت الخدمة في الساعة ١٣:٢٠ بتوقيت UTC."
     },
     "source": "GCP Cloud Run request logs, sakneen-api/apis-production"
   },
