@@ -57,7 +57,10 @@ AR summary: ${example.summary.ar}
 Rules:
 - Modern Standard Arabic, formal but plain - written for real-estate developer clients, not engineers.
 - Use Arabic-Indic numerals for clock times and durations, and the pattern "بتوقيت UTC" for UTC times.
-- Keep product and brand names (Vercel, GitHub, Cloud Run), "HTTP", and status codes in Latin script.
+- Plain language only. Never introduce technical jargon: no HTTP status codes (503, 502), no error-class names,
+  no infrastructure terms. Describe what the customer experienced - a service was unavailable, requests did not
+  complete, pages did not load. If the English source contains such jargon, render it in plain Arabic instead.
+- Keep product and brand names (Vercel, GitHub) in Latin script.
 
 ${exampleBlock}English source:
 Title: ${incident.title.en}
