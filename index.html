@@ -367,153 +367,10 @@
     max-width: 56ch;
   }
 
-  .subscribe {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    background: var(--ink);
-    color: var(--paper);
-    border: 0;
-    border-radius: 2px;
-    padding: 12px 22px;
-    font-family: var(--font-data);
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: opacity 120ms ease;
-  }
-
-  .subscribe:hover { opacity: 0.85; }
-  .subscribe:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-
-  .subscribe-fallback {
-    display: none;
-    flex-basis: 100%;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    font-family: var(--font-data);
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    letter-spacing: 0.03em;
-  }
-
-  .subscribe-fallback.visible { display: flex; }
-
-  .subscribe-fallback code {
-    font-family: var(--font-data);
-    background: var(--surface-sunk);
-    border: 1px solid var(--rule);
-    border-radius: 2px;
-    padding: 5px 10px;
-    color: var(--ink);
-    direction: ltr;
-    unicode-bidi: isolate;
-  }
-
-  .subscribe-fallback button {
-    font: inherit;
-    background: transparent;
-    border: 1px solid var(--rule-strong);
-    border-radius: 2px;
-    color: var(--ink-soft);
-    padding: 5px 12px;
-    cursor: pointer;
-  }
-
-  .subscribe-fallback button:hover { border-color: var(--ink-faint); color: var(--ink); }
-  .subscribe-fallback button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-  .modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(10, 14, 17, 0.55);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    z-index: 40;
-  }
-
-  .modal-backdrop[hidden] { display: none; }
-
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 3px;
-    padding: 24px 28px 26px;
-    width: 100%;
-    max-width: 440px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .modal-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .modal-head h3 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: 21px;
-    font-weight: 400;
-  }
-
-  .modal-close {
-    background: transparent;
-    border: 0;
-    color: var(--ink-faint);
-    font-size: 22px;
-    line-height: 1;
-    cursor: pointer;
-    padding: 2px 6px;
-  }
-
-  .modal-close:hover { color: var(--ink); }
-  .modal-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-  .modal-hint { margin: 0; font-size: 14px; color: var(--ink-soft); }
-
-  #subscribe-form { display: flex; gap: 10px; flex-wrap: wrap; }
-
-  #sub-email {
-    flex: 1;
-    min-width: 200px;
-    background: var(--surface-sunk);
-    border: 1px solid var(--rule-strong);
-    border-radius: 2px;
-    padding: 11px 13px;
-    font-family: var(--font-body);
-    font-size: 14.5px;
-    color: var(--ink);
-    direction: ltr;
-    unicode-bidi: isolate;
-  }
-
-  #sub-email:focus-visible { outline: 2px solid var(--accent); outline-offset: -1px; }
-
-  .modal-note { margin: 0; font-size: 13px; }
-  #sub-error { color: var(--down); }
-  #sub-sent { color: var(--ok); }
-
-  .modal-alt {
-    margin-top: 6px;
-    padding-top: 16px;
-    border-top: 1px solid var(--rule);
-  }
-
   [dir="rtl"] .metastrip,
   [dir="rtl"] .unit-state,
   [dir="rtl"] .entry-tag,
-  [dir="rtl"] .section-label,
-  [dir="rtl"] .subscribe { letter-spacing: 0; }
+  [dir="rtl"] .section-label { letter-spacing: 0; }
   [dir="rtl"] .wordmark,
   [dir="rtl"] .banner-headline { font-family: var(--font-body); }
 
@@ -565,30 +422,8 @@
 
   <footer class="footer">
     <p data-i18n="footNote"></p>
-    <a class="subscribe" id="subscribe" href="#"></a>
   </footer>
 
-</div>
-
-<div class="modal-backdrop" id="modal-backdrop" hidden>
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-head">
-      <h3 id="modal-title" data-i18n="modalTitle"></h3>
-      <button type="button" class="modal-close" id="modal-close">&#215;</button>
-    </div>
-    <p class="modal-hint" data-i18n="modalHint"></p>
-    <form id="subscribe-form" novalidate>
-      <input type="email" id="sub-email" autocomplete="email" spellcheck="false" />
-      <button type="submit" class="subscribe" id="sub-submit"></button>
-    </form>
-    <p class="modal-note" id="sub-error" hidden></p>
-    <p class="modal-note" id="sub-sent" hidden></p>
-    <div class="subscribe-fallback visible modal-alt">
-      <span data-i18n="fbLead"></span>
-      <code id="fb-address"></code>
-      <button type="button" id="fb-copy"></button>
-    </div>
-  </div>
 </div>
 
 <script>
@@ -600,8 +435,6 @@
     branch: "master",
     monitoringStart: "2026-07-03",
     windowDays: 90,
-    alertsEmail: "support@sakneen.com",
-    subscribeEndpoint: "",
     services: [
       { slug: "api-health",       en: "Property platform API",  ar: "واجهة منصة العقارات" },
       { slug: "api-integrations", en: "Partner integrations",   ar: "تكاملات الشركاء" },
@@ -627,19 +460,7 @@
       loadFailedSub: "The status data could not be reached. This page cannot confirm service health right now.",
       secServices: "Services",
       secIncidents: "Incident history",
-      subscribe: "Get status alerts",
-      mailSubject: "Add me to Sakneen status alerts",
-      mailBody: "Please add the following address to the Sakneen status alert list:",
-      fbLead: "Or email us directly", copyWord: "Copy", copiedWord: "Copied",
-      modalTitle: "Get status alerts",
-      modalHint: "Enter your work email and we will add you to the incident alert list. You will get an email when a service goes down and when it recovers.",
-      emailPlaceholder: "name@company.com",
-      submitWord: "Request alerts",
-      errInvalid: "Enter a valid email address.",
-      errSend: "Could not submit right now — use the direct email below.",
-      sentNote: "Your mail app should open with a pre-filled request — press send to finish. We confirm additions within one business day.",
-      sentOk: "You are on the list — check your inbox to confirm.",
-      footNote: "Times shown in UTC. Client technical contacts receive email alerts automatically when a service changes state.",
+      footNote: "Times shown in UTC.",
       operational: "Operational", downWord: "Down", degradedWord: "Degraded",
       daysAgo: "90 days ago", today: "Today",
       uptimeWord: "uptime", monitoredWord: "days monitored", avg: "avg",
@@ -664,19 +485,7 @@
       loadFailedSub: "تعذّر الوصول إلى بيانات الحالة. لا يمكن لهذه الصفحة تأكيد سلامة الخدمات في الوقت الحالي.",
       secServices: "الخدمات",
       secIncidents: "سجل الأعطال",
-      subscribe: "تنبيهات الحالة",
-      mailSubject: "أضفني إلى تنبيهات حالة سكنين",
-      mailBody: "يرجى إضافة العنوان التالي إلى قائمة تنبيهات حالة سكنين:",
-      fbLead: "أو راسلنا مباشرة", copyWord: "نسخ", copiedWord: "تم النسخ",
-      modalTitle: "تنبيهات الحالة",
-      modalHint: "أدخل بريدك المهني وسنضيفك إلى قائمة تنبيهات الأعطال. سيصلك بريد عند توقف أي خدمة وعند عودتها.",
-      emailPlaceholder: "name@company.com",
-      submitWord: "طلب التنبيهات",
-      errInvalid: "أدخل بريدًا إلكترونيًا صحيحًا.",
-      errSend: "تعذّر الإرسال حاليًا — استخدم البريد المباشر أدناه.",
-      sentNote: "سيفتح تطبيق البريد لديك برسالة جاهزة — اضغط إرسال للإتمام. نؤكد الإضافة خلال يوم عمل واحد.",
-      sentOk: "تمت إضافتك إلى القائمة — تحقق من بريدك للتأكيد.",
-      footNote: "جميع الأوقات بتوقيت UTC. تصل التنبيهات تلقائيًا عبر البريد إلى جهات الاتصال التقنية لدى العملاء عند تغيّر حالة أي خدمة.",
+      footNote: "جميع الأوقات بتوقيت UTC.",
       operational: "تعمل", downWord: "متوقفة", degradedWord: "متراجعة",
       daysAgo: "قبل ٩٠ يومًا", today: "اليوم",
       uptimeWord: "نسبة التشغيل", monitoredWord: "يومًا تحت المراقبة", avg: "متوسط",
@@ -987,61 +796,6 @@
       b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === state.lang));
     });
 
-    document.getElementById("subscribe").textContent = t.subscribe;
-    document.getElementById("sub-submit").textContent = t.submitWord;
-    document.getElementById("sub-email").setAttribute("placeholder", t.emailPlaceholder);
-    document.getElementById("fb-address").textContent = CONFIG.alertsEmail;
-    document.getElementById("fb-copy").textContent = t.copyWord;
-    document.getElementById("sub-error").hidden = true;
-    document.getElementById("sub-sent").hidden = true;
-  }
-
-  function openSubscribeModal() {
-    document.getElementById("modal-backdrop").hidden = false;
-    document.getElementById("sub-email").focus();
-  }
-
-  function closeSubscribeModal() {
-    document.getElementById("modal-backdrop").hidden = true;
-    document.getElementById("sub-error").hidden = true;
-    document.getElementById("sub-sent").hidden = true;
-  }
-
-  function submitSubscription(event) {
-    event.preventDefault();
-    var t = COPY[state.lang];
-    var errorLine = document.getElementById("sub-error");
-    var sentLine = document.getElementById("sub-sent");
-    var email = document.getElementById("sub-email").value.trim();
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      sentLine.hidden = true;
-      errorLine.textContent = t.errInvalid;
-      errorLine.hidden = false;
-      return;
-    }
-    errorLine.hidden = true;
-
-    if (CONFIG.subscribeEndpoint) {
-      fetch(CONFIG.subscribeEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, language: state.lang })
-      }).then(function (r) {
-        if (!r.ok) { throw new Error(String(r.status)); }
-        sentLine.textContent = t.sentOk;
-        sentLine.hidden = false;
-      }).catch(function () {
-        errorLine.textContent = t.errSend;
-        errorLine.hidden = false;
-      });
-    } else {
-      window.location.href = "mailto:" + CONFIG.alertsEmail +
-        "?subject=" + encodeURIComponent(t.mailSubject) +
-        "&body=" + encodeURIComponent(t.mailBody + "\n\n" + email + "\n");
-      sentLine.textContent = t.sentNote;
-      sentLine.hidden = false;
-    }
   }
 
   function renderAll() {
@@ -1056,28 +810,6 @@
     b.addEventListener("click", function () {
       state.lang = b.getAttribute("data-lang");
       renderAll();
-    });
-  });
-
-  document.getElementById("subscribe").addEventListener("click", function (e) {
-    e.preventDefault();
-    openSubscribeModal();
-  });
-  document.getElementById("modal-close").addEventListener("click", closeSubscribeModal);
-  document.getElementById("modal-backdrop").addEventListener("click", function (e) {
-    if (e.target === this) { closeSubscribeModal(); }
-  });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") { closeSubscribeModal(); }
-  });
-  document.getElementById("subscribe-form").addEventListener("submit", submitSubscription);
-  document.getElementById("fb-copy").addEventListener("click", function () {
-    var button = this;
-    navigator.clipboard.writeText(CONFIG.alertsEmail).then(function () {
-      button.textContent = COPY[state.lang].copiedWord;
-      setTimeout(function () { button.textContent = COPY[state.lang].copyWord; }, 1600);
-    }).catch(function () {
-      window.getSelection().selectAllChildren(document.getElementById("fb-address"));
     });
   });
 
