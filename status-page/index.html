@@ -480,8 +480,8 @@
       footNote: "Times shown in UTC.",
       operational: "Operational", downWord: "Down", degradedWord: "Degraded",
       daysAgo: "90 days ago", today: "Today",
-      uptimeWord: "uptime", monitoredWord: "days monitored", avg: "avg",
-      hoverOk: "operational", hoverDown: "minutes of downtime",
+      uptimeWord: "uptime", windowWord: "days", avg: "avg",
+      hoverOk: "operational", hoverDown: "min of downtime",
       hoverMaint: "scheduled maintenance", hoverNodata: "not monitored",
       noIncidents: "No incidents recorded in this period.",
       resolved: "Resolved", completed: "Completed",
@@ -506,7 +506,7 @@
       footNote: "جميع الأوقات بتوقيت UTC.",
       operational: "تعمل", downWord: "متوقفة", degradedWord: "متراجعة",
       daysAgo: "قبل ٩٠ يومًا", today: "اليوم",
-      uptimeWord: "نسبة التشغيل", monitoredWord: "يومًا تحت المراقبة", avg: "متوسط",
+      uptimeWord: "نسبة التشغيل", windowWord: "يومًا", avg: "متوسط",
       hoverOk: "تعمل", hoverDown: "دقيقة توقف",
       hoverMaint: "صيانة مجدولة", hoverNodata: "خارج المراقبة",
       noIncidents: "لا توجد أعطال مسجّلة في هذه الفترة.",
@@ -565,9 +565,18 @@
       for (var t = Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate());
            t <= end.getTime(); t += 86400000) {
         var key = dateKey(new Date(t));
+        var overlapMs = Math.min(end.getTime(), t + 86400000) - Math.max(start.getTime(), t);
+        var overlapMinutes = Math.max(1, Math.round(overlapMs / 60000));
         (inc.services || []).forEach(function (slug) {
           if (!map[slug]) { map[slug] = {}; }
-          if (map[slug][key] !== "down") { map[slug][key] = inc.type === "maintenance" ? "maint" : "down"; }
+          var entry = map[slug][key] || { state: null, minutes: 0 };
+          if (inc.type === "maintenance") {
+            if (entry.state !== "down") { entry.state = "maint"; }
+          } else {
+            entry.state = "down";
+            entry.minutes += overlapMinutes;
+          }
+          map[slug][key] = entry;
         });
       }
     });
@@ -589,7 +598,8 @@
 
   function loadLastChecked() {
     var url = "https://api.github.com/repos/" + CONFIG.repo +
-      "/actions/workflows/uptime.yml/runs?status=success&per_page=1";
+      "/actions/workflows/uptime.yml/runs?status=success&per_page=1&t=" +
+      Math.floor(Date.now() / 60000);
     return fetchJson(url).then(function (data) {
       var runs = data && data.workflow_runs;
       return runs && runs.length ? runs[0].updated_at : null;
@@ -675,7 +685,6 @@
 
     var keys = windowKeys();
     var overlay = incidentDays();
-    var monitored = keys.filter(function (k) { return k >= CONFIG.monitoringStart; });
 
     CONFIG.services.forEach(function (svc) {
       var record = state.summary.filter(function (s) { return s.slug === svc.slug; })[0];
@@ -709,18 +718,20 @@
         var label = prettyDate(key);
         var mins = (record.dailyMinutesDown || {})[key] || 0;
         var flagged = (overlay[svc.slug] || {})[key];
+        var flaggedState = flagged ? flagged.state : null;
 
-        if (key < CONFIG.monitoringStart && !flagged) {
+        if (key < CONFIG.monitoringStart && !flaggedState) {
           cell.setAttribute("data-state", "nodata");
           cell.setAttribute("data-note", label + " — " + t.hoverNodata);
         } else if (mins) {
           downMinutes += mins;
           cell.setAttribute("data-state", "down");
           cell.setAttribute("data-note", label + " — " + mins + " " + t.hoverDown);
-        } else if (flagged === "down") {
+        } else if (flaggedState === "down") {
+          downMinutes += flagged.minutes;
           cell.setAttribute("data-state", "down");
-          cell.setAttribute("data-note", label + " — " + t.hoverDown);
-        } else if (flagged === "maint") {
+          cell.setAttribute("data-note", label + " — " + flagged.minutes + " " + t.hoverDown);
+        } else if (flaggedState === "maint") {
           cell.setAttribute("data-state", "maint");
           cell.setAttribute("data-note", label + " — " + t.hoverMaint);
         } else {
@@ -735,7 +746,7 @@
       });
       track.addEventListener("mouseleave", function () { readout.textContent = ""; });
 
-      var totalMinutes = monitored.length * 1440;
+      var totalMinutes = keys.length * 1440;
       var pct = totalMinutes ? (100 - (downMinutes / totalMinutes) * 100) : 100;
 
       var foot = document.createElement("div");
@@ -747,7 +758,7 @@
       strong.textContent = pct.toFixed(2) + "%";
       mid.appendChild(strong);
       mid.appendChild(document.createTextNode(
-        " " + t.uptimeWord + " · " + monitored.length + " " + t.monitoredWord +
+        " " + t.uptimeWord + " · " + keys.length + " " + t.windowWord +
         " · " + record.timeDay + " ms " + t.avg
       ));
       var right = document.createElement("span");
