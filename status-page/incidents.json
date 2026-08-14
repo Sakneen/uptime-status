@@ -127,5 +127,21 @@
       "ar": "سُجّل ١٨٨ طلبًا فاشلًا على واجهة الإنتاج، منها ١٨٥ استجابة HTTP 503، خلال نافذة زمنية مدتها ثلاث دقائق."
     },
     "source": "GCP Cloud Run request logs, sakneen-api/apis-production"
+  },
+  {
+    "id": "2026-06-02-eoi",
+    "type": "incident",
+    "services": [
+      "api-health"
+    ],
+    "startedAt": "2026-06-02T08:30:00Z",
+    "resolvedAt": "2026-06-02T14:20:00Z",
+    "title": {
+      "en": "Multi-unit EOI submissions failing"
+    },
+    "summary": {
+      "en": "A defect in a morning release caused EOI submissions containing two or more units to fail; single-unit submissions were unaffected. 42 submissions failed before a fix was deployed at 14:20 UTC the same day. No partial data was written, and affected submissions could be retried once the fix was live."
+    },
+    "source": "GitHub Sakneen/apis-v1 PR #3032"
   }
 ]
