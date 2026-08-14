@@ -83,10 +83,12 @@
     "startedAt": "2026-06-22T10:26:36Z",
     "resolvedAt": "2026-06-22T10:27:36Z",
     "title": {
-      "en": "API service interruption"
+      "en": "API service interruption",
+      "ar": "انقطاع خدمة API"
     },
     "summary": {
-      "en": "41 HTTP 503 responses were recorded across production sales API routes. The last failed request was observed at 10:26:56 UTC."
+      "en": "41 HTTP 503 responses were recorded across production sales API routes. The last failed request was observed at 10:26:56 UTC.",
+      "ar": "تم تسجيل ٤١ استجابة HTTP 503 عبر مسارات API المبيعات الإنتاجية. آخر طلب فاشل تمت ملاحظته في الساعة ١٠:٢٦:٥٦ بتوقيت UTC."
     },
     "source": "GCP Cloud Run request logs, sakneen-api/apis-production"
   },
