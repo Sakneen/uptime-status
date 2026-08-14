@@ -576,10 +576,15 @@
           : Math.max(1, Math.round(overlapMs / 60000));
         (inc.services || []).forEach(function (slug) {
           if (!map[slug]) { map[slug] = {}; }
-          var entry = map[slug][key] || { state: null, minutes: 0, maintMinutes: 0 };
+          var entry = map[slug][key] || { state: null, minutes: 0, maintMinutes: 0, maintDisplay: 0 };
           if (inc.type === "maintenance") {
             if (entry.state !== "down") { entry.state = "maint"; }
             entry.maintMinutes += dayMinutes;
+            // shown on every day of the event; counted (maintMinutes) only once
+            var eventImpact = typeof inc.impactMinutes === "number"
+              ? inc.impactMinutes
+              : Math.max(1, Math.round(overlapMs / 60000));
+            entry.maintDisplay = Math.max(entry.maintDisplay, eventImpact);
           } else {
             entry.state = "down";
             entry.minutes += dayMinutes;
@@ -738,12 +743,14 @@
         } else if (dayDownMinutes) {
           downMinutes += dayDownMinutes + curatedMaintMinutes;
           cell.setAttribute("data-state", dayDownMinutes >= 60 ? "down" : "degraded");
-          cell.setAttribute("data-note", label + " — " + dayDownMinutes + " " + t.hoverDown);
+          var downNote = label + " — " + dayDownMinutes + " " + t.hoverDown;
+          if (flagged && flagged.maintDisplay) { downNote += " · " + t.hoverMaint; }
+          cell.setAttribute("data-note", downNote);
         } else if (flaggedState === "maint") {
           downMinutes += curatedMaintMinutes;
           cell.setAttribute("data-state", "maint");
-          cell.setAttribute("data-note", curatedMaintMinutes
-            ? label + " — " + curatedMaintMinutes + " " + t.minutes + " · " + t.hoverMaint
+          cell.setAttribute("data-note", flagged.maintDisplay
+            ? label + " — ≈" + flagged.maintDisplay + " " + t.minutes + " · " + t.hoverMaint
             : label + " — " + t.hoverMaint);
         } else {
           cell.setAttribute("data-note", label + " — " + t.hoverOk);
