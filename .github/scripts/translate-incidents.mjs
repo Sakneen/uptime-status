@@ -59,10 +59,14 @@ Rules:
 - Use Arabic-Indic numerals for clock times and durations, and the pattern "بتوقيت UTC" for UTC times.
 - Keep product and brand names (Vercel, GitHub, Cloud Run), "HTTP", and status codes in Latin script.
 
-${exampleBlock}Translate:
+${exampleBlock}English source:
 Title: ${incident.title.en}
-Summary: ${incident.summary.en}`;
+Summary: ${incident.summary.en}
+
+Return the ARABIC translations in the JSON fields. Never return the English text.`;
 }
+
+const ARABIC_CHARACTERS = /[؀-ۿ]/;
 
 let translatedCount = 0;
 
@@ -95,10 +99,17 @@ for (const incident of pending) {
     continue;
   }
 
+  if (!ARABIC_CHARACTERS.test(translated.title) || !ARABIC_CHARACTERS.test(translated.summary)) {
+    console.log(
+      `Skipped "${incident.id}": result contains no Arabic script. Got: ${JSON.stringify(translated)}`
+    );
+    continue;
+  }
+
   if (!incident.title.ar) incident.title.ar = translated.title;
   if (!incident.summary.ar) incident.summary.ar = translated.summary;
   translatedCount += 1;
-  console.log(`Translated "${incident.id}".`);
+  console.log(`Translated "${incident.id}": ${translated.title}`);
 }
 
 if (translatedCount > 0) {

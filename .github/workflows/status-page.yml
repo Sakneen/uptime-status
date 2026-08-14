@@ -31,6 +31,7 @@ jobs:
           cp status-page/index.html build/index.html
           cp status-page/incidents.json build/incidents.json
           cp history/summary.json build/summary.json
+          cp graphs/api-health/response-time-week.png build/og-graph.png || echo "og graph missing, skipping"
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
