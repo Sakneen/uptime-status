@@ -125,7 +125,7 @@ delay: 2000
 # Reduce scheduled GitHub Actions usage while keeping regular production checks.
 # Default Upptime cadence is every 5 minutes; this lowers uptime runs by ~83%.
 workflowSchedule:
-  uptime: "*/30 * * * *"
+  uptime: "*/15 * * * *"
   responseTime: "0 23 * * *"
   graphs: "0 0 * * *"
   summary: "0 0 * * *"
