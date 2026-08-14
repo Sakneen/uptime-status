@@ -1,18 +1,870 @@
-<!DOCTYPE html> <html lang=en> <head> <meta charset=utf-8> <meta content="width=device-width,initial-scale=1" name=viewport> <meta content=#333333 name=theme-color> <base href=/ > <link href=manifest.json rel=manifest crossorigin=use-credentials> <script>__SAPPER__={baseUrl:"",preloaded:[void 0,{}]};if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js');(function(){try{eval("async function x(){}");var main="/client/client.77cd0e4b.js"}catch(e){main="/client/legacy/client.ef4f8c81.js"};var s=document.createElement("script");try{new Function("if(0)import('')")();s.src=main;s.type="module";s.crossOrigin="use-credentials";}catch(e){s.src="/client/shimport@2.0.5.js";s.setAttribute("data-main",main);}document.head.appendChild(s);}());</script> <link href=client/client-31a52aa5.css rel=stylesheet><link href=client/createOctokit-a85f76c7.css rel=stylesheet><link href=client/index-b0b6455a.css rel=stylesheet> <title>Sakneen Status</title><link href=https://status.sakneen.com/themes/light.css rel=stylesheet><link href=https://status.sakneen.com/global.css rel=stylesheet><link href=https://img.sakneen.com/logos-email/logo_rOc78V2s7.png rel=icon type=image/svg><link href=https://img.sakneen.com/logos-email/logo_rOc78V2s7.png rel=icon type=image/png><script src="https://status.sakneen.com/status-history.js?v=history-bars-90d-v6"></script><link href="https://status.sakneen.com/status-history.css?v=history-bars-90d-v6" rel=stylesheet><meta content="Real-time status monitoring for Sakneen services including Backend APIs, SaaS Platform, and Management Portal. Check current system health and performance metrics." name=description><meta content="Sakneen, status, uptime, monitoring, SaaS, backend, system health, performance, API status, service availability" name=keywords><meta content=Sakneen name=author><meta content="index, follow" name=robots><meta content="Sakneen System Status & Performance Monitor"><meta content="Real-time monitoring of Sakneen's services and infrastructure with transparent performance metrics."><meta content=https://img.sakneen.com/logos-email/logo_rOc78V2s7.png><meta content=https://status.sakneen.com><meta content=website><meta content=summary_large_image name=twitter:card><meta content="Sakneen System Status" name=twitter:title><meta content="Real-time monitoring of Sakneen's services and infrastructure" name=twitter:description><meta content=https://img.sakneen.com/logos-email/logo_rOc78V2s7.png name=twitter:image> <link href=/client/client.77cd0e4b.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/client-31a52aa5.css rel=preload as=style><link href=/client/index.c6f78069.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/createOctokit.6d335a93.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/inject_styles.803b7e80.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/createOctokit-a85f76c7.css rel=preload as=style><link href=/client/index-b0b6455a.css rel=preload as=style></head> <body> <div id=sapper> <nav class=svelte-a08hsz><div class="svelte-a08hsz container"><div><a href=https://status.sakneen.com class="svelte-a08hsz logo"><img alt="" class=svelte-a08hsz src=https://img.sakneen.com/logos-email/logo_rOc78V2s7.png> <div>Sakneen Status</div></a></div> <ul class=svelte-a08hsz><li><a href=/ class=svelte-a08hsz target=_self aria-current=page>Status</a> <li><a href=https://github.com/Sakneen/uptime-status class=svelte-a08hsz target=_self>GitHub</a> <li><a href=https://www.sakneen.com class=svelte-a08hsz target=_blank>Main Website</a> </li> </ul></div> </nav> <main class=container> <header class=svelte-ngkazm><h1><strong>Sakneen Status</strong></h1> <p class="svelte-ngkazm lead">Current uptime and response-time monitoring for Sakneen's production services, powered by Upptime.</header> <section class=svelte-8lnl4f><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section class=svelte-8lnl4f><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <div class="svelte-fqsq6s f changed"><h2>Live Status</h2> <form class="svelte-fqsq6s f r"><div><input class=svelte-fqsq6s id=data_day name=d type=radio value=day><label class=svelte-fqsq6s for=data_day>24h</label></div> <div><input class=svelte-fqsq6s id=data_week name=d type=radio value=week checked><label class=svelte-fqsq6s for=data_week>7d</label></div> <div><input class=svelte-fqsq6s id=data_month name=d type=radio value=month><label class=svelte-fqsq6s for=data_month>30d</label></div> <div><input class=svelte-fqsq6s id=data_year name=d type=radio value=year><label class=svelte-fqsq6s for=data_year>1y</label></div> <div><input class=svelte-fqsq6s id=data_all name=d type=radio value=all><label class=svelte-fqsq6s for=data_all>all</label></div></form></div> <section class="svelte-fqsq6s live-status"><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div></section></main> <footer class=svelte-jbr799><p>This page is <a href=https://github.com/Sakneen/uptime-status>open source</a>, powered by <a href=https://upptime.js.org>Upptime</a></p> </footer></div> <script> try {
-        if (typeof window !== "undefined" && window.navigator && navigator.serviceWorker) {
-          navigator.serviceWorker.getRegistrations().then(function (registrations) {
-            for (let registration of registrations) {
-              registration.unregister();
-            }
-          });
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sakneen Status</title>
+<meta name="description" content="Live availability and response times for Sakneen production services." />
+<link rel="icon" href="https://img.sakneen.com/logos-email/logo_rOc78V2s7.png" />
+<meta property="og:title" content="Sakneen Status" />
+<meta property="og:description" content="Live availability and response times for Sakneen production services." />
+<meta property="og:url" content="https://status.sakneen.com" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://img.sakneen.com/logos-email/logo_rOc78V2s7.png" />
+<style>
+  :root {
+    --paper: #EFF2F3;
+    --surface: #FFFFFF;
+    --surface-sunk: #F5F7F8;
+    --ink: #131A20;
+    --ink-soft: #4A5862;
+    --ink-faint: #7A8A94;
+    --rule: #DDE3E6;
+    --rule-strong: #C4CED4;
+    --accent: #1E5170;
+    --ok: #2F7A55;
+    --ok-ground: #E4EFE9;
+    --warn: #A8762A;
+    --warn-ground: #F6EEDF;
+    --down: #AE4136;
+    --down-ground: #F6E5E3;
+    --nodata: #CBD4D9;
+    --font-display: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-data: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0E1317;
+      --surface: #161D23;
+      --surface-sunk: #121920;
+      --ink: #E8EDF0;
+      --ink-soft: #A2B0BA;
+      --ink-faint: #6F808B;
+      --rule: #263139;
+      --rule-strong: #35434D;
+      --accent: #6BA6C9;
+      --ok: #4FA87B;
+      --ok-ground: #16261F;
+      --warn: #C79A4A;
+      --warn-ground: #2A2318;
+      --down: #CF6A5D;
+      --down-ground: #2B1A18;
+      --nodata: #33414B;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #0E1317;
+    --surface: #161D23;
+    --surface-sunk: #121920;
+    --ink: #E8EDF0;
+    --ink-soft: #A2B0BA;
+    --ink-faint: #6F808B;
+    --rule: #263139;
+    --rule-strong: #35434D;
+    --accent: #6BA6C9;
+    --ok: #4FA87B;
+    --ok-ground: #16261F;
+    --warn: #C79A4A;
+    --warn-ground: #2A2318;
+    --down: #CF6A5D;
+    --down-ground: #2B1A18;
+    --nodata: #33414B;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .shell {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 32px 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .titleblock { display: flex; flex-direction: column; gap: 20px; }
+
+  .titleblock-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .wordmark {
+    font-family: var(--font-display);
+    font-size: 34px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .wordmark span { color: var(--ink-faint); }
+
+  .lang {
+    display: flex;
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+    overflow: hidden;
+    font-family: var(--font-data);
+    font-size: 12px;
+  }
+
+  .lang button {
+    background: transparent;
+    border: 0;
+    color: var(--ink-soft);
+    padding: 7px 14px;
+    cursor: pointer;
+    font: inherit;
+    transition: background 120ms ease, color 120ms ease;
+  }
+
+  .lang button + button { border-inline-start: 1px solid var(--rule-strong); }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .lang button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+  .metastrip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 40px;
+    padding: 14px 0;
+    border-block: 1px solid var(--rule);
+    font-family: var(--font-data);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .metastrip div { display: flex; gap: 10px; align-items: baseline; }
+  .metastrip dt { color: var(--ink-faint); text-transform: uppercase; margin: 0; }
+  .metastrip dd { color: var(--ink-soft); margin: 0; font-variant-numeric: tabular-nums; }
+
+  .banner {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 26px 30px;
+    border-radius: 3px;
+    background: var(--surface-sunk);
+  }
+
+  .banner[data-state="ok"] { background: var(--ok-ground); }
+  .banner[data-state="down"] { background: var(--down-ground); }
+  .banner[data-state="warn"] { background: var(--warn-ground); }
+
+  .banner-dot {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--ink-faint);
+    flex-shrink: 0;
+  }
+
+  .banner[data-state="ok"] .banner-dot { background: var(--ok); }
+  .banner[data-state="down"] .banner-dot { background: var(--down); }
+  .banner[data-state="warn"] .banner-dot { background: var(--warn); }
+
+  .banner-text { display: flex; flex-direction: column; gap: 3px; }
+
+  .banner-headline {
+    font-family: var(--font-display);
+    font-size: 25px;
+    line-height: 1.2;
+    color: var(--ink-soft);
+  }
+
+  .banner[data-state="ok"] .banner-headline { color: var(--ok); }
+  .banner[data-state="down"] .banner-headline { color: var(--down); }
+  .banner[data-state="warn"] .banner-headline { color: var(--warn); }
+
+  .banner-sub {
+    font-family: var(--font-data);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    letter-spacing: 0.03em;
+  }
+
+  .section-label {
+    font-family: var(--font-data);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    margin: 0 0 14px;
+    font-weight: 400;
+  }
+
+  .register, .ledger {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+  }
+
+  .unit { padding: 22px 30px; }
+  .unit + .unit { border-top: 1px solid var(--rule); }
+
+  .unit-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .unit-name { font-size: 16.5px; font-weight: 500; }
+
+  .unit-state {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-data);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ok);
+  }
+
+  .unit-state[data-state="down"] { color: var(--down); }
+  .unit-state[data-state="degraded"] { color: var(--warn); }
+
+  .unit-state::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .track {
+    display: flex;
+    gap: 2px;
+    height: 36px;
+    margin: 16px 0 9px;
+    align-items: stretch;
+  }
+
+  .cell {
+    flex: 1 1 0;
+    min-width: 0;
+    border-radius: 1px;
+    background: var(--ok);
+    transition: opacity 120ms ease;
+  }
+
+  .cell[data-state="down"] { background: var(--down); }
+  .cell[data-state="maint"] { background: var(--accent); }
+  .cell[data-state="nodata"] { background: var(--nodata); }
+  .cell:hover { opacity: 0.55; }
+
+  .track-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    font-family: var(--font-data);
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    letter-spacing: 0.03em;
+  }
+
+  .track-foot strong {
+    color: var(--ink-soft);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .readout {
+    min-height: 20px;
+    font-family: var(--font-data);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    letter-spacing: 0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .entry { padding: 24px 30px; display: flex; gap: 22px; }
+  .entry + .entry { border-top: 1px solid var(--rule); }
+
+  .entry-rule { width: 2px; flex-shrink: 0; background: var(--down); }
+  .entry[data-kind="maintenance"] .entry-rule { background: var(--accent); }
+
+  .entry-body { display: flex; flex-direction: column; gap: 7px; flex: 1; min-width: 0; }
+
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .entry-title { font-size: 16px; font-weight: 500; }
+
+  .entry-when {
+    font-family: var(--font-data);
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    letter-spacing: 0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .entry-text { color: var(--ink-soft); font-size: 15px; margin: 0; max-width: 68ch; }
+
+  .entry-tag {
+    align-self: flex-start;
+    font-family: var(--font-data);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    padding: 3px 9px;
+    border-radius: 2px;
+    background: var(--down-ground);
+    color: var(--down);
+  }
+
+  .entry[data-kind="maintenance"] .entry-tag { background: var(--surface-sunk); color: var(--accent); }
+
+  .empty {
+    padding: 28px 30px;
+    color: var(--ink-faint);
+    font-family: var(--font-data);
+    font-size: 12.5px;
+    letter-spacing: 0.03em;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding-top: 26px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .footer p {
+    margin: 0;
+    font-family: var(--font-data);
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    letter-spacing: 0.03em;
+    max-width: 56ch;
+  }
+
+  .subscribe {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--ink);
+    color: var(--paper);
+    border: 0;
+    border-radius: 2px;
+    padding: 12px 22px;
+    font-family: var(--font-data);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 120ms ease;
+  }
+
+  .subscribe:hover { opacity: 0.85; }
+  .subscribe:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  [dir="rtl"] .metastrip,
+  [dir="rtl"] .unit-state,
+  [dir="rtl"] .entry-tag,
+  [dir="rtl"] .section-label,
+  [dir="rtl"] .subscribe { letter-spacing: 0; }
+  [dir="rtl"] .wordmark,
+  [dir="rtl"] .banner-headline { font-family: var(--font-body); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  @media (max-width: 640px) {
+    .shell { padding: 32px 20px 56px; gap: 26px; }
+    .wordmark { font-size: 27px; }
+    .banner { padding: 20px 22px; }
+    .banner-headline { font-size: 21px; }
+    .unit, .entry, .empty { padding-inline: 20px; }
+    .metastrip { gap: 0 24px; }
+    .track-foot { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <header class="titleblock">
+    <div class="titleblock-top">
+      <h1 class="wordmark">Sakneen<br /><span data-i18n="pageTitle">Service status</span></h1>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="ar" aria-pressed="false">ع</button>
+      </div>
+    </div>
+    <dl class="metastrip" id="metastrip"></dl>
+  </header>
+
+  <div class="banner" id="banner" data-state="loading">
+    <span class="banner-dot" aria-hidden="true"></span>
+    <div class="banner-text">
+      <span class="banner-headline" id="banner-head">Loading status…</span>
+      <span class="banner-sub" id="banner-sub"></span>
+    </div>
+  </div>
+
+  <section>
+    <h2 class="section-label" data-i18n="secServices">Services</h2>
+    <div class="register" id="register"></div>
+  </section>
+
+  <section>
+    <h2 class="section-label" data-i18n="secIncidents">Incident history</h2>
+    <div class="ledger" id="ledger"></div>
+  </section>
+
+  <footer class="footer">
+    <p data-i18n="footNote"></p>
+    <a class="subscribe" id="subscribe" href="#"></a>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var CONFIG = {
+    repo: "Sakneen/uptime-status",
+    branch: "master",
+    monitoringStart: "2026-07-03",
+    windowDays: 90,
+    alertsEmail: "support@sakneen.com",
+    services: [
+      { slug: "api-health",       en: "Property platform API",  ar: "واجهة منصة العقارات" },
+      { slug: "api-integrations", en: "Partner integrations",   ar: "تكاملات الشركاء" },
+      { slug: "sales",            en: "Sales portal",           ar: "بوابة المبيعات" },
+      { slug: "dashboard",        en: "Developer dashboard",    ar: "لوحة تحكم المطوّر" },
+      { slug: "ecommerce",        en: "Ecommerce storefront",   ar: "المتجر الإلكتروني" }
+    ]
+  };
+
+  var COPY = {
+    en: {
+      dir: "ltr",
+      pageTitle: "Service status",
+      mLastChecked: "Last checked", mProbes: "Probes", mInterval: "Interval", mWindow: "Window",
+      mProbesV: "GitHub Actions · 1 origin", mIntervalV: "30 minutes", mWindowV: "90 days",
+      unknown: "unknown",
+      allOk: "All systems operational",
+      someDown: "Service disruption",
+      someDegraded: "Degraded performance",
+      loadFailed: "Unable to load status",
+      allOkSub: "No active incidents.",
+      someDownSub: "$N service(s) are not responding normally.",
+      loadFailedSub: "The status data could not be reached. This page cannot confirm service health right now.",
+      secServices: "Services",
+      secIncidents: "Incident history",
+      subscribe: "Get status alerts",
+      mailSubject: "Add me to Sakneen status alerts",
+      mailBody: "Please add the following address to the Sakneen status alert list:",
+      footNote: "Times shown in UTC. Client technical contacts receive email alerts automatically when a service changes state.",
+      operational: "Operational", downWord: "Down", degradedWord: "Degraded",
+      daysAgo: "90 days ago", today: "Today",
+      uptimeWord: "uptime", monitoredWord: "days monitored", avg: "avg",
+      hoverOk: "operational", hoverDown: "minutes of downtime",
+      hoverMaint: "scheduled maintenance", hoverNodata: "not monitored",
+      noIncidents: "No incidents recorded in this period.",
+      resolved: "Resolved", completed: "Completed",
+      minutes: "min", hours: "h"
+    },
+    ar: {
+      dir: "rtl",
+      pageTitle: "حالة الخدمات",
+      mLastChecked: "آخر فحص", mProbes: "نقاط الفحص", mInterval: "الفاصل الزمني", mWindow: "الفترة",
+      mProbesV: "GitHub Actions · مصدر واحد", mIntervalV: "٣٠ دقيقة", mWindowV: "٩٠ يومًا",
+      unknown: "غير معروف",
+      allOk: "جميع الأنظمة تعمل بشكل طبيعي",
+      someDown: "انقطاع في الخدمة",
+      someDegraded: "أداء متراجع",
+      loadFailed: "تعذّر تحميل الحالة",
+      allOkSub: "لا توجد أعطال حالية.",
+      someDownSub: "$N من الخدمات لا تستجيب بشكل طبيعي.",
+      loadFailedSub: "تعذّر الوصول إلى بيانات الحالة. لا يمكن لهذه الصفحة تأكيد سلامة الخدمات في الوقت الحالي.",
+      secServices: "الخدمات",
+      secIncidents: "سجل الأعطال",
+      subscribe: "تنبيهات الحالة",
+      mailSubject: "أضفني إلى تنبيهات حالة سكنين",
+      mailBody: "يرجى إضافة العنوان التالي إلى قائمة تنبيهات حالة سكنين:",
+      footNote: "جميع الأوقات بتوقيت UTC. تصل التنبيهات تلقائيًا عبر البريد إلى جهات الاتصال التقنية لدى العملاء عند تغيّر حالة أي خدمة.",
+      operational: "تعمل", downWord: "متوقفة", degradedWord: "متراجعة",
+      daysAgo: "قبل ٩٠ يومًا", today: "اليوم",
+      uptimeWord: "نسبة التشغيل", monitoredWord: "يومًا تحت المراقبة", avg: "متوسط",
+      hoverOk: "تعمل", hoverDown: "دقيقة توقف",
+      hoverMaint: "صيانة مجدولة", hoverNodata: "خارج المراقبة",
+      noIncidents: "لا توجد أعطال مسجّلة في هذه الفترة.",
+      resolved: "تم الحل", completed: "اكتمل",
+      minutes: "دقيقة", hours: "ساعة"
+    }
+  };
+
+  var MONTHS = {
+    en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"]
+  };
+  var state = { lang: "en", summary: null, incidents: [], lastChecked: null, failed: false };
+
+  function dateKey(date) { return date.toISOString().slice(0, 10); }
+
+  function windowKeys() {
+    var keys = [];
+    var now = new Date();
+    var todayUtc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    for (var i = CONFIG.windowDays - 1; i >= 0; i--) {
+      keys.push(dateKey(new Date(todayUtc - i * 86400000)));
+    }
+    return keys;
+  }
+
+  function prettyDate(key) {
+    var parts = key.split("-");
+    return Number(parts[2]) + " " + MONTHS[state.lang][Number(parts[1]) - 1] + " " + parts[0];
+  }
+
+  function prettyStamp(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) { return null; }
+    var hh = String(d.getUTCHours()).padStart(2, "0");
+    var mm = String(d.getUTCMinutes()).padStart(2, "0");
+    var day = d.getUTCDate() + " " + MONTHS[state.lang][d.getUTCMonth()] + " " + d.getUTCFullYear();
+    if (state.lang === "ar") { return day + "، " + hh + ":" + mm + " بتوقيت UTC"; }
+    return day + ", " + hh + ":" + mm + " UTC";
+  }
+
+  function duration(startIso, endIso, t) {
+    var mins = Math.max(1, Math.round((new Date(endIso) - new Date(startIso)) / 60000));
+    if (mins < 60) { return mins + " " + t.minutes; }
+    var h = Math.floor(mins / 60);
+    var m = mins % 60;
+    return h + " " + t.hours + (m ? " " + m + " " + t.minutes : "");
+  }
+
+  function incidentDays() {
+    var map = {};
+    state.incidents.forEach(function (inc) {
+      var start = new Date(inc.startedAt);
+      var end = new Date(inc.resolvedAt || inc.startedAt);
+      if (isNaN(start.getTime())) { return; }
+      for (var t = Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate());
+           t <= end.getTime(); t += 86400000) {
+        var key = dateKey(new Date(t));
+        (inc.services || []).forEach(function (slug) {
+          if (!map[slug]) { map[slug] = {}; }
+          if (map[slug][key] !== "down") { map[slug][key] = inc.type === "maintenance" ? "maint" : "down"; }
+        });
+      }
+    });
+    return map;
+  }
+
+  function fetchJson(url) {
+    return fetch(url, { cache: "no-store" }).then(function (r) {
+      if (!r.ok) { throw new Error(String(r.status)); }
+      return r.json();
+    });
+  }
+
+  function loadSummary() {
+    var raw = "https://raw.githubusercontent.com/" + CONFIG.repo + "/" + CONFIG.branch +
+      "/history/summary.json?t=" + Math.floor(Date.now() / 60000);
+    return fetchJson(raw).catch(function () { return fetchJson("./summary.json"); });
+  }
+
+  function loadLastChecked() {
+    var url = "https://api.github.com/repos/" + CONFIG.repo +
+      "/actions/workflows/uptime.yml/runs?status=success&per_page=1";
+    return fetchJson(url).then(function (data) {
+      var runs = data && data.workflow_runs;
+      return runs && runs.length ? runs[0].updated_at : null;
+    }).catch(function () { return null; });
+  }
+
+  function renderMeta() {
+    var t = COPY[state.lang];
+    var rows = [
+      [t.mLastChecked, state.lastChecked ? prettyStamp(state.lastChecked) : t.unknown],
+      [t.mProbes, t.mProbesV],
+      [t.mInterval, t.mIntervalV],
+      [t.mWindow, t.mWindowV]
+    ];
+    var host = document.getElementById("metastrip");
+    host.textContent = "";
+    rows.forEach(function (row) {
+      var wrap = document.createElement("div");
+      var dt = document.createElement("dt");
+      dt.textContent = row[0];
+      var dd = document.createElement("dd");
+      dd.textContent = row[1];
+      wrap.appendChild(dt);
+      wrap.appendChild(dd);
+      host.appendChild(wrap);
+    });
+  }
+
+  function renderBanner() {
+    var t = COPY[state.lang];
+    var banner = document.getElementById("banner");
+    var head = document.getElementById("banner-head");
+    var sub = document.getElementById("banner-sub");
+
+    if (state.failed || !state.summary) {
+      banner.setAttribute("data-state", "warn");
+      head.textContent = t.loadFailed;
+      sub.textContent = t.loadFailedSub;
+      return;
+    }
+
+    var bad = state.summary.filter(function (s) { return s.status !== "up"; });
+    if (!bad.length) {
+      banner.setAttribute("data-state", "ok");
+      head.textContent = t.allOk;
+      sub.textContent = t.allOkSub;
+    } else {
+      var anyDown = bad.some(function (s) { return s.status === "down"; });
+      banner.setAttribute("data-state", anyDown ? "down" : "warn");
+      head.textContent = anyDown ? t.someDown : t.someDegraded;
+      sub.textContent = t.someDownSub.replace("$N", String(bad.length));
+    }
+  }
+
+  function renderRegister() {
+    var t = COPY[state.lang];
+    var host = document.getElementById("register");
+    host.textContent = "";
+
+    if (state.failed || !state.summary) {
+      var msg = document.createElement("div");
+      msg.className = "empty";
+      msg.textContent = t.loadFailedSub;
+      host.appendChild(msg);
+      return;
+    }
+
+    var keys = windowKeys();
+    var overlay = incidentDays();
+    var monitored = keys.filter(function (k) { return k >= CONFIG.monitoringStart; });
+
+    CONFIG.services.forEach(function (svc) {
+      var record = state.summary.filter(function (s) { return s.slug === svc.slug; })[0];
+      if (!record) { return; }
+
+      var unit = document.createElement("div");
+      unit.className = "unit";
+
+      var head = document.createElement("div");
+      head.className = "unit-head";
+      var name = document.createElement("span");
+      name.className = "unit-name";
+      name.textContent = svc[state.lang];
+      var pill = document.createElement("span");
+      pill.className = "unit-state";
+      pill.setAttribute("data-state", record.status);
+      pill.textContent = record.status === "up" ? t.operational
+        : record.status === "down" ? t.downWord : t.degradedWord;
+      head.appendChild(name);
+      head.appendChild(pill);
+
+      var track = document.createElement("div");
+      track.className = "track";
+      var readout = document.createElement("div");
+      readout.className = "readout";
+
+      var downMinutes = 0;
+      keys.forEach(function (key) {
+        var cell = document.createElement("div");
+        cell.className = "cell";
+        var label = prettyDate(key);
+        var mins = (record.dailyMinutesDown || {})[key] || 0;
+        var flagged = (overlay[svc.slug] || {})[key];
+
+        if (key < CONFIG.monitoringStart && !flagged) {
+          cell.setAttribute("data-state", "nodata");
+          cell.setAttribute("data-note", label + " — " + t.hoverNodata);
+        } else if (mins) {
+          downMinutes += mins;
+          cell.setAttribute("data-state", "down");
+          cell.setAttribute("data-note", label + " — " + mins + " " + t.hoverDown);
+        } else if (flagged === "down") {
+          cell.setAttribute("data-state", "down");
+          cell.setAttribute("data-note", label + " — " + t.hoverDown);
+        } else if (flagged === "maint") {
+          cell.setAttribute("data-state", "maint");
+          cell.setAttribute("data-note", label + " — " + t.hoverMaint);
+        } else {
+          cell.setAttribute("data-note", label + " — " + t.hoverOk);
         }
-        if (typeof window !== "undefined" && "caches" in window) {
-          caches.keys().then(function (keyList) {
-            return Promise.all(
-              keyList.map(function (key) {
-                return caches.delete(key);
-              })
-            );
-          });
-        }
-      } catch (error) {} </script> 
+        track.appendChild(cell);
+      });
+
+      track.addEventListener("mouseover", function (e) {
+        var cell = e.target.closest(".cell");
+        if (cell) { readout.textContent = cell.getAttribute("data-note"); }
+      });
+      track.addEventListener("mouseleave", function () { readout.textContent = ""; });
+
+      var totalMinutes = monitored.length * 1440;
+      var pct = totalMinutes ? (100 - (downMinutes / totalMinutes) * 100) : 100;
+
+      var foot = document.createElement("div");
+      foot.className = "track-foot";
+      var left = document.createElement("span");
+      left.textContent = t.daysAgo;
+      var mid = document.createElement("span");
+      var strong = document.createElement("strong");
+      strong.textContent = pct.toFixed(2) + "%";
+      mid.appendChild(strong);
+      mid.appendChild(document.createTextNode(
+        " " + t.uptimeWord + " · " + monitored.length + " " + t.monitoredWord +
+        " · " + record.timeDay + " ms " + t.avg
+      ));
+      var right = document.createElement("span");
+      right.textContent = t.today;
+      foot.appendChild(left);
+      foot.appendChild(mid);
+      foot.appendChild(right);
+
+      unit.appendChild(head);
+      unit.appendChild(track);
+      unit.appendChild(foot);
+      unit.appendChild(readout);
+      host.appendChild(unit);
+    });
+  }
+
+  function renderLedger() {
+    var t = COPY[state.lang];
+    var host = document.getElementById("ledger");
+    host.textContent = "";
+
+    if (!state.incidents.length) {
+      var msg = document.createElement("div");
+      msg.className = "empty";
+      msg.textContent = t.noIncidents;
+      host.appendChild(msg);
+      return;
+    }
+
+    state.incidents.forEach(function (inc) {
+      var entry = document.createElement("article");
+      entry.className = "entry";
+      entry.setAttribute("data-kind", inc.type);
+
+      var rule = document.createElement("div");
+      rule.className = "entry-rule";
+
+      var body = document.createElement("div");
+      body.className = "entry-body";
+
+      var head = document.createElement("div");
+      head.className = "entry-head";
+      var title = document.createElement("span");
+      title.className = "entry-title";
+      title.textContent = (inc.title && inc.title[state.lang]) || "";
+      var when = document.createElement("span");
+      when.className = "entry-when";
+      when.textContent = prettyStamp(inc.startedAt) + " · " + duration(inc.startedAt, inc.resolvedAt, t);
+      head.appendChild(title);
+      head.appendChild(when);
+
+      var tag = document.createElement("span");
+      tag.className = "entry-tag";
+      tag.textContent = inc.type === "maintenance" ? t.completed : t.resolved;
+
+      var text = document.createElement("p");
+      text.className = "entry-text";
+      text.textContent = (inc.summary && inc.summary[state.lang]) || "";
+
+      body.appendChild(head);
+      body.appendChild(tag);
+      body.appendChild(text);
+      entry.appendChild(rule);
+      entry.appendChild(body);
+      host.appendChild(entry);
+    });
+  }
+
+  function renderChrome() {
+    var t = COPY[state.lang];
+    document.documentElement.setAttribute("lang", state.lang);
+    document.documentElement.setAttribute("dir", t.dir);
+
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n");
+      if (t[key]) { el.textContent = t[key]; }
+    });
+
+    document.querySelectorAll(".lang button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === state.lang));
+    });
+
+    var link = document.getElementById("subscribe");
+    link.textContent = t.subscribe;
+    link.setAttribute("href", "mailto:" + CONFIG.alertsEmail +
+      "?subject=" + encodeURIComponent(t.mailSubject) +
+      "&body=" + encodeURIComponent(t.mailBody + "\n\n"));
+  }
+
+  function renderAll() {
+    renderChrome();
+    renderMeta();
+    renderBanner();
+    renderRegister();
+    renderLedger();
+  }
+
+  document.querySelectorAll(".lang button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      state.lang = b.getAttribute("data-lang");
+      renderAll();
+    });
+  });
+
+  Promise.all([
+    loadSummary().catch(function () { state.failed = true; return null; }),
+    fetchJson("./incidents.json").catch(function () { return []; }),
+    loadLastChecked()
+  ]).then(function (results) {
+    state.summary = results[0];
+    state.incidents = (results[1] || []).sort(function (a, b) {
+      return new Date(b.startedAt) - new Date(a.startedAt);
+    });
+    state.lastChecked = results[2];
+    if (!state.summary) { state.failed = true; }
+    renderAll();
+  });
+
+  renderChrome();
+})();
+</script>
+</body>
+</html>
