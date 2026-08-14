@@ -41,8 +41,8 @@
       "ar": "صيانة مجدولة تسببت في انقطاع غير مخطط له"
     },
     "summary": {
-      "en": "A planned infrastructure change began at 22:00 UTC and services were taken offline for it. The property platform was completely unreachable from 22:01 to 22:24 UTC. The configuration applied during the change contained an incorrect database setting, so once traffic moved onto it at 22:30 UTC most requests failed — roughly seven in ten — until a corrected configuration was released at 00:11 UTC. The developer dashboard was unavailable from 22:15 to 23:14 UTC. Background data processing stopped at 22:00 UTC and resumed at 00:50 UTC; 546 queued background tasks did not run during the interruption and are being reconciled. No customer data was modified or lost.",
-      "ar": "بدأ تغيير مخطط في البنية التحتية في الساعة ٢٢:٠٠ بتوقيت UTC وأُوقفت الخدمات من أجله. تعذّر الوصول إلى منصة العقارات بالكامل من الساعة ٢٢:٠١ حتى ٢٢:٢٤ بتوقيت UTC. احتوت الإعدادات المطبَّقة خلال التغيير على إعداد غير صحيح لقاعدة البيانات، وبعد تحويل حركة الاستخدام إليها في الساعة ٢٢:٣٠ أخفق معظم الطلبات — نحو سبعة من كل عشرة — حتى صدور إعدادات مصحّحة في الساعة ٠٠:١١ بتوقيت UTC. لم تكن لوحة تحكم المطوّر متاحة من الساعة ٢٢:١٥ حتى ٢٣:١٤ بتوقيت UTC. توقفت المعالجة الخلفية للبيانات في الساعة ٢٢:٠٠ واستؤنفت في الساعة ٠٠:٥٠، ولم تُنفَّذ ٥٤٦ مهمة خلفية خلال الانقطاع ويجري تسويتها. لم تتعرض أي من بيانات العملاء للتعديل أو الفقدان."
+      "en": "A planned infrastructure change began at 22:00 UTC and services were taken offline for it. The property platform was completely unreachable from 22:01 to 22:24 UTC. The configuration applied during the change contained an incorrect database setting, so once traffic moved onto it at 22:30 UTC most requests failed — roughly seven in ten — until a corrected configuration was released at 00:11 UTC. The developer dashboard was unavailable from 22:15 to 23:14 UTC. Background data processing stopped at 22:00 UTC and resumed at 00:50 UTC. No customer data was modified or lost at any point: the change affected only how the platform connects to its database, never the records themselves, and requests that failed were rejected rather than partially saved. The 546 background tasks queued during the interruption have each been identified from our records and are being reconciled individually.",
+      "ar": "بدأ تغيير مخطط في البنية التحتية في الساعة ٢٢:٠٠ بتوقيت UTC وأُوقفت الخدمات من أجله. تعذّر الوصول إلى منصة العقارات بالكامل من الساعة ٢٢:٠١ حتى ٢٢:٢٤ بتوقيت UTC. احتوت الإعدادات المطبَّقة خلال التغيير على إعداد غير صحيح لقاعدة البيانات، وبعد تحويل حركة الاستخدام إليها في الساعة ٢٢:٣٠ أخفق معظم الطلبات — نحو سبعة من كل عشرة — حتى صدور إعدادات مصحّحة في الساعة ٠٠:١١ بتوقيت UTC. لم تكن لوحة تحكم المطوّر متاحة من الساعة ٢٢:١٥ حتى ٢٣:١٤ بتوقيت UTC. توقفت المعالجة الخلفية للبيانات في الساعة ٢٢:٠٠ واستؤنفت في الساعة ٠٠:٥٠. لم تتعرض أي من بيانات العملاء للتعديل أو الفقدان في أي مرحلة: فالتغيير طال طريقة اتصال المنصة بقاعدة البيانات فقط ولم يمس السجلات نفسها، كما رُفضت الطلبات التي أخفقت بدل حفظها بشكل جزئي. وقد جرى تحديد كل مهمة من المهام الخلفية الـ٥٤٦ التي انتظرت خلال الانقطاع من سجلاتنا، ويجري تسويتها واحدة تلو الأخرى."
     },
     "source": "GCP Cloud Run request logs, admin-activity audit logs and Cloud Monitoring uptime checks (sakneen-api: apis-production, prod-queue-tasks-worker); Upptime incident #68"
   },
@@ -60,8 +60,8 @@
       "ar": "بوابة المبيعات ولوحة تحكم المطوّر غير متاحتين"
     },
     "summary": {
-      "en": "An upstream hosting provider incident affected both web applications. The property platform was also failing a large share of requests during part of the same period, which is recorded separately below. Some scheduled data syncs were delayed as a result.",
-      "ar": "عطل لدى مزوّد الاستضافة أثّر على التطبيقين معًا. كما كانت منصة العقارات تُخفق في نسبة كبيرة من الطلبات خلال جزء من الفترة نفسها، وهو ما يُسجَّل بشكل منفصل أدناه. وقد تأخرت بعض عمليات مزامنة البيانات المجدولة نتيجة لذلك."
+      "en": "An upstream hosting provider incident affected both web applications. The property platform was also failing a large share of requests during part of the same period, which is recorded separately below. Some scheduled data syncs were delayed as a result, and all of them completed once service returned. No customer data was affected.",
+      "ar": "عطل لدى مزوّد الاستضافة أثّر على التطبيقين معًا. كما كانت منصة العقارات تُخفق في نسبة كبيرة من الطلبات خلال جزء من الفترة نفسها، وهو ما يُسجَّل بشكل منفصل أدناه. وقد تأخرت بعض عمليات مزامنة البيانات المجدولة نتيجة لذلك، واكتملت جميعها بعد عودة الخدمة. لم تتأثر أي من بيانات العملاء."
     },
     "source": "Upptime incidents #66, #67; GCP Cloud Run request logs, sakneen-api/apis-production"
   },
@@ -80,8 +80,8 @@
       "ar": "أخطاء في منصة العقارات عقب إصدار جديد"
     },
     "summary": {
-      "en": "A faulty release caused the property platform to fail a large share of requests for about twenty minutes, at its worst more than a thousand requests each minute. The previous release was restored at 14:27 UTC and the service recovered within a minute. Error rates then stayed above normal for roughly three hours before settling. The sales portal and developer dashboard were separately unavailable during part of this period, recorded above.",
-      "ar": "تسبب إصدار معيب في إخفاق منصة العقارات في نسبة كبيرة من الطلبات لمدة عشرين دقيقة تقريبًا، وبلغت الأخطاء في ذروتها أكثر من ألف طلب في الدقيقة. أُعيد الإصدار السابق في الساعة ١٤:٢٧ بتوقيت UTC وتعافت الخدمة خلال دقيقة واحدة. ثم ظلت معدلات الأخطاء أعلى من المعتاد نحو ثلاث ساعات قبل أن تستقر. لم تكن بوابة المبيعات ولوحة تحكم المطوّر متاحتين خلال جزء من هذه الفترة، وهو ما سُجّل أعلاه."
+      "en": "A faulty release caused the property platform to fail a large share of requests for about twenty minutes, at its worst more than a thousand requests each minute. The previous release was restored at 14:27 UTC and the service recovered within a minute. Error rates then stayed above normal for roughly three hours before settling. The sales portal and developer dashboard were separately unavailable during part of this period, recorded above. No customer data was affected: requests that failed were rejected before anything was saved, so nothing was partially written and any action could simply be repeated.",
+      "ar": "تسبب إصدار معيب في إخفاق منصة العقارات في نسبة كبيرة من الطلبات لمدة عشرين دقيقة تقريبًا، وبلغت الأخطاء في ذروتها أكثر من ألف طلب في الدقيقة. أُعيد الإصدار السابق في الساعة ١٤:٢٧ بتوقيت UTC وتعافت الخدمة خلال دقيقة واحدة. ثم ظلت معدلات الأخطاء أعلى من المعتاد نحو ثلاث ساعات قبل أن تستقر. لم تكن بوابة المبيعات ولوحة تحكم المطوّر متاحتين خلال جزء من هذه الفترة، وهو ما سُجّل أعلاه. لم تتأثر أي من بيانات العملاء: فالطلبات التي أخفقت رُفضت قبل حفظ أي شيء، لذلك لم يُكتب أي بيان بشكل جزئي ويمكن ببساطة إعادة تنفيذ أي إجراء."
     },
     "source": "GCP Cloud Run request logs, sakneen-api/apis-production (revision apis-production-00417-gim; traffic pinned back to 00247-868 at 14:27:26Z)"
   },
@@ -99,8 +99,8 @@
       "ar": "تحديث البنية التحتية لنشر المتجر الإلكتروني"
     },
     "summary": {
-      "en": "The ecommerce production release completed its move to native Vercel deployments. No downtime is claimed for this maintenance event.",
-      "ar": "اكتمل انتقال إصدار الإنتاج للمتجر الإلكتروني إلى النشر المباشر عبر Vercel. لم يُسجَّل أي توقف خلال هذه الصيانة."
+      "en": "The ecommerce production release completed its move to native Vercel deployments. No downtime was recorded and no customer data was affected.",
+      "ar": "اكتمل انتقال إصدار الإنتاج للمتجر الإلكتروني إلى النشر المباشر عبر Vercel. لم يُسجَّل أي توقف ولم تتأثر أي من بيانات العملاء."
     },
     "source": "Vercel deployment dpl_EqN93hinPKEvMF1gC6KztT3UYhbE, Sakneen/saas-eco PR #221"
   },
@@ -117,8 +117,8 @@
       "ar": "انقطاع قصير في منصة العقارات"
     },
     "summary": {
-      "en": "For about a minute, some requests from the sales portal did not complete and had to be retried. Service returned to normal on its own at 10:27 UTC.",
-      "ar": "لمدة دقيقة تقريبًا، لم تكتمل بعض الطلبات القادمة من بوابة المبيعات وتطلّبت إعادة المحاولة. عادت الخدمة إلى طبيعتها تلقائيًا في الساعة ١٠:٢٧ بتوقيت UTC."
+      "en": "For about a minute, some requests from the sales portal did not complete and had to be retried. Service returned to normal on its own at 10:27 UTC. No customer data was affected.",
+      "ar": "لمدة دقيقة تقريبًا، لم تكتمل بعض الطلبات القادمة من بوابة المبيعات وتطلّبت إعادة المحاولة. عادت الخدمة إلى طبيعتها تلقائيًا في الساعة ١٠:٢٧ بتوقيت UTC. لم تتأثر أي من بيانات العملاء."
     },
     "source": "GCP Cloud Run request logs, sakneen-api/apis-production"
   },
@@ -135,8 +135,8 @@
       "ar": "انقطاع قصير في منصة العقارات"
     },
     "summary": {
-      "en": "A small number of requests from the dashboard, storefront, and sales portal did not complete during a one-minute period. Service returned to normal on its own at 08:22 UTC.",
-      "ar": "لم يكتمل عدد قليل من الطلبات القادمة من لوحة التحكم والمتجر وبوابة المبيعات خلال فترة دقيقة واحدة. عادت الخدمة إلى طبيعتها تلقائيًا في الساعة ٠٨:٢٢ بتوقيت UTC."
+      "en": "A small number of requests from the dashboard, storefront, and sales portal did not complete during a one-minute period. Service returned to normal on its own at 08:22 UTC. No customer data was affected.",
+      "ar": "لم يكتمل عدد قليل من الطلبات القادمة من لوحة التحكم والمتجر وبوابة المبيعات خلال فترة دقيقة واحدة. عادت الخدمة إلى طبيعتها تلقائيًا في الساعة ٠٨:٢٢ بتوقيت UTC. لم تتأثر أي من بيانات العملاء."
     },
     "source": "GCP Cloud Run request logs, sakneen-api/apis-production"
   },
@@ -153,8 +153,8 @@
       "ar": "منصة العقارات غير متاحة مؤقتًا"
     },
     "summary": {
-      "en": "For about three minutes, requests to the property platform did not complete and pages that depend on it failed to load. Service recovered at 13:20 UTC.",
-      "ar": "لمدة ثلاث دقائق تقريبًا، لم تكتمل الطلبات الموجّهة إلى منصة العقارات وتعذّر تحميل الصفحات المعتمدة عليها. عادت الخدمة في الساعة ١٣:٢٠ بتوقيت UTC."
+      "en": "For about three minutes, requests to the property platform did not complete and pages that depend on it failed to load. Service recovered at 13:20 UTC. No customer data was affected, and any action attempted during those minutes could be repeated normally afterwards.",
+      "ar": "لمدة ثلاث دقائق تقريبًا، لم تكتمل الطلبات الموجّهة إلى منصة العقارات وتعذّر تحميل الصفحات المعتمدة عليها. عادت الخدمة في الساعة ١٣:٢٠ بتوقيت UTC. لم تتأثر أي من بيانات العملاء، وكان بالإمكان إعادة تنفيذ أي إجراء جرت محاولته خلال تلك الدقائق بشكل طبيعي بعد عودة الخدمة."
     },
     "source": "GCP Cloud Run request logs, sakneen-api/apis-production"
   },
