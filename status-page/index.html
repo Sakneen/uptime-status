@@ -754,7 +754,7 @@
       head.className = "entry-head";
       var title = document.createElement("span");
       title.className = "entry-title";
-      title.textContent = (inc.title && inc.title[state.lang]) || "";
+      title.textContent = (inc.title && (inc.title[state.lang] || inc.title.en)) || "";
       var when = document.createElement("span");
       when.className = "entry-when";
       when.textContent = prettyStamp(inc.startedAt) + " · " + duration(inc.startedAt, inc.resolvedAt, t);
@@ -767,7 +767,7 @@
 
       var text = document.createElement("p");
       text.className = "entry-text";
-      text.textContent = (inc.summary && inc.summary[state.lang]) || "";
+      text.textContent = (inc.summary && (inc.summary[state.lang] || inc.summary.en)) || "";
 
       body.appendChild(head);
       body.appendChild(tag);
